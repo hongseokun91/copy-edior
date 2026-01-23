@@ -1,0 +1,43 @@
+
+> copy-editor@0.1.0 lint
+> eslint
+
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\app\make\page.tsx
+  4:30  warning  'useEffect' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\flyer-form.tsx
+  74:27  warning  Compilation Skipped: Use of incompatible library
+
+This API returns functions which cannot be memoized without leading to stale UI. To prevent this, by default React Compiler will skip memoizing this component/hook. However, you may see issues if values from this API are passed to other components/hooks that are memoized.
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\flyer-form.tsx:74:27
+  72 |     });
+  73 |
+> 74 |     const watchCategory = form.watch("category");
+     |                           ^^^^ React Hook Form's `useForm()` API returns a `watch()` function which cannot be memoized safely.
+  75 |
+  76 |     useEffect(() => {
+  77 |         if (onCategoryChange && watchCategory) {  react-hooks/incompatible-library
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\style-selector.tsx
+   6:10  warning  'Badge' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+  27:13  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\style-selector.tsx:27:13
+  25 |         if (recs.length < 3) {
+  26 |             const others = STYLES.filter((s) => !recs.includes(s)).slice(0, 3 - recs.length);
+> 27 |             setRecommendedStyles([...recs, ...others]);
+     |             ^^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  28 |         } else {
+  29 |             setRecommendedStyles(recs.slice(0, 3));
+  30 |         }  react-hooks/set-state-in-effect
+
+✖ 4 problems (1 error, 3 warnings)
+
