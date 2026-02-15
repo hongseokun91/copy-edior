@@ -19,6 +19,7 @@ const PanelSlot = ({
     id,
     label,
     subLabel,
+    isFirst,
     isLast,
     assignedModules,
     activeSlot,
@@ -35,6 +36,7 @@ const PanelSlot = ({
     id: string;
     label: string;
     subLabel: string;
+    isFirst?: boolean;
     isLast?: boolean;
     assignedModules: LeafletModuleDef[];
     activeSlot: string | null;
@@ -161,7 +163,12 @@ const PanelSlot = ({
                     />
 
                     {/* Popup Content */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100] w-[340px]">
+                    <div className={cn(
+                        "absolute top-1/2 z-[100] w-[340px]",
+                        isFirst ? "left-0 -translate-y-1/2" :
+                            isLast ? "right-0 -translate-y-1/2" :
+                                "left-1/2 -translate-x-1/2 -translate-y-1/2"
+                    )}>
                         <div className="bg-white rounded-xl shadow-2xl border border-indigo-100 p-1 animate-in zoom-in-95 fade-in duration-200 ring-4 ring-black/5">
                             <div className="bg-slate-50/50 rounded-lg p-3 border-b border-slate-100/50 mb-1 flex items-center justify-between">
                                 <div className="flex items-center gap-2">
@@ -372,6 +379,7 @@ export function LeafletMapOrchestrator({ form }: LeafletMapOrchestratorProps) {
                                 <PanelSlot
                                     key={panel.id}
                                     {...panel}
+                                    isFirst={idx === 0}
                                     isLast={idx === currentPanels.length - 1}
                                     assignedModules={getModulesForPanel(panel.id)}
                                     activeSlot={activeSlot}
