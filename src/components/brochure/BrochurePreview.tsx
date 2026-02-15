@@ -14,7 +14,21 @@ interface BrochurePreviewProps {
 }
 
 export function BrochurePreview({ data, warnings = [] }: BrochurePreviewProps) {
-    const { blocks, pages, facts } = data;
+    const {
+        meta = {
+            kindId: "KIND_UNKNOWN",
+            totalPages: 0,
+            language: "ko",
+            format: "A4",
+            intentId: "PUBLIC_POLICY",
+            totalBlocks: 0
+        } as any,
+        blocks = [],
+        pages = {},
+        facts = { brandName: "제목 없음" } as any
+    } = data || {};
+
+    if (!data) return <div className="p-4 text-center">데이터를 불러오는 중입니다...</div>;
 
     return (
         <div className="space-y-12">
@@ -23,7 +37,7 @@ export function BrochurePreview({ data, warnings = [] }: BrochurePreviewProps) {
                 <div>
                     <h2 className="text-xl font-black text-slate-900">{facts.brandName} 브로슈어</h2>
                     <p className="text-xs text-slate-500 font-medium">
-                        {data.meta.kindId} • {data.meta.totalPages} Pages • {data.meta.language.toUpperCase()}
+                        {meta.kindId} • {meta.totalPages} Pages • {meta.language.toUpperCase()}
                     </p>
                 </div>
                 <div className="flex gap-2">
@@ -69,7 +83,7 @@ export function BrochurePreview({ data, warnings = [] }: BrochurePreviewProps) {
                                         </p>
                                         <Card className={cn(
                                             "aspect-[1/1.41] p-5 shadow-lg border-white ring-1 ring-slate-100 hover:ring-purple-200 transition-all flex flex-col bg-white overflow-hidden relative group/page",
-                                            data.meta.format === "A5" && "aspect-[1/1.41]" // Same ratio, but we could scale if needed
+                                            meta.format === "A5" && "aspect-[1/1.41]" // Same ratio, but we could scale if needed
                                         )}>
                                             {/* Page Background Accent */}
                                             <div className="absolute inset-0 bg-gradient-to-br from-slate-50/50 to-white pointer-events-none" />
