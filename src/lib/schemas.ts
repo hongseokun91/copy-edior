@@ -112,7 +112,8 @@ export const leafletFormSchema = z.object({
     selectedModules: z.array(z.string()).optional(),
     moduleData: z.record(z.string(), z.any()).optional(),
     additionalBrief: z.string().max(1000, { message: "1000자 이내로 입력해주세요." }).optional(),
-    leafletType: z.enum(["2단", "3단", "4단"]).default("3단").optional(),
+    leafletType: z.enum(["2단", "3단", "4단", "N_FOLD", "GATE_FOLD"]).default("3단").optional(),
+    foldType: z.enum(["N_FOLD", "GATE_FOLD", "ACCORDION", "ROLL"]).optional(), // Enhanced fold types
 });
 
 export type FlyerFormValues = z.infer<typeof flyerFormSchema>;

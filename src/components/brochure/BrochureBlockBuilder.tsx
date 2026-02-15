@@ -127,7 +127,7 @@ export function BrochureBlockBuilder({
                                 </div>
                             </button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-[var(--radix-dropdown-menu-trigger-width)] max-h-[400px] p-1" align="start">
+                        <DropdownMenuContent className="w-[320px] max-h-[400px] p-1" align="start">
                             <DropdownMenuGroup>
                                 <DropdownMenuLabel className="text-[10px] text-slate-400 font-black uppercase tracking-widest px-2 py-2">사용 가능한 전략 블록</DropdownMenuLabel>
                                 {BROCHURE_BLOCK_TEMPLATES
@@ -138,7 +138,7 @@ export function BrochureBlockBuilder({
                                             <DropdownMenuItem
                                                 key={t.type}
                                                 onSelect={() => onAddBlock(t.type)}
-                                                className="py-2.5 px-3 focus:bg-indigo-50 rounded-md cursor-pointer mb-1"
+                                                className="py-3 px-3 focus:bg-indigo-50 rounded-md cursor-pointer mb-1 h-auto whitespace-normal"
                                             >
                                                 <div className="flex items-center gap-3 w-full">
                                                     <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center shrink-0 border border-slate-100 group-hover:bg-white">

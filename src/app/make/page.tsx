@@ -28,8 +28,9 @@ import { toast } from "sonner";
 function MakePageContent() {
     const searchParams = useSearchParams();
     const defaultCategory = searchParams.get("category") || "";
+    const defaultProduct = (searchParams.get("product") as "flyer" | "leaflet" | "brochure" | "poster") || "flyer";
     const [selectedCategory, setSelectedCategory] = useState(defaultCategory);
-    const [selectedProduct, setSelectedProduct] = useState<"flyer" | "leaflet" | "brochure" | "poster">("flyer");
+    const [selectedProduct, setSelectedProduct] = useState<"flyer" | "leaflet" | "brochure" | "poster">(defaultProduct);
     const [selectedStyleId, setSelectedStyleId] = useState("");
     const [selectedTone, setSelectedTone] = useState<"friendly" | "premium" | "direct">("friendly");
 

@@ -37,7 +37,7 @@ export function BrochurePreview({ data, warnings = [] }: BrochurePreviewProps) {
                 <div>
                     <h2 className="text-xl font-black text-slate-900">{facts.brandName} 브로슈어</h2>
                     <p className="text-xs text-slate-500 font-medium">
-                        {meta.kindId} • {meta.totalPages} Pages • {meta.language.toUpperCase()}
+                        {meta.kindId} • {meta.totalPages} Pages • {meta.language.toUpperCase()} {meta.foldType && `• ${meta.foldType}`}
                     </p>
                 </div>
                 <div className="flex gap-2">

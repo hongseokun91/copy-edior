@@ -29,7 +29,8 @@ const PanelSlot = ({
     onRemoveAssignment,
     onSetActiveSlot,
     onAssign,
-    recommendations
+    recommendations,
+    leafletType
 }: {
     id: string;
     label: string;
@@ -45,6 +46,7 @@ const PanelSlot = ({
     onSetActiveSlot: (id: string | null) => void;
     onAssign: (moduleId: string) => void;
     recommendations: { essential: string[]; recommended: string[] };
+    leafletType: string;
 }) => {
     const isEditingAny = assignedModules.some(m => m.id === editingModuleId);
     const isFront = id === "P1";
@@ -172,7 +174,16 @@ const PanelSlot = ({
                             </div>
 
                             <div className="p-1 grid grid-cols-1 gap-1 max-h-[320px] overflow-y-auto custom-scrollbar">
-                                {LEAFLET_MODULES.sort((a, b) => {
+                                {LEAFLET_MODULES.filter(m => {
+                                    // Strict Content Separation Logic
+                                    const isFront = activeSlot === "P1";
+                                    const backId = leafletType === "2단" ? "P4" : (leafletType === "4단" || leafletType === "N_FOLD") ? "P8" : "P6";
+                                    const isBack = activeSlot === backId && activeSurface === "OUTSIDE";
+
+                                    if (isFront) return m.category === "브랜드소개";
+                                    if (isBack) return m.category === "문의/기타";
+                                    return ["서비스안내", "신뢰/입증", "이용가이드", "브랜드소개"].includes(m.category); // Allow Brand Story in body too? User said "distinct", but Brand Story is often in body. Let's keep it safe.
+                                }).sort((a, b) => {
                                     const aEss = recommendations.essential.includes(a.id);
                                     const bEss = recommendations.essential.includes(b.id);
                                     if (aEss && !bEss) return -1;
@@ -244,7 +255,7 @@ export function LeafletMapOrchestrator({ form }: LeafletMapOrchestratorProps) {
     // 4.1 State Management (Reset & Escape)
     useEffect(() => {
         setActiveSlot(null);
-         
+
     }, [activeSurface, leafletType]);
 
     useEffect(() => {
@@ -372,6 +383,7 @@ export function LeafletMapOrchestrator({ form }: LeafletMapOrchestratorProps) {
                                     onSetActiveSlot={setActiveSlot}
                                     onAssign={handleAssign}
                                     recommendations={recommendations}
+                                    leafletType={leafletType}
                                 />
                             ))}
                         </motion.div>

@@ -52,6 +52,7 @@ export interface IndustryProfile {
 }
 
 export type BrochureFormat = "A4" | "A5";
+export type BrochureFoldType = "N_FOLD" | "GATE_FOLD";
 export type BrochureLanguage = "ko" | "en" | "ja" | "zh";
 
 export type BrochureKindId =
@@ -145,6 +146,7 @@ export interface BrochureInput {
     stage?: BrochureStage;
 
     format: BrochureFormat;
+    foldType?: BrochureFoldType;
     totalPages?: number; // 가변 페이지 팩 용
     language: BrochureLanguage;
 
@@ -251,6 +253,7 @@ export interface BrochureOutput {
         stage?: BrochureStage;
         industryContext?: { l1: IndustryL1; l2: string; l3?: string };
         format: BrochureFormat;
+        foldType?: BrochureFoldType;
         language: BrochureLanguage;
         totalPages: number;
         totalBlocks: number;

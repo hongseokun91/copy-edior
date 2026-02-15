@@ -11,6 +11,7 @@ export const brochureFormSchema = z.object({
     }).optional(),
     intentId: z.string().optional(),
     format: z.enum(["A4", "A5"]),
+    foldType: z.enum(["N_FOLD", "GATE_FOLD"]).default("N_FOLD").optional(),
     language: z.enum(["ko", "en", "ja", "zh"]),
     audience: z.string().optional(),
     stage: z.string().optional(),

@@ -156,33 +156,36 @@ export function LeafletForm({
                                             defaultValue={field.value}
                                             className="grid grid-cols-3 gap-3"
                                         >
-                                            {["2단", "3단", "4단"].map((type) => (
-                                                <FormItem key={type}>
+                                            {["2단", "3단", "4단", "N_FOLD", "GATE_FOLD"].map((type) => (
+                                                <FormItem key={type} className="flex-1 min-w-[30%]">
                                                     <FormControl>
                                                         <RadioGroupItem value={type} className="peer sr-only" />
                                                     </FormControl>
-                                                    <FormLabel className="flex flex-col items-center justify-center rounded-xl border-2 border-slate-100 bg-white p-2 hover:bg-slate-50 hover:border-slate-200 peer-data-[state=checked]:border-indigo-600 peer-data-[state=checked]:text-indigo-600 [&:has([data-state=checked])]:border-indigo-600 cursor-pointer transition-all h-24 shadow-sm peer-data-[state=checked]:shadow-md peer-data-[state=checked]:bg-indigo-50/10 group">
+                                                    <FormLabel className="flex flex-col items-center justify-center rounded-xl border-2 border-slate-100 bg-white p-2 hover:bg-slate-50 hover:border-slate-200 peer-data-[state=checked]:border-indigo-600 peer-data-[state=checked]:text-indigo-600 [&:has([data-state=checked])]:border-indigo-600 cursor-pointer transition-all h-28 shadow-sm peer-data-[state=checked]:shadow-md peer-data-[state=checked]:bg-indigo-50/10 group text-center">
                                                         <div className="mb-2 text-slate-300 group-hover:text-indigo-400 peer-data-[state=checked]:text-indigo-600 transition-colors">
+                                                            {/* Icons for each type */}
                                                             {type === "2단" && (
-                                                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                                                    <rect x="4" y="4" width="16" height="16" rx="2" />
-                                                                    <line x1="12" y1="4" x2="12" y2="20" />
-                                                                </svg>
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" /><line x1="12" y1="4" x2="12" y2="20" /></svg>
                                                             )}
                                                             {type === "3단" && (
-                                                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                                                    <rect x="3" y="4" width="18" height="16" rx="2" />
-                                                                    <path d="M9 4v16M15 4v16" />
-                                                                </svg>
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M9 4v16M15 4v16" /></svg>
                                                             )}
                                                             {type === "4단" && (
-                                                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                                                    <rect x="2" y="4" width="20" height="16" rx="2" />
-                                                                    <path d="M7 4v16M12 4v16M17 4v16" />
-                                                                </svg>
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M7 4v16M12 4v16M17 4v16" /></svg>
+                                                            )}
+                                                            {type === "N_FOLD" && (
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 20V4l5.333 16L14.667 4 20 20" /></svg>
+                                                            )}
+                                                            {type === "GATE_FOLD" && (
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M9 4v16M15 4v16" /></svg>
                                                             )}
                                                         </div>
-                                                        <span className="text-sm font-medium">{type} 접지</span>
+                                                        <span className="text-xs font-bold leading-tight">
+                                                            {type === "N_FOLD" ? "N-Fold" : type === "GATE_FOLD" ? "Gate Fold" : type}
+                                                        </span>
+                                                        {(type === "N_FOLD" || type === "GATE_FOLD") && (
+                                                            <span className="text-[9px] text-indigo-500 font-medium mt-1">NEW</span>
+                                                        )}
                                                     </FormLabel>
                                                 </FormItem>
                                             ))}

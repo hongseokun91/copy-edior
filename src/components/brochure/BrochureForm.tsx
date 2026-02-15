@@ -58,7 +58,7 @@ export function BrochureForm({ onSubmit, isLoading }: BrochureFormProps) {
         defaultValues: {
             kindId: "",
             brandName: "",
-            format: "A4",
+            format: "A4", // Default to A4 strictly
             language: "ko",
             brandTone: "official",
             brandStory: "",
@@ -102,7 +102,18 @@ export function BrochureForm({ onSubmit, isLoading }: BrochureFormProps) {
                     form.setValue("totalPages", 4);
                 } else {
                     // Standard Mode: Use default blocks from Kind
-                    const initialBlocks = kind.defaultBlocks.map((type, bIdx) => {
+                    // [Refined Logic 2024-02]
+                    // Default to minimal 8P (2 Blocks) for Standard Volume
+                    // We take the FIRST (Front) and LAST (Back) blocks from the Kind defaults
+                    // This ensures users start with a clean 8P slate and add specific strategy blocks manually
+
+                    const templateIds = kind.defaultBlocks;
+                    const minimalBlocks = [
+                        templateIds[0], // Usually BLOCK_FRONT_IDENTITY
+                        templateIds[templateIds.length - 1] // Usually BLOCK_BACK_TRUST_CONTACT
+                    ];
+
+                    const initialBlocks = minimalBlocks.map((type, bIdx) => {
                         const template = BROCHURE_BLOCK_TEMPLATES.find(t => t.type === type)!;
                         return {
                             blockId: `block-${bIdx}-${Math.random().toString(36).substr(2, 5)}`,
@@ -604,12 +615,14 @@ export function BrochureForm({ onSubmit, isLoading }: BrochureFormProps) {
                                                     </FormControl>
                                                     <SelectContent className="rounded-xl border-slate-200 shadow-xl">
                                                         <SelectItem value="A4" className="py-3 focus:bg-indigo-50 focus:text-indigo-600 font-bold uppercase text-[10px] tracking-widest">A4 (표준형)</SelectItem>
-                                                        <SelectItem value="A5" className="py-3 focus:bg-indigo-50 focus:text-indigo-600 font-bold uppercase text-[10px] tracking-widest">A5 (컴팩트)</SelectItem>
+                                                        <SelectItem value="A5" className="py-3 focus:bg-indigo-50 focus:text-indigo-600 font-bold uppercase text-[10px] tracking-widest">A5 (리플렛/컴팩트)</SelectItem>
                                                     </SelectContent>
                                                 </Select>
                                             </FormItem>
                                         )}
                                     />
+
+
 
                                     <div className="space-y-4">
                                         <div className="flex items-start gap-3 px-1">
