@@ -212,19 +212,7 @@ export function LeafletForm({
                                                 >
                                                     <button
                                                         type="button"
-                                                        onClick={() => field.onChange("4단")}
-                                                        className={cn(
-                                                            "flex-1 text-xs py-2 px-3 rounded-md transition-colors border text-center font-medium",
-                                                            field.value === "4단"
-                                                                ? "bg-white border-indigo-200 text-indigo-600 shadow-sm"
-                                                                : "bg-transparent border-transparent text-slate-500 hover:text-slate-700 hover:bg-slate-100"
-                                                        )}
-                                                    >
-                                                        기본 4단
-                                                    </button>
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => field.onChange("N_FOLD")}
+                                                        onClick={() => field.onChange(field.value === "N_FOLD" ? "4단" : "N_FOLD")}
                                                         className={cn(
                                                             "flex-1 text-xs py-2 px-3 rounded-md transition-colors border text-center font-medium",
                                                             field.value === "N_FOLD"
@@ -236,7 +224,7 @@ export function LeafletForm({
                                                     </button>
                                                     <button
                                                         type="button"
-                                                        onClick={() => field.onChange("GATE_FOLD")}
+                                                        onClick={() => field.onChange(field.value === "GATE_FOLD" ? "4단" : "GATE_FOLD")}
                                                         className={cn(
                                                             "flex-1 text-xs py-2 px-3 rounded-md transition-colors border text-center font-medium",
                                                             field.value === "GATE_FOLD"
