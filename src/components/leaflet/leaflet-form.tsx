@@ -22,8 +22,9 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Badge } from "@/components/ui/badge";
 import { InlineError } from "@/components/inline-error";
 import { Loader2 } from "lucide-react";
-// import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { normalizeInput, checkFactCompleteness, MissingFact } from "@/lib/facts";
+import { motion } from "framer-motion";
 import { ClarificationModal } from "@/components/clarification-modal";
 import { LeafletModuleSelector } from "@/components/leaflet-module-selector";
 import { LeafletMapOrchestrator } from "@/components/leaflet/leaflet-map-orchestrator"; // V33
@@ -151,45 +152,97 @@ export function LeafletForm({
                                         <FormLabel className="text-[11px] font-bold text-slate-500">리플렛 형태 (접지 방식)</FormLabel>
                                     </div>
                                     <FormControl>
-                                        <RadioGroup
-                                            onValueChange={field.onChange}
-                                            defaultValue={field.value}
-                                            className="grid grid-cols-3 gap-3"
-                                        >
-                                            {["2단", "3단", "4단", "N_FOLD", "GATE_FOLD"].map((type) => (
-                                                <FormItem key={type} className="flex-1 min-w-[30%]">
-                                                    <FormControl>
-                                                        <RadioGroupItem value={type} className="peer sr-only" />
-                                                    </FormControl>
-                                                    <FormLabel className="flex flex-col items-center justify-center rounded-xl border-2 border-slate-100 bg-white p-2 hover:bg-slate-50 hover:border-slate-200 peer-data-[state=checked]:border-indigo-600 peer-data-[state=checked]:text-indigo-600 [&:has([data-state=checked])]:border-indigo-600 cursor-pointer transition-all h-28 shadow-sm peer-data-[state=checked]:shadow-md peer-data-[state=checked]:bg-indigo-50/10 group text-center">
-                                                        <div className="mb-2 text-slate-300 group-hover:text-indigo-400 peer-data-[state=checked]:text-indigo-600 transition-colors">
-                                                            {/* Icons for each type */}
-                                                            {type === "2단" && (
-                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" /><line x1="12" y1="4" x2="12" y2="20" /></svg>
+                                        <div className="space-y-3">
+                                            <RadioGroup
+                                                onValueChange={(val) => {
+                                                    // When selecting 4-Fold group, defaulting to "4단" if not already set to N_FOLD
+                                                    if (val === "4단") {
+                                                        const current = field.value;
+                                                        if (current !== "N_FOLD") {
+                                                            field.onChange("4단");
+                                                        } else {
+                                                            // If already N_FOLD, keep it? No, if clicking the main card, maybe reset? 
+                                                            // Actually, if clicking "4단" card, we want to stay in that group.
+                                                            // Simple logic: if switching TO 4-Group, set to "4단" default.
+                                                            field.onChange("4단");
+                                                        }
+                                                    } else {
+                                                        field.onChange(val);
+                                                    }
+                                                }}
+                                                value={field.value === "N_FOLD" ? "4단" : field.value}
+                                                className="grid grid-cols-4 gap-3"
+                                            >
+                                                {["2단", "3단", "4단", "GATE_FOLD"].map((type) => (
+                                                    <FormItem key={type} className="flex-1 min-w-0">
+                                                        <FormControl>
+                                                            <RadioGroupItem value={type} className="peer sr-only" />
+                                                        </FormControl>
+                                                        <FormLabel className="flex flex-col items-center justify-center rounded-xl border-2 border-slate-100 bg-white p-2 hover:bg-slate-50 hover:border-slate-200 peer-data-[state=checked]:border-indigo-600 peer-data-[state=checked]:text-indigo-600 [&:has([data-state=checked])]:border-indigo-600 cursor-pointer transition-all h-28 shadow-sm peer-data-[state=checked]:shadow-md peer-data-[state=checked]:bg-indigo-50/10 group text-center relative overflow-hidden">
+                                                            <div className="mb-2 text-slate-300 group-hover:text-indigo-400 peer-data-[state=checked]:text-indigo-600 transition-colors">
+                                                                {/* Icons for each type */}
+                                                                {type === "2단" && (
+                                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" /><line x1="12" y1="4" x2="12" y2="20" /></svg>
+                                                                )}
+                                                                {type === "3단" && (
+                                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M9 4v16M15 4v16" /></svg>
+                                                                )}
+                                                                {type === "4단" && (
+                                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M7 4v16M12 4v16M17 4v16" /></svg>
+                                                                )}
+                                                                {type === "GATE_FOLD" && (
+                                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M9 4v16M15 4v16" /></svg>
+                                                                )}
+                                                            </div>
+                                                            <span className="text-xs font-bold leading-tight">
+                                                                {type === "GATE_FOLD" ? "대문접지" : type}
+                                                            </span>
+                                                            {(type === "GATE_FOLD") && (
+                                                                <span className="text-[9px] text-indigo-500 font-medium mt-1">NEW</span>
                                                             )}
-                                                            {type === "3단" && (
-                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M9 4v16M15 4v16" /></svg>
+                                                            {/* 4-Fold Group Indicator */}
+                                                            {type === "4단" && (field.value === "N_FOLD") && (
+                                                                <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-indigo-500 rounded-full"></span>
                                                             )}
-                                                            {type === "4단" && (
-                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M7 4v16M12 4v16M17 4v16" /></svg>
-                                                            )}
-                                                            {type === "N_FOLD" && (
-                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 20V4l5.333 16L14.667 4 20 20" /></svg>
-                                                            )}
-                                                            {type === "GATE_FOLD" && (
-                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M9 4v16M15 4v16" /></svg>
-                                                            )}
-                                                        </div>
-                                                        <span className="text-xs font-bold leading-tight">
-                                                            {type === "N_FOLD" ? "N-Fold" : type === "GATE_FOLD" ? "Gate Fold" : type}
-                                                        </span>
-                                                        {(type === "N_FOLD" || type === "GATE_FOLD") && (
-                                                            <span className="text-[9px] text-indigo-500 font-medium mt-1">NEW</span>
+                                                        </FormLabel>
+                                                    </FormItem>
+                                                ))}
+                                            </RadioGroup>
+
+                                            {/* Sub-selection for 4-Fold Group */}
+                                            {(field.value === "4단" || field.value === "N_FOLD") && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, height: 0 }}
+                                                    animate={{ opacity: 1, height: "auto" }}
+                                                    className="bg-slate-50/50 rounded-lg p-2 border border-slate-100 flex gap-2"
+                                                >
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => field.onChange("4단")}
+                                                        className={cn(
+                                                            "flex-1 text-xs py-2 px-3 rounded-md transition-colors border text-center font-medium",
+                                                            field.value === "4단"
+                                                                ? "bg-white border-indigo-200 text-indigo-600 shadow-sm"
+                                                                : "bg-transparent border-transparent text-slate-500 hover:text-slate-700 hover:bg-slate-100"
                                                         )}
-                                                    </FormLabel>
-                                                </FormItem>
-                                            ))}
-                                        </RadioGroup>
+                                                    >
+                                                        기본 4단
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => field.onChange("N_FOLD")}
+                                                        className={cn(
+                                                            "flex-1 text-xs py-2 px-3 rounded-md transition-colors border text-center font-medium",
+                                                            field.value === "N_FOLD"
+                                                                ? "bg-white border-indigo-200 text-indigo-600 shadow-sm"
+                                                                : "bg-transparent border-transparent text-slate-500 hover:text-slate-700 hover:bg-slate-100"
+                                                        )}
+                                                    >
+                                                        N접지 (병풍)
+                                                    </button>
+                                                </motion.div>
+                                            )}
+                                        </div>
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
