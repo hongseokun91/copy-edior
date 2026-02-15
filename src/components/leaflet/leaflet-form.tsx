@@ -155,25 +155,24 @@ export function LeafletForm({
                                         <div className="space-y-3">
                                             <RadioGroup
                                                 onValueChange={(val) => {
-                                                    // When selecting 4-Fold group, defaulting to "4단" if not already set to N_FOLD
+                                                    // When selecting 4-Fold group, defaulting to "4단" if not already set to local variant
                                                     if (val === "4단") {
                                                         const current = field.value;
-                                                        if (current !== "N_FOLD") {
-                                                            field.onChange("4단");
+                                                        if (["4단", "N_FOLD", "GATE_FOLD"].includes(current)) {
+                                                            // Keep current if already in group
+                                                            field.onChange(current);
                                                         } else {
-                                                            // If already N_FOLD, keep it? No, if clicking the main card, maybe reset? 
-                                                            // Actually, if clicking "4단" card, we want to stay in that group.
-                                                            // Simple logic: if switching TO 4-Group, set to "4단" default.
+                                                            // Default to Basic 4-Fold
                                                             field.onChange("4단");
                                                         }
                                                     } else {
                                                         field.onChange(val);
                                                     }
                                                 }}
-                                                value={field.value === "N_FOLD" ? "4단" : field.value}
-                                                className="grid grid-cols-4 gap-3"
+                                                value={["4단", "N_FOLD", "GATE_FOLD"].includes(field.value) ? "4단" : field.value}
+                                                className="grid grid-cols-3 gap-3"
                                             >
-                                                {["2단", "3단", "4단", "GATE_FOLD"].map((type) => (
+                                                {["2단", "3단", "4단"].map((type) => (
                                                     <FormItem key={type} className="flex-1 min-w-0">
                                                         <FormControl>
                                                             <RadioGroupItem value={type} className="peer sr-only" />
@@ -190,18 +189,13 @@ export function LeafletForm({
                                                                 {type === "4단" && (
                                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M7 4v16M12 4v16M17 4v16" /></svg>
                                                                 )}
-                                                                {type === "GATE_FOLD" && (
-                                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M9 4v16M15 4v16" /></svg>
-                                                                )}
                                                             </div>
                                                             <span className="text-xs font-bold leading-tight">
-                                                                {type === "GATE_FOLD" ? "대문접지" : type}
+                                                                {type}
                                                             </span>
-                                                            {(type === "GATE_FOLD") && (
-                                                                <span className="text-[9px] text-indigo-500 font-medium mt-1">NEW</span>
-                                                            )}
+
                                                             {/* 4-Fold Group Indicator */}
-                                                            {type === "4단" && (field.value === "N_FOLD") && (
+                                                            {type === "4단" && (["N_FOLD", "GATE_FOLD"].includes(field.value)) && (
                                                                 <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-indigo-500 rounded-full"></span>
                                                             )}
                                                         </FormLabel>
@@ -210,7 +204,7 @@ export function LeafletForm({
                                             </RadioGroup>
 
                                             {/* Sub-selection for 4-Fold Group */}
-                                            {(field.value === "4단" || field.value === "N_FOLD") && (
+                                            {(field.value === "4단" || field.value === "N_FOLD" || field.value === "GATE_FOLD") && (
                                                 <motion.div
                                                     initial={{ opacity: 0, height: 0 }}
                                                     animate={{ opacity: 1, height: "auto" }}
@@ -239,6 +233,18 @@ export function LeafletForm({
                                                         )}
                                                     >
                                                         N접지 (병풍)
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => field.onChange("GATE_FOLD")}
+                                                        className={cn(
+                                                            "flex-1 text-xs py-2 px-3 rounded-md transition-colors border text-center font-medium",
+                                                            field.value === "GATE_FOLD"
+                                                                ? "bg-white border-indigo-200 text-indigo-600 shadow-sm"
+                                                                : "bg-transparent border-transparent text-slate-500 hover:text-slate-700 hover:bg-slate-100"
+                                                        )}
+                                                    >
+                                                        대문접지
                                                     </button>
                                                 </motion.div>
                                             )}
