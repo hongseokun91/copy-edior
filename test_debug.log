@@ -1,0 +1,80 @@
+
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mC:/Users/hongs/.gemini/antigravity/scratch/copy-editor[39m
+
+[90mstdout[2m | src/tests/verify_v5_complete.test.ts
+[22m[39m[AI_ENV_STARTUP] Node=test Vercel=undefined Mode=gateway GatewayURL=false HasKey=false
+
+[90mstderr[2m | src/tests/verify_v5_complete.test.ts
+[22m[39m[System] Gateway Keys Missing locally. Simulating with Mock.
+
+[90mstdout[2m | src/tests/verify_v5_complete.test.ts[2m > [22m[2mV5 Poster Generation Flow (Mocked Integration)[2m > [22m[2mshould complete the full V5 flow with mocked AI
+[22m[39mStep 1: Analyzing Brief (Mocked)...
+Mock received system prompt: You are the Chief Copywriter at a top Korean marketing agency.
+ALWAYS output in KOREAN.
+Never invent facts. If missing, ask via structured "needs" field.
+Never use "..." ellipsis. No placeholders.
+Output strictly JSON only. Do not add any commentary.
+Mock received prompt: 
+    [TASK]
+    Analyze the user's brief for a marketing poster. Extract key strategic data (Facts) and suggest technical settings.
+
+    [CONTEXT]
+    Brief: "Test Brief"
+    Industry: "General"
+
+    [REQUIRED EXTRACTION - FACT SHEET]
+    You MUST extract these 5 dimensions. **All values MUST be in KOREAN (한국어)**:
+    1. Who (Target Audience): Who is this for? (e.g., "2030 직장인", "취업 준비생")
+    2. What (Key Content): What is the main offering? (e.g., "아메리카노 1+1", "여름 대축제")
+    3. Why (Purpose): Why make this poster? (e.g., "신규 고객 유입", "브랜드 인지도 상승")
+    4. Tone (Atmosphere): What is the vibe? (e.g., "현대적이고 차분한", "활기찬 에너지")
+    5. Keywords: List 3-5 critical keywords that MUST be included. (e.g., "기간한정", "무료증정")
+
+    [OUTPUT FORMAT]
+    Return ONLY valid JSON:
+    {
+      "intentId": "INT_...", // One of: INT_PROMO_OFFER, INT_PRODUCT_LAUNCH, INT_EVENT_GUIDE, INT_RECRUITING, INT_PUBLIC_NOTICE, INT_BRAND_CAMPAIGN, INT_B2B_SEMINAR
+      "headlineType": "HL_...", // Suggest one: HL_OFFER_FIRST, HL_AUDIENCE_FIRST, HL_PROBLEM_FIRST, HL_AUTHORITY_FIRST
+      "channelPack": "PACK_...", // Suggest one: PACK_PRINT_A2, PACK_SIGNAGE_16_9, PACK_SNS_1_1, PACK_SNS_9_16
+      "densityProfile": "DENSITY_...", // Suggest one: DENSITY_MINIMAL, DENSITY_STANDARD, DENSITY_DETAILED
+      "claimPolicyMode": "standard" | "strict", // strict for medical/financial/public
+      "facts": {
+        "who": "...", // In Korean
+        "what": "...", // In Korean
+        "why": "...", // In Korean
+        "tone": "...", // In Korean
+        "keywords": ["..."] // In Korean
+      }
+    }
+    
+
+ [31m❯[39m src/tests/verify_v5_complete.test.ts [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 6[2mms[22m[39m
+[31m     [31m×[31m should complete the full V5 flow with mocked AI[39m[32m 5[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m src/tests/verify_v5_complete.test.ts[2m > [22mV5 Poster Generation Flow (Mocked Integration)[2m > [22mshould complete the full V5 flow with mocked AI
+[31m[1mAssertionError[22m: expected undefined to be 'INT_PROMO_OFFER' // Object.is equality[39m
+
+[32m- Expected:[39m 
+"INT_PROMO_OFFER"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2m❯[22m src/tests/verify_v5_complete.test.ts:[2m65:33[22m[39m
+    [90m 63| [39m        [90m// eslint-disable-next-line @typescript-eslint/no-explicit-any[39m
+    [90m 64| [39m        const result: any = await analyzeBrief(mockBrief); // Changed …
+    [90m 65| [39m        expect(result.intentId).toBe("INT_PROMO_OFFER"); // Updated to…
+    [90m   | [39m                                [31m^[39m
+    [90m 66| [39m
+    [90m 67| [39m        [90m// 2. Meta Construction[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m   Start at [22m 00:13:01
+[2m   Duration [22m 429ms[2m (transform 124ms, setup 0ms, import 257ms, tests 6ms, environment 0ms)[22m
+

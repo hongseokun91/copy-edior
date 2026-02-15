@@ -1,0 +1,126 @@
+﻿
+> copy-editor@0.1.0 lint
+> eslint
+
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\enterprise-card.tsx
+   3:10  warning  'motion' is defined but never used           @typescript-eslint/no-unused-vars
+   3:18  warning  'AnimatePresence' is defined but never used  @typescript-eslint/no-unused-vars
+   5:10  warning  'useState' is defined but never used         @typescript-eslint/no-unused-vars
+   6:10  warning  'ArrowRight' is defined but never used       @typescript-eslint/no-unused-vars
+   6:29  warning  'Star' is defined but never used             @typescript-eslint/no-unused-vars
+  17:34  warning  'id' is defined but never used               @typescript-eslint/no-unused-vars
+  17:51  warning  'description' is defined but never used      @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\enterprise-drawer.tsx
+   5:10  warning  'Building2' is defined but never used  @typescript-eslint/no-unused-vars
+  18:36  warning  'id' is defined but never used         @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\flyer-form.tsx
+   7:49  warning  'predefinedContactTypes' is defined but never used  @typescript-eslint/no-unused-vars
+  31:14  warning  'Sparkles' is defined but never used                @typescript-eslint/no-unused-vars
+  31:24  warning  'MapPin' is defined but never used                  @typescript-eslint/no-unused-vars
+  31:32  warning  'Store' is defined but never used                   @typescript-eslint/no-unused-vars
+  31:39  warning  'Calendar' is defined but never used                @typescript-eslint/no-unused-vars
+  31:49  warning  'Phone' is defined but never used                   @typescript-eslint/no-unused-vars
+  31:56  warning  'Globe' is defined but never used                   @typescript-eslint/no-unused-vars
+  31:63  warning  'Instagram' is defined but never used               @typescript-eslint/no-unused-vars
+  32:5   warning  'FileText' is defined but never used                @typescript-eslint/no-unused-vars
+  32:15  warning  'User' is defined but never used                    @typescript-eslint/no-unused-vars
+  32:21  warning  'ShoppingBag' is defined but never used             @typescript-eslint/no-unused-vars
+  32:34  warning  'Hash' is defined but never used                    @typescript-eslint/no-unused-vars
+  32:40  warning  'Target' is defined but never used                  @typescript-eslint/no-unused-vars
+  32:48  warning  'CheckCircle2' is defined but never used            @typescript-eslint/no-unused-vars
+  33:5   warning  'HelpCircle' is defined but never used              @typescript-eslint/no-unused-vars
+  66:5   warning  'productType' is assigned a value but never used    @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\flyer-result.tsx
+    5:26  warning  'LeafletPage' is defined but never used   @typescript-eslint/no-unused-vars
+    9:43  warning  'RefreshCw' is defined but never used     @typescript-eslint/no-unused-vars
+    9:54  warning  'Share2' is defined but never used        @typescript-eslint/no-unused-vars
+    9:62  warning  'Check' is defined but never used         @typescript-eslint/no-unused-vars
+    9:69  warning  'ExternalLink' is defined but never used  @typescript-eslint/no-unused-vars
+    9:83  warning  'Printer' is defined but never used       @typescript-eslint/no-unused-vars
+  436:33  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  436:41  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\leaflet-module-selector.tsx
+   6:10  warning  'LayoutGroup' is defined but never used    @typescript-eslint/no-unused-vars
+  10:31  warning  'FormLabel' is defined but never used      @typescript-eslint/no-unused-vars
+  12:17  warning  'Info' is defined but never used           @typescript-eslint/no-unused-vars
+  12:29  warning  'MapPin' is defined but never used         @typescript-eslint/no-unused-vars
+  12:37  warning  'Quote' is defined but never used          @typescript-eslint/no-unused-vars
+  12:44  warning  'Phone' is defined but never used          @typescript-eslint/no-unused-vars
+  12:61  warning  'Clock' is defined but never used          @typescript-eslint/no-unused-vars
+  12:68  warning  'AlignLeft' is defined but never used      @typescript-eslint/no-unused-vars
+  12:79  warning  'List' is defined but never used           @typescript-eslint/no-unused-vars
+  12:94  warning  'ImageIcon' is defined but never used      @typescript-eslint/no-unused-vars
+  20:5   warning  'DialogTrigger' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\leaflet\leaflet-form.tsx
+   7:10  warning  'leafletGoals' is defined but never used             @typescript-eslint/no-unused-vars
+   7:24  warning  'leafletIndustries' is defined but never used        @typescript-eslint/no-unused-vars
+   7:43  warning  'leafletIndustryClusters' is defined but never used  @typescript-eslint/no-unused-vars
+   8:10  warning  'FlyerType' is defined but never used                @typescript-eslint/no-unused-vars
+  17:5   warning  'FormDescription' is defined but never used          @typescript-eslint/no-unused-vars
+  24:10  warning  'cn' is defined but never used                       @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\leaflet\leaflet-writer-modal.tsx
+  3:20  warning  'useEffect' is defined but never used          @typescript-eslint/no-unused-vars
+  4:33  warning  'DialogHeader' is defined but never used       @typescript-eslint/no-unused-vars
+  4:60  warning  'DialogDescription' is defined but never used  @typescript-eslint/no-unused-vars
+  4:79  warning  'DialogFooter' is defined but never used       @typescript-eslint/no-unused-vars
+  9:27  warning  'X' is defined but never used                  @typescript-eslint/no-unused-vars
+  9:30  warning  'MessageSquare' is defined but never used      @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\poster\PosterGenerator.tsx
+   18:12  warning  'brief' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  101:43  warning  'finalSlots' is defined but never used      @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\poster\steps\PosterGatewaySearch.tsx
+  6:22  warning  'Sparkles' is defined but never used       @typescript-eslint/no-unused-vars
+  6:32  warning  'Zap' is defined but never used            @typescript-eslint/no-unused-vars
+  6:37  warning  'Smartphone' is defined but never used     @typescript-eslint/no-unused-vars
+  6:49  warning  'Globe' is defined but never used          @typescript-eslint/no-unused-vars
+  6:56  warning  'Briefcase' is defined but never used      @typescript-eslint/no-unused-vars
+  6:67  warning  'ShoppingBag' is defined but never used    @typescript-eslint/no-unused-vars
+  6:80  warning  'Utensils' is defined but never used       @typescript-eslint/no-unused-vars
+  6:90  warning  'GraduationCap' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\poster\steps\PosterHeadlineSelector.tsx
+  10:72  warning  'RefreshCw' is defined but never used  @typescript-eslint/no-unused-vars
+  10:83  warning  'Edit2' is defined but never used      @typescript-eslint/no-unused-vars
+  10:90  warning  'Wand2' is defined but never used      @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\poster\steps\PosterPreviewExporter.tsx
+  6:10  warning  'Copy' is defined but never used       @typescript-eslint/no-unused-vars
+  6:33  warning  'Check' is defined but never used      @typescript-eslint/no-unused-vars
+  6:40  warning  'RefreshCw' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\style-selector.tsx
+  9:10  warning  'Check' is defined but never used     @typescript-eslint/no-unused-vars
+  9:17  warning  'Sparkles' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\tests\verify_brochure_kind_coverage.test.ts
+  26:30  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  36:45  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  58:38  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  81:85  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\tests\verify_brochure_schema.test.ts
+   7:5   warning  'validBrochure' is defined but never used  @typescript-eslint/no-unused-vars
+  75:18  error    Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+  86:54  error    Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+  88:49  error    Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\tests\verify_v5_complete.test.ts
+  86:85  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\types\brochure-questions.ts
+  99:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\types\brochure.ts
+  265:39  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+??85 problems (12 errors, 73 warnings)
+

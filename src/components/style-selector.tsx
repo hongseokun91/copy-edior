@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { STYLES, Style } from "@/lib/styles";
+import { STYLES } from "@/lib/styles"; // Keep STYLES as it's used
+// import { Style } from "@/lib/styles"; // Commented out as per instruction, assuming Style type is not directly used
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { CheckCircle2, ChevronDown, ChevronUp } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
+// import { Check, Sparkles } from "lucide-react";
 
 interface StyleSelectorProps {
     category: string;
@@ -14,6 +16,7 @@ interface StyleSelectorProps {
 }
 
 export function StyleSelector({ category, selectedStyleId, onSelect }: StyleSelectorProps) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [showAll, setShowAll] = useState(false);
 
     const recommendedStyles = useMemo(() => {
@@ -32,25 +35,8 @@ export function StyleSelector({ category, selectedStyleId, onSelect }: StyleSele
 
     return (
         <div className="space-y-3">
-            <div className="flex items-center justify-between">
-                <h3 className="text-base font-bold text-slate-800">어떤 스타일로 쓸까요?</h3>
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setShowAll(!showAll)}
-                    className="text-xs text-slate-500 h-8"
-                >
-                    {showAll ? (
-                        <>
-                            접기 <ChevronUp className="ml-1 h-3 w-3" />
-                        </>
-                    ) : (
-                        <>
-                            더보기 <ChevronDown className="ml-1 h-3 w-3" />
-                        </>
-                    )}
-                </Button>
-            </div>
+            {/* Removed Header "어떤 스타일로 쓸까요?" */}
+
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {visibleStyles.map((style) => {

@@ -1,0 +1,89 @@
+[FF] Feature Flags: {
+  PRO_COPY_V09: false,
+  FLYER_TYPES: false,
+  SIMILARITY_GUARD: false,
+  EXTRA_MODULES: false,
+  ENTERPRISE_ORCHESTRATION: true
+}
+[AI_ENV_STARTUP] Node=undefined Vercel=undefined Mode=gateway GatewayURL=false HasKey=false
+node.exe : [System] 
+Gateway Keys Missing
+ locally. Simulating
+ with Mock.
+위치 줄:1 문자:1
++ & "C:\Program File
+s\nodejs/node.exe" "
+C:\Program Files\nod
+ejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo  
+            : NotS  
+  pecified: ([Sys   
+ tem] Gatewa...t    
+ing with Mock.:    S
+tring) [], Rem    ot
+eException
+    + FullyQualifie 
+   dErrorId : Nati  
+  veCommandError
+ 
+--- [TEST 1] Verifying Prompt Generation Logic for 'extraModules' ---
+Normalized Brief selectedModules: undefined
+
+--- [TEST 2] Verifying Fallback/Mock Output Structure ---
+[AI_TRACE] { traceId: "test-trace-fallback", passName: "IDEATE_A", attempt: 1, env: "local", model: "gpt-4o" }
+[ENV_GUARD] Check: Deployed=false, Env=undefined, Node=undefined, AllowMock=true
+??FAILED: selectedMo
+dules not preserved 
+in normalization.
+[MOCK DEBUG] Pass: IDEATE_A, InputLen: 2522
+[AI_TRACE] { traceId: "test-trace-fallback", passName: "IDEATE_B", attempt: 1, env: "local", model: "gpt-4o" }
+[ENV_GUARD] Check: Deployed=false, Env=undefined, Node=undefined, AllowMock=true
+[MOCK DEBUG] Pass: IDEATE_B, InputLen: 2564
+[AI_TRACE] { traceId: "test-trace-fallback", passName: "IDEATE_C", attempt: 1, env: "local", model: "gpt-4o" }
+[ENV_GUARD] Check: Deployed=false, Env=undefined, Node=undefined, AllowMock=true
+[MOCK DEBUG] Pass: IDEATE_C, InputLen: 2594
+[Ideate] Parsing Fai
+led! Using Fallback.
+ Raw Text: <JSON>{"c
+andidates":[{"headli
+ne":"Simulation A: T
+aste the Future","su
+bhead":"Delicious Mo
+ckup Food f
+[Ideate] Parsing Fai
+led! Using Fallback.
+ Raw Text: <JSON>{"c
+andidates":[{"headli
+ne":"Simulation A: T
+aste the Future","su
+bhead":"Delicious Mo
+ckup Food f
+[Ideate] Parsing Fai
+led! Using Fallback.
+ Raw Text: <JSON>{"c
+andidates":[{"headli
+ne":"Simulation A: T
+aste the Future","su
+bhead":"Delicious Mo
+ckup Food f
+[AI_TRACE] { traceId: "test-trace-fallback", passName: "POLISH_A", attempt: 1, env: "local", model: "gpt-4o" }
+[ENV_GUARD] Check: Deployed=false, Env=undefined, Node=undefined, AllowMock=true
+[MOCK DEBUG] Pass: POLISH_A, InputLen: 2643
+[AI_TRACE] { traceId: "test-trace-fallback", passName: "POLISH_B", attempt: 1, env: "local", model: "gpt-4o" }
+[ENV_GUARD] Check: Deployed=false, Env=undefined, Node=undefined, AllowMock=true
+[MOCK DEBUG] Pass: POLISH_B, InputLen: 2685
+[AI_TRACE] { traceId: "test-trace-fallback", passName: "POLISH_C", attempt: 1, env: "local", model: "gpt-4o" }
+[ENV_GUARD] Check: Deployed=false, Env=undefined, Node=undefined, AllowMock=true
+[MOCK DEBUG] Pass: POLISH_C, InputLen: 2715
+{"timestamp":"2026-02-14T10:20:01.574Z","level":"info","type":"GEN_SUCCESS","message":"Frame A Validated & Sanitized"}
+{"timestamp":"2026-02-14T10:20:01.575Z","level":"info","type":"GEN_SUCCESS","message":"Frame B Validated & Sanitized"}
+{"timestamp":"2026-02-14T10:20:01.575Z","level":"info","type":"GEN_SUCCESS","message":"Frame C Validated & Sanitized"}
+Bullets Count: 3
+??PASSED: Output has 3+ bullets.
+Has hookLine: true
+Has posterShort: true
+??PASSED: V3 Fields present.

@@ -1,3 +1,5 @@
+import { FLAGS } from "./flags";
+
 export interface StyleRule {
     lengthBias: "short" | "normal" | "long";
     emojiAllowed: boolean;
@@ -15,7 +17,59 @@ export interface Style {
     recommendedFor?: string[]; // Category IDs
 }
 
-export const STYLES: Style[] = [
+// v0.9 NEW Flyer Types (T1-T9)
+const FLYER_TYPES: Style[] = [
+    {
+        id: "T1",
+        name: "할인/특가형",
+        description: "강력한 할인을 강조하여 즉각적인 구매를 유도합니다.",
+        tags: ["SALE", "특가", "직설적"],
+        previewColor: "#ef4444",
+        rules: { lengthBias: "short", emojiAllowed: true, toneKeywords: ["파격적인", "선착순", "절호의기회"] }
+    },
+    {
+        id: "T2",
+        name: "오픈/이벤트형",
+        description: "활기찬 분위기로 개업 또는 이벤트 소식을 알립니다.",
+        tags: ["OPEN", "축하", "활기"],
+        previewColor: "#f59e0b",
+        rules: { lengthBias: "normal", emojiAllowed: true, toneKeywords: ["드디어", "그랜드오픈", "함께해요"] }
+    },
+    {
+        id: "T3",
+        name: "신메뉴/신상품형",
+        description: "새로운 소식을 세련되게 전달하여 궁금증을 유발합니다.",
+        tags: ["NEW", "트렌디", "호기심"],
+        previewColor: "#8b5cf6",
+        rules: { lengthBias: "normal", emojiAllowed: false, toneKeywords: ["새롭게", "등장한", "트렌디한"] }
+    },
+    {
+        id: "T4",
+        name: "브랜드/신뢰형",
+        description: "전문성과 진정성을 담아 탄탄한 믿음을 구축합니다.",
+        tags: ["신뢰", "브랜딩", "전문"],
+        previewColor: "#1e3a8a",
+        rules: { lengthBias: "long", emojiAllowed: false, toneKeywords: ["정직한", "전통있는", "보증합니다"] }
+    },
+    {
+        id: "T5",
+        name: "감성/스토리형",
+        description: "따뜻한 공감으로 고객의 마음을 움직이는 메시지입니다.",
+        tags: ["감성", "다정", "감동"],
+        previewColor: "#f472b6",
+        rules: { lengthBias: "long", emojiAllowed: true, toneKeywords: ["마음을담아", "소중한", "함께하는"] }
+    },
+    {
+        id: "T6",
+        name: "미니멀/심플형",
+        description: "복잡함 없이 팩트 위주로 깔끔하게 정보를 전달합니다.",
+        tags: ["간결", "모던", "팩트"],
+        previewColor: "#475569",
+        rules: { lengthBias: "short", emojiAllowed: false, toneKeywords: ["확실한", "정직한", "직구"] }
+    }
+];
+
+export const OLD_STYLES: Style[] = [
     {
         id: "minimal",
         name: "미니멀/심플",
@@ -123,3 +177,5 @@ export const STYLES: Style[] = [
         recommendedFor: ["식당/카페", "행사/이벤트"],
     },
 ];
+
+export const STYLES = FLAGS.FLYER_TYPES ? FLYER_TYPES : OLD_STYLES;

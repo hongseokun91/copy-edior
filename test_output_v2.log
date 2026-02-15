@@ -1,0 +1,47 @@
+
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mC:/Users/hongs/.gemini/antigravity/scratch/copy-editor[39m
+
+[90mstdout[2m | src/tests/verify_v5_complete.test.ts
+[22m[39m[AI_ENV_STARTUP] Node=test Vercel=undefined Mode=gateway GatewayURL=false HasKey=false
+
+[90mstderr[2m | src/tests/verify_v5_complete.test.ts
+[22m[39m[System] Gateway Keys Missing locally. Simulating with Mock.
+
+[90mstdout[2m | src/tests/verify_v5_complete.test.ts[2m > [22m[2mV5 Poster Generation Flow (Mocked Integration)[2m > [22m[2mshould complete the full V5 flow with mocked AI
+[22m[39mStep 1: Analyzing Brief (Mocked)...
+
+[90mstdout[2m | src/tests/verify_v5_complete.test.ts[2m > [22m[2mV5 Poster Generation Flow (Mocked Integration)[2m > [22m[2mshould complete the full V5 flow with mocked AI
+[22m[39mStep 2: Generating Headlines (Mocked)...
+
+[90mstderr[2m | src/tests/verify_v5_complete.test.ts[2m > [22m[2mV5 Poster Generation Flow (Mocked Integration)[2m > [22m[2mshould complete the full V5 flow with mocked AI
+[22m[39mJSON Parse Failed SyntaxError: Unexpected non-whitespace character after JSON at position 88 (line 1 column 89)
+    at JSON.parse (<anonymous>)
+    at parseAIJson (C:/Users/hongs/.gemini/antigravity/scratch/copy-editor/src/lib/poster/poster-engine.ts:26:25)
+    at generateHeadlines (C:/Users/hongs/.gemini/antigravity/scratch/copy-editor/src/lib/poster/poster-engine.ts:124:21)
+[90m    at processTicksAndRejections (node:internal/process/task_queues:103:5)[39m
+    at C:/Users/hongs/.gemini/antigravity/scratch/copy-editor/src/tests/verify_v5_complete.test.ts:95:27
+    at [90mfile:///C:/Users/hongs/.gemini/antigravity/scratch/copy-editor/[39mnode_modules/[4m@vitest/runner[24m/dist/index.js:915:20
+
+ [31m❯[39m src/tests/verify_v5_complete.test.ts [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 6[2mms[22m[39m
+[31m     [31m×[31m should complete the full V5 flow with mocked AI[39m[32m 5[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m src/tests/verify_v5_complete.test.ts[2m > [22mV5 Poster Generation Flow (Mocked Integration)[2m > [22mshould complete the full V5 flow with mocked AI
+[31m[1mTypeError[22m: actual value must be number or bigint, received "undefined"[39m
+[36m [2m❯[22m src/tests/verify_v5_complete.test.ts:[2m96:34[22m[39m
+    [90m 94| [39m        console[33m.[39m[34mlog[39m([32m"Step 2: Generating Headlines (Mocked)..."[39m)[33m;[39m
+    [90m 95| [39m        [35mconst[39m headlines [33m=[39m [35mawait[39m [34mgenerateHeadlines[39m(meta)[33m;[39m
+    [90m 96| [39m        [34mexpect[39m(headlines[33m.[39mlength)[33m.[39m[34mtoBeGreaterThan[39m([34m0[39m)[33m;[39m
+    [90m   | [39m                                 [31m^[39m
+    [90m 97| [39m
+    [90m 98| [39m        [90m// 4. Body[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m   Start at [22m 00:15:13
+[2m   Duration [22m 372ms[2m (transform 96ms, setup 0ms, import 217ms, tests 6ms, environment 0ms)[22m
+

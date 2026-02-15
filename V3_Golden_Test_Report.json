@@ -1,0 +1,1262 @@
+[
+  {
+    "input": {
+      "cat": "식당/카페",
+      "tone": "friendly",
+      "name": "엄마손맛집",
+      "offer": "음료수 서비스",
+      "goal": "단골 유치"
+    },
+    "variants": {
+      "A": {
+        "HEADLINE": "(SIMULATION MODE) Frame A Variant: Performance & Speed",
+        "SUBHEAD": "Get results fast with our Frame A proven system.",
+        "BENEFIT_BULLETS": [
+          "Benefit A1: Immediate Results",
+          "Benefit A2: High Efficiency",
+          "Benefit A3: Best Support"
+        ],
+        "CTA": "Start Now (Frame A)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook A: Speed",
+        "posterShort": "FAST A",
+        "valueProps": [
+          "Value A1",
+          "Value A2",
+          "Value A3"
+        ],
+        "altHeadlines": [
+          "Alt A1",
+          "Alt A2",
+          "Alt A3"
+        ]
+      },
+      "B": {
+        "HEADLINE": "(SIMULATION MODE) Frame B Variant: Premium Quality & Trust",
+        "SUBHEAD": "Experience the difference with our Frame B exclusive methodology.",
+        "BENEFIT_BULLETS": [
+          "Benefit B1: Superior Quality",
+          "Benefit B2: Certified Experts",
+          "Benefit B3: 100% Satisfaction"
+        ],
+        "CTA": "Consult Now (Frame B)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook B: Distinction",
+        "posterShort": "PREMIUM B",
+        "valueProps": [
+          "Value B1",
+          "Value B2",
+          "Value B3"
+        ],
+        "altHeadlines": [
+          "Alt B1",
+          "Alt B2",
+          "Alt B3"
+        ]
+      },
+      "C": {
+        "HEADLINE": "(SIMULATION MODE) Frame C Variant: Urgent & Emotional",
+        "SUBHEAD": "Don't miss out on this Frame C limited time opportunity.",
+        "BENEFIT_BULLETS": [
+          "Benefit C1: Time is running out",
+          "Benefit C2: Emotional Satisfaction",
+          "Benefit C3: Join the community"
+        ],
+        "CTA": "Join Today (Frame C)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook C: Urgency",
+        "posterShort": "URGENT C",
+        "valueProps": [
+          "Value C1",
+          "Value C2",
+          "Value C3"
+        ],
+        "altHeadlines": [
+          "Alt C1",
+          "Alt C2",
+          "Alt C3"
+        ]
+      }
+    },
+    "errors": [],
+    "diversity": {
+      "maxSimilarity": 0.44144144144144143
+    }
+  },
+  {
+    "input": {
+      "cat": "뷰티/헬스",
+      "tone": "premium",
+      "name": "럭셔리헤어",
+      "offer": "첫방문 30%",
+      "goal": "신규 모집"
+    },
+    "variants": {
+      "A": {
+        "HEADLINE": "(SIMULATION MODE) Frame A Variant: Performance & Speed",
+        "SUBHEAD": "Get results fast with our Frame A proven system.",
+        "BENEFIT_BULLETS": [
+          "Benefit A1: Immediate Results",
+          "Benefit A2: High Efficiency",
+          "Benefit A3: Best Support"
+        ],
+        "CTA": "Start Now (Frame A)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook A: Speed",
+        "posterShort": "FAST A",
+        "valueProps": [
+          "Value A1",
+          "Value A2",
+          "Value A3"
+        ],
+        "altHeadlines": [
+          "Alt A1",
+          "Alt A2",
+          "Alt A3"
+        ]
+      },
+      "B": {
+        "HEADLINE": "(SIMULATION MODE) Frame B Variant: Premium Quality & Trust",
+        "SUBHEAD": "Experience the difference with our Frame B exclusive methodology.",
+        "BENEFIT_BULLETS": [
+          "Benefit B1: Superior Quality",
+          "Benefit B2: Certified Experts",
+          "Benefit B3: 100% Satisfaction"
+        ],
+        "CTA": "Consult Now (Frame B)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook B: Distinction",
+        "posterShort": "PREMIUM B",
+        "valueProps": [
+          "Value B1",
+          "Value B2",
+          "Value B3"
+        ],
+        "altHeadlines": [
+          "Alt B1",
+          "Alt B2",
+          "Alt B3"
+        ]
+      },
+      "C": {
+        "HEADLINE": "(SIMULATION MODE) Frame C Variant: Urgent & Emotional",
+        "SUBHEAD": "Don't miss out on this Frame C limited time opportunity.",
+        "BENEFIT_BULLETS": [
+          "Benefit C1: Time is running out",
+          "Benefit C2: Emotional Satisfaction",
+          "Benefit C3: Join the community"
+        ],
+        "CTA": "Join Today (Frame C)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook C: Urgency",
+        "posterShort": "URGENT C",
+        "valueProps": [
+          "Value C1",
+          "Value C2",
+          "Value C3"
+        ],
+        "altHeadlines": [
+          "Alt C1",
+          "Alt C2",
+          "Alt C3"
+        ]
+      }
+    },
+    "errors": [],
+    "diversity": {
+      "maxSimilarity": 0.44144144144144143
+    }
+  },
+  {
+    "input": {
+      "cat": "학원/교육",
+      "tone": "direct",
+      "name": "서울대수학",
+      "offer": "무료 레벨테스트",
+      "goal": "원생 모집"
+    },
+    "variants": {
+      "A": {
+        "HEADLINE": "(SIMULATION MODE) Frame A Variant: Performance & Speed",
+        "SUBHEAD": "Get results fast with our Frame A proven system.",
+        "BENEFIT_BULLETS": [
+          "Benefit A1: Immediate Results",
+          "Benefit A2: High Efficiency",
+          "Benefit A3: Best Support"
+        ],
+        "CTA": "Start Now (Frame A)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook A: Speed",
+        "posterShort": "FAST A",
+        "valueProps": [
+          "Value A1",
+          "Value A2",
+          "Value A3"
+        ],
+        "altHeadlines": [
+          "Alt A1",
+          "Alt A2",
+          "Alt A3"
+        ]
+      },
+      "B": {
+        "HEADLINE": "(SIMULATION MODE) Frame B Variant: Premium Quality & Trust",
+        "SUBHEAD": "Experience the difference with our Frame B exclusive methodology.",
+        "BENEFIT_BULLETS": [
+          "Benefit B1: Superior Quality",
+          "Benefit B2: Certified Experts",
+          "Benefit B3: 100% Satisfaction"
+        ],
+        "CTA": "Consult Now (Frame B)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook B: Distinction",
+        "posterShort": "PREMIUM B",
+        "valueProps": [
+          "Value B1",
+          "Value B2",
+          "Value B3"
+        ],
+        "altHeadlines": [
+          "Alt B1",
+          "Alt B2",
+          "Alt B3"
+        ]
+      },
+      "C": {
+        "HEADLINE": "(SIMULATION MODE) Frame C Variant: Urgent & Emotional",
+        "SUBHEAD": "Don't miss out on this Frame C limited time opportunity.",
+        "BENEFIT_BULLETS": [
+          "Benefit C1: Time is running out",
+          "Benefit C2: Emotional Satisfaction",
+          "Benefit C3: Join the community"
+        ],
+        "CTA": "Join Today (Frame C)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook C: Urgency",
+        "posterShort": "URGENT C",
+        "valueProps": [
+          "Value C1",
+          "Value C2",
+          "Value C3"
+        ],
+        "altHeadlines": [
+          "Alt C1",
+          "Alt C2",
+          "Alt C3"
+        ]
+      }
+    },
+    "errors": [],
+    "diversity": {
+      "maxSimilarity": 0.44144144144144143
+    }
+  },
+  {
+    "input": {
+      "cat": "부동산",
+      "tone": "premium",
+      "name": "성실공인",
+      "offer": "중개수수료 할인",
+      "goal": "매물 접수"
+    },
+    "variants": {
+      "A": {
+        "HEADLINE": "(SIMULATION MODE) Frame A Variant: Performance & Speed",
+        "SUBHEAD": "Get results fast with our Frame A proven system.",
+        "BENEFIT_BULLETS": [
+          "Benefit A1: Immediate Results",
+          "Benefit A2: High Efficiency",
+          "Benefit A3: Best Support"
+        ],
+        "CTA": "Start Now (Frame A)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook A: Speed",
+        "posterShort": "FAST A",
+        "valueProps": [
+          "Value A1",
+          "Value A2",
+          "Value A3"
+        ],
+        "altHeadlines": [
+          "Alt A1",
+          "Alt A2",
+          "Alt A3"
+        ]
+      },
+      "B": {
+        "HEADLINE": "(SIMULATION MODE) Frame B Variant: Premium Quality & Trust",
+        "SUBHEAD": "Experience the difference with our Frame B exclusive methodology.",
+        "BENEFIT_BULLETS": [
+          "Benefit B1: Superior Quality",
+          "Benefit B2: Certified Experts",
+          "Benefit B3: 100% Satisfaction"
+        ],
+        "CTA": "Consult Now (Frame B)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook B: Distinction",
+        "posterShort": "PREMIUM B",
+        "valueProps": [
+          "Value B1",
+          "Value B2",
+          "Value B3"
+        ],
+        "altHeadlines": [
+          "Alt B1",
+          "Alt B2",
+          "Alt B3"
+        ]
+      },
+      "C": {
+        "HEADLINE": "(SIMULATION MODE) Frame C Variant: Urgent & Emotional",
+        "SUBHEAD": "Don't miss out on this Frame C limited time opportunity.",
+        "BENEFIT_BULLETS": [
+          "Benefit C1: Time is running out",
+          "Benefit C2: Emotional Satisfaction",
+          "Benefit C3: Join the community"
+        ],
+        "CTA": "Join Today (Frame C)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook C: Urgency",
+        "posterShort": "URGENT C",
+        "valueProps": [
+          "Value C1",
+          "Value C2",
+          "Value C3"
+        ],
+        "altHeadlines": [
+          "Alt C1",
+          "Alt C2",
+          "Alt C3"
+        ]
+      }
+    },
+    "errors": [],
+    "diversity": {
+      "maxSimilarity": 0.44144144144144143
+    }
+  },
+  {
+    "input": {
+      "cat": "쇼핑몰",
+      "tone": "friendly",
+      "name": "데일리룩",
+      "offer": "전상품 무료배송",
+      "goal": "매출 증대"
+    },
+    "variants": {
+      "A": {
+        "HEADLINE": "(SIMULATION MODE) Frame A Variant: Performance & Speed",
+        "SUBHEAD": "Get results fast with our Frame A proven system.",
+        "BENEFIT_BULLETS": [
+          "Benefit A1: Immediate Results",
+          "Benefit A2: High Efficiency",
+          "Benefit A3: Best Support"
+        ],
+        "CTA": "Start Now (Frame A)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook A: Speed",
+        "posterShort": "FAST A",
+        "valueProps": [
+          "Value A1",
+          "Value A2",
+          "Value A3"
+        ],
+        "altHeadlines": [
+          "Alt A1",
+          "Alt A2",
+          "Alt A3"
+        ]
+      },
+      "B": {
+        "HEADLINE": "(SIMULATION MODE) Frame B Variant: Premium Quality & Trust",
+        "SUBHEAD": "Experience the difference with our Frame B exclusive methodology.",
+        "BENEFIT_BULLETS": [
+          "Benefit B1: Superior Quality",
+          "Benefit B2: Certified Experts",
+          "Benefit B3: 100% Satisfaction"
+        ],
+        "CTA": "Consult Now (Frame B)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook B: Distinction",
+        "posterShort": "PREMIUM B",
+        "valueProps": [
+          "Value B1",
+          "Value B2",
+          "Value B3"
+        ],
+        "altHeadlines": [
+          "Alt B1",
+          "Alt B2",
+          "Alt B3"
+        ]
+      },
+      "C": {
+        "HEADLINE": "(SIMULATION MODE) Frame C Variant: Urgent & Emotional",
+        "SUBHEAD": "Don't miss out on this Frame C limited time opportunity.",
+        "BENEFIT_BULLETS": [
+          "Benefit C1: Time is running out",
+          "Benefit C2: Emotional Satisfaction",
+          "Benefit C3: Join the community"
+        ],
+        "CTA": "Join Today (Frame C)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook C: Urgency",
+        "posterShort": "URGENT C",
+        "valueProps": [
+          "Value C1",
+          "Value C2",
+          "Value C3"
+        ],
+        "altHeadlines": [
+          "Alt C1",
+          "Alt C2",
+          "Alt C3"
+        ]
+      }
+    },
+    "errors": [],
+    "diversity": {
+      "maxSimilarity": 0.44144144144144143
+    }
+  },
+  {
+    "input": {
+      "cat": "행사",
+      "tone": "direct",
+      "name": "지역축제",
+      "offer": "선착순 입장",
+      "goal": "참가 유도"
+    },
+    "variants": {
+      "A": {
+        "HEADLINE": "(SIMULATION MODE) Frame A Variant: Performance & Speed",
+        "SUBHEAD": "Get results fast with our Frame A proven system.",
+        "BENEFIT_BULLETS": [
+          "Benefit A1: Immediate Results",
+          "Benefit A2: High Efficiency",
+          "Benefit A3: Best Support"
+        ],
+        "CTA": "Start Now (Frame A)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook A: Speed",
+        "posterShort": "FAST A",
+        "valueProps": [
+          "Value A1",
+          "Value A2",
+          "Value A3"
+        ],
+        "altHeadlines": [
+          "Alt A1",
+          "Alt A2",
+          "Alt A3"
+        ]
+      },
+      "B": {
+        "HEADLINE": "(SIMULATION MODE) Frame B Variant: Premium Quality & Trust",
+        "SUBHEAD": "Experience the difference with our Frame B exclusive methodology.",
+        "BENEFIT_BULLETS": [
+          "Benefit B1: Superior Quality",
+          "Benefit B2: Certified Experts",
+          "Benefit B3: 100% Satisfaction"
+        ],
+        "CTA": "Consult Now (Frame B)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook B: Distinction",
+        "posterShort": "PREMIUM B",
+        "valueProps": [
+          "Value B1",
+          "Value B2",
+          "Value B3"
+        ],
+        "altHeadlines": [
+          "Alt B1",
+          "Alt B2",
+          "Alt B3"
+        ]
+      },
+      "C": {
+        "HEADLINE": "(SIMULATION MODE) Frame C Variant: Urgent & Emotional",
+        "SUBHEAD": "Don't miss out on this Frame C limited time opportunity.",
+        "BENEFIT_BULLETS": [
+          "Benefit C1: Time is running out",
+          "Benefit C2: Emotional Satisfaction",
+          "Benefit C3: Join the community"
+        ],
+        "CTA": "Join Today (Frame C)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook C: Urgency",
+        "posterShort": "URGENT C",
+        "valueProps": [
+          "Value C1",
+          "Value C2",
+          "Value C3"
+        ],
+        "altHeadlines": [
+          "Alt C1",
+          "Alt C2",
+          "Alt C3"
+        ]
+      }
+    },
+    "errors": [],
+    "diversity": {
+      "maxSimilarity": 0.44144144144144143
+    }
+  },
+  {
+    "input": {
+      "cat": "기업",
+      "tone": "premium",
+      "name": "테크솔루션",
+      "offer": "무료 컨설팅",
+      "goal": "B2B 영업"
+    },
+    "variants": {
+      "A": {
+        "HEADLINE": "(SIMULATION MODE) Frame A Variant: Performance & Speed",
+        "SUBHEAD": "Get results fast with our Frame A proven system.",
+        "BENEFIT_BULLETS": [
+          "Benefit A1: Immediate Results",
+          "Benefit A2: High Efficiency",
+          "Benefit A3: Best Support"
+        ],
+        "CTA": "Start Now (Frame A)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook A: Speed",
+        "posterShort": "FAST A",
+        "valueProps": [
+          "Value A1",
+          "Value A2",
+          "Value A3"
+        ],
+        "altHeadlines": [
+          "Alt A1",
+          "Alt A2",
+          "Alt A3"
+        ]
+      },
+      "B": {
+        "HEADLINE": "(SIMULATION MODE) Frame B Variant: Premium Quality & Trust",
+        "SUBHEAD": "Experience the difference with our Frame B exclusive methodology.",
+        "BENEFIT_BULLETS": [
+          "Benefit B1: Superior Quality",
+          "Benefit B2: Certified Experts",
+          "Benefit B3: 100% Satisfaction"
+        ],
+        "CTA": "Consult Now (Frame B)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook B: Distinction",
+        "posterShort": "PREMIUM B",
+        "valueProps": [
+          "Value B1",
+          "Value B2",
+          "Value B3"
+        ],
+        "altHeadlines": [
+          "Alt B1",
+          "Alt B2",
+          "Alt B3"
+        ]
+      },
+      "C": {
+        "HEADLINE": "(SIMULATION MODE) Frame C Variant: Urgent & Emotional",
+        "SUBHEAD": "Don't miss out on this Frame C limited time opportunity.",
+        "BENEFIT_BULLETS": [
+          "Benefit C1: Time is running out",
+          "Benefit C2: Emotional Satisfaction",
+          "Benefit C3: Join the community"
+        ],
+        "CTA": "Join Today (Frame C)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook C: Urgency",
+        "posterShort": "URGENT C",
+        "valueProps": [
+          "Value C1",
+          "Value C2",
+          "Value C3"
+        ],
+        "altHeadlines": [
+          "Alt C1",
+          "Alt C2",
+          "Alt C3"
+        ]
+      }
+    },
+    "errors": [],
+    "diversity": {
+      "maxSimilarity": 0.44144144144144143
+    }
+  },
+  {
+    "input": {
+      "cat": "기타",
+      "tone": "friendly",
+      "name": "동네세탁소",
+      "offer": "이불빨래 1+1",
+      "goal": "홍보"
+    },
+    "variants": {
+      "A": {
+        "HEADLINE": "(SIMULATION MODE) Frame A Variant: Performance & Speed",
+        "SUBHEAD": "Get results fast with our Frame A proven system.",
+        "BENEFIT_BULLETS": [
+          "Benefit A1: Immediate Results",
+          "Benefit A2: High Efficiency",
+          "Benefit A3: Best Support"
+        ],
+        "CTA": "Start Now (Frame A)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook A: Speed",
+        "posterShort": "FAST A",
+        "valueProps": [
+          "Value A1",
+          "Value A2",
+          "Value A3"
+        ],
+        "altHeadlines": [
+          "Alt A1",
+          "Alt A2",
+          "Alt A3"
+        ]
+      },
+      "B": {
+        "HEADLINE": "(SIMULATION MODE) Frame B Variant: Premium Quality & Trust",
+        "SUBHEAD": "Experience the difference with our Frame B exclusive methodology.",
+        "BENEFIT_BULLETS": [
+          "Benefit B1: Superior Quality",
+          "Benefit B2: Certified Experts",
+          "Benefit B3: 100% Satisfaction"
+        ],
+        "CTA": "Consult Now (Frame B)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook B: Distinction",
+        "posterShort": "PREMIUM B",
+        "valueProps": [
+          "Value B1",
+          "Value B2",
+          "Value B3"
+        ],
+        "altHeadlines": [
+          "Alt B1",
+          "Alt B2",
+          "Alt B3"
+        ]
+      },
+      "C": {
+        "HEADLINE": "(SIMULATION MODE) Frame C Variant: Urgent & Emotional",
+        "SUBHEAD": "Don't miss out on this Frame C limited time opportunity.",
+        "BENEFIT_BULLETS": [
+          "Benefit C1: Time is running out",
+          "Benefit C2: Emotional Satisfaction",
+          "Benefit C3: Join the community"
+        ],
+        "CTA": "Join Today (Frame C)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook C: Urgency",
+        "posterShort": "URGENT C",
+        "valueProps": [
+          "Value C1",
+          "Value C2",
+          "Value C3"
+        ],
+        "altHeadlines": [
+          "Alt C1",
+          "Alt C2",
+          "Alt C3"
+        ]
+      }
+    },
+    "errors": [],
+    "diversity": {
+      "maxSimilarity": 0.44144144144144143
+    }
+  },
+  {
+    "input": {
+      "cat": "식당/카페",
+      "tone": "direct",
+      "name": "불타는곱창",
+      "offer": "소주 1병 공짜",
+      "goal": "회식 유치"
+    },
+    "variants": {
+      "A": {
+        "HEADLINE": "(SIMULATION MODE) Frame A Variant: Performance & Speed",
+        "SUBHEAD": "Get results fast with our Frame A proven system.",
+        "BENEFIT_BULLETS": [
+          "Benefit A1: Immediate Results",
+          "Benefit A2: High Efficiency",
+          "Benefit A3: Best Support"
+        ],
+        "CTA": "Start Now (Frame A)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook A: Speed",
+        "posterShort": "FAST A",
+        "valueProps": [
+          "Value A1",
+          "Value A2",
+          "Value A3"
+        ],
+        "altHeadlines": [
+          "Alt A1",
+          "Alt A2",
+          "Alt A3"
+        ]
+      },
+      "B": {
+        "HEADLINE": "(SIMULATION MODE) Frame B Variant: Premium Quality & Trust",
+        "SUBHEAD": "Experience the difference with our Frame B exclusive methodology.",
+        "BENEFIT_BULLETS": [
+          "Benefit B1: Superior Quality",
+          "Benefit B2: Certified Experts",
+          "Benefit B3: 100% Satisfaction"
+        ],
+        "CTA": "Consult Now (Frame B)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook B: Distinction",
+        "posterShort": "PREMIUM B",
+        "valueProps": [
+          "Value B1",
+          "Value B2",
+          "Value B3"
+        ],
+        "altHeadlines": [
+          "Alt B1",
+          "Alt B2",
+          "Alt B3"
+        ]
+      },
+      "C": {
+        "HEADLINE": "(SIMULATION MODE) Frame C Variant: Urgent & Emotional",
+        "SUBHEAD": "Don't miss out on this Frame C limited time opportunity.",
+        "BENEFIT_BULLETS": [
+          "Benefit C1: Time is running out",
+          "Benefit C2: Emotional Satisfaction",
+          "Benefit C3: Join the community"
+        ],
+        "CTA": "Join Today (Frame C)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook C: Urgency",
+        "posterShort": "URGENT C",
+        "valueProps": [
+          "Value C1",
+          "Value C2",
+          "Value C3"
+        ],
+        "altHeadlines": [
+          "Alt C1",
+          "Alt C2",
+          "Alt C3"
+        ]
+      }
+    },
+    "errors": [],
+    "diversity": {
+      "maxSimilarity": 0.44144144144144143
+    }
+  },
+  {
+    "input": {
+      "cat": "뷰티/헬스",
+      "tone": "friendly",
+      "name": "튼튼헬스",
+      "offer": "PT 1회 무료",
+      "goal": "회원권 판매"
+    },
+    "variants": {
+      "A": {
+        "HEADLINE": "(SIMULATION MODE) Frame A Variant: Performance & Speed",
+        "SUBHEAD": "Get results fast with our Frame A proven system.",
+        "BENEFIT_BULLETS": [
+          "Benefit A1: Immediate Results",
+          "Benefit A2: High Efficiency",
+          "Benefit A3: Best Support"
+        ],
+        "CTA": "Start Now (Frame A)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook A: Speed",
+        "posterShort": "FAST A",
+        "valueProps": [
+          "Value A1",
+          "Value A2",
+          "Value A3"
+        ],
+        "altHeadlines": [
+          "Alt A1",
+          "Alt A2",
+          "Alt A3"
+        ]
+      },
+      "B": {
+        "HEADLINE": "(SIMULATION MODE) Frame B Variant: Premium Quality & Trust",
+        "SUBHEAD": "Experience the difference with our Frame B exclusive methodology.",
+        "BENEFIT_BULLETS": [
+          "Benefit B1: Superior Quality",
+          "Benefit B2: Certified Experts",
+          "Benefit B3: 100% Satisfaction"
+        ],
+        "CTA": "Consult Now (Frame B)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook B: Distinction",
+        "posterShort": "PREMIUM B",
+        "valueProps": [
+          "Value B1",
+          "Value B2",
+          "Value B3"
+        ],
+        "altHeadlines": [
+          "Alt B1",
+          "Alt B2",
+          "Alt B3"
+        ]
+      },
+      "C": {
+        "HEADLINE": "(SIMULATION MODE) Frame C Variant: Urgent & Emotional",
+        "SUBHEAD": "Don't miss out on this Frame C limited time opportunity.",
+        "BENEFIT_BULLETS": [
+          "Benefit C1: Time is running out",
+          "Benefit C2: Emotional Satisfaction",
+          "Benefit C3: Join the community"
+        ],
+        "CTA": "Join Today (Frame C)",
+        "INFO": "기간한정 / 010-0000-0000",
+        "DISCLAIMER": "Simulation Data Only",
+        "headlineVariations": [
+          "Simulated Alt 1",
+          "Simulated Alt 2",
+          "Simulated Alt 3"
+        ],
+        "subheadVariations": [],
+        "ctaVariations": [],
+        "trustVariations": [],
+        "hashtags": [
+          "#Simulation",
+          "#System",
+          "#Test"
+        ],
+        "hookLine": "Simulation Hook C: Urgency",
+        "posterShort": "URGENT C",
+        "valueProps": [
+          "Value C1",
+          "Value C2",
+          "Value C3"
+        ],
+        "altHeadlines": [
+          "Alt C1",
+          "Alt C2",
+          "Alt C3"
+        ]
+      }
+    },
+    "errors": [],
+    "diversity": {
+      "maxSimilarity": 0.44144144144144143
+    }
+  }
+]

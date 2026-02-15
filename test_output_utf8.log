@@ -1,0 +1,91 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90mC:/Users/hongs/.gemini/antigravity/scratch/copy-editor[39m
+
+[90mstdout[2m | src/tests/verify_v5_complete.test.ts
+[22m[39m[AI_ENV_STARTUP] Node=test Vercel=undefined Mode=gateway GatewayURL=false HasKey=false
+
+node.exe : [90mstderr[2
+m | src/tests/verify_v5_c
+omplete.test.ts
+위치 줄:1 문자:1
++ & "C:\Program Files\nod
+ejs/node.exe" "C:\Program
+ Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo       
+       : NotSpecified:   
+  ([90mstderr[2m...o   
+ mplete.test.ts:Strin    
+g) [], RemoteExcepti    o
+n
+    + FullyQualifiedErro 
+   rId : NativeCommandE  
+  rror
+ 
+[22m[39m[System] Gatewa
+y Keys Missing locally. S
+imulating with Mock.
+
+[90mstdout[2m | src/tests/verify_v5_complete.test.ts[2m > [22m[2mV5 Poster Generation Flow (Mocked Integration)[2m > [22m[2mshould complete the full V5 flow with mocked AI
+[22m[39mStep 1: Analyzing Brief (Mocked)...
+
+ [31m??[39m src/tests/verify_v5_complete.test.ts [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 6[2mms[22m[39m
+[31m     [31m횞[31m should complete the full V5 flow with mocked AI[39m[32m 5[2mms[22m[39m
+
+[31m??렞??렞??렞??[39m[1m
+[41m Failed Tests 1 [49m
+[22m[31m??렞??렞??렞??[39m
+
+[41m[1m FAIL [22m[49m
+ src/tests/verify_v5_comp
+lete.test.ts[2m > [22mV
+5 Poster Generation Flow 
+(Mocked Integration)[2m 
+> [22mshould complete th
+e full V5 flow with mocke
+d AI
+[31m[1mAssertionError[
+22m: expected undefined t
+o be 'INT_PROMO_OFFER' //
+ Object.is equality[39m
+
+[32m- Expected:[39m 
+"INT_PROMO_OFFER"
+
+[31m+ Received:[39m 
+undefined
+
+[36m [2m??[22m src/test
+s/verify_v5_complete.test
+.ts:[2m63:33[22m[39m
+    [90m 61| [39m      
+  [90m// eslint-disable-
+next-line @typescript-esl
+int/no-explicit-any[39m
+    [90m 62| [39m      
+  const result: any = awa
+it analyzeBrief(mockBrief
+); // Changed ??    [90m
+ 63| [39m        expect(
+result.intentId).toBe("IN
+T_PROMO_OFFER"); // Updat
+ed to??    [90m   | [39
+m                        
+        [31m^[39m
+    [90m 64| [39m
+    [90m 65| [39m      
+  [90m// 2. Meta Constru
+ction[39m
+
+[31m[2m??렞??렞??렞??렞??렞?
+?렞??렞??렞??렞??렞??렞??렞[1/1]
+??[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m   Start at [22m 00:07:08
+[2m   Duration [22m 393ms[2m (transform 104ms, setup 0ms, import 237ms, tests 6ms, environment 0ms)[22m
+

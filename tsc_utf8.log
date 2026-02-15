@@ -1,0 +1,11 @@
+﻿src/components/enterprise-card.tsx(3,10): error TS2300: Duplicate identifier 'motion'.
+src/components/enterprise-card.tsx(3,18): error TS2300: Duplicate identifier 'AnimatePresence'.
+src/components/enterprise-card.tsx(6,10): error TS2300: Duplicate identifier 'AnimatePresence'.
+src/components/enterprise-card.tsx(6,27): error TS2300: Duplicate identifier 'motion'.
+src/components/poster/PosterGenerator.tsx(45,17): error TS2741: Property 'brief' is missing in type '{ industryHint: string; intentId?: PosterIntentId; headlineType?: HeadlineTypeId; channelPack?: ChannelPackId; densityProfile?: DensityProfileId; claimPolicyMode: ClaimPolicy; facts?: { who: string; what: string; why: string; tone: string; keywords: string[]; }; }' but required in type 'PosterMeta'.
+src/components/poster/PosterGenerator.tsx(47,30): error TS2322: Type '"INT_PROMO_OFFER" | "INT_PRODUCT_LAUNCH" | "INT_EVENT_GUIDE" | "INT_RECRUITING" | "INT_PUBLIC_NOTICE" | "INT_BRAND_CAMPAIGN" | "INT_B2B_SEMINAR" | undefined' is not assignable to type 'PosterIntentId'.
+  Type 'undefined' is not assignable to type 'PosterIntentId'.
+src/lib/brochure-kinds.ts(81,52): error TS2322: Type '"eligibilityText"' is not assignable to type 'keyof FactsRegistry'.
+src/lib/copy/brochure/engine.ts(127,9): error TS2353: Object literal may only specify known properties, and 'eligibilityText' does not exist in type 'FactsRegistry'.
+src/lib/copy/normalize.ts(116,13): error TS2353: Object literal may only specify known properties, and 'moduleData' does not exist in type '{ extraNotes?: string | undefined; extraModules?: string[] | undefined; brandStory?: string | undefined; serviceDetails?: string | undefined; trustPoints?: string | undefined; locationTip?: string | undefined; ... 7 more ...; disclaimerHint?: string | undefined; }'.
+src/lib/facts.ts(45,17): error TS2339: Property 'original_input' does not exist on type 'NormalizedBrief'.

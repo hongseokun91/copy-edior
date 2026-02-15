@@ -1,0 +1,13 @@
+Starting Verification...
+--- [TEST 1] Verifying Prompt Generation Logic for 'extraModules' ---
+Normalized Brief selectedModules: ["주차 가능","발렛 파킹","키즈존"]
+Prompt contains '주차 가능': true
+Prompt contains '발렛 파킹': true
+✅ PASSED: Prompt correctly includes selected modules.
+
+--- [TEST 2] Verifying Fallback/Mock Output Structure ---
+Bullets Count: 3
+✅ PASSED: Output has 3+ bullets.
+Has hookLine: true
+Has posterShort: true
+✅ PASSED: V3 Fields present.

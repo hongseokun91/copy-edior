@@ -1,0 +1,227 @@
+
+> copy-editor@0.1.0 lint
+> eslint
+
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\brochure\BrochureBlockBuilder.tsx
+  8:39  warning  'Info' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\brochure\BrochureForm.tsx
+   11:26  warning  'BrochureKindSpec' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+   13:10  warning  'INDUSTRY_TAXONOMY' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @typescript-eslint/no-unused-vars
+   14:10  warning  'matchIndustryProfile' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+   15:48  warning  'IndustryL1' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+   15:60  warning  'BrochureIntentId' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+   31:77  warning  'Search' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   35:10  warning  'QuestionPack' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+   35:24  warning  'QuestionSpec' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+   45:7   warning  'INTENT_LABELS' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   54:7   warning  'AUDIENCE_LABELS' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+   68:12  warning  'matches' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+   68:21  warning  'setMatches' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+   68:44  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+   73:54  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  145:54  warning  'pIdx' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+  223:32  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  247:18  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  285:32  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  290:32  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  291:26  warning  Compilation Skipped: Use of incompatible library
+
+This API returns functions which cannot be memoized without leading to stale UI. To prevent this, by default React Compiler will skip memoizing this component/hook. However, you may see issues if values from this API are passed to other components/hooks that are memoized.
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\brochure\BrochureForm.tsx:291:26
+  289 |     const packs = buildQuestionPacks({
+  290 |         kindId: watchKindId as any,
+> 291 |         claimPolicyMode: form.watch("claimPolicyMode"),
+      |                          ^^^^ React Hook Form's `useForm()` API returns a `watch()` function which cannot be memoized safely.
+  292 |         selectedBlocks: blocks.map(b => b.type),
+  293 |         derivedModuleIds,
+  294 |         requiredEvidence: matchedProfile?.requiredEvidence,  react-hooks/incompatible-library
+  407:66  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  500:66  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  532:66  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  561:66  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  593:66  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  627:86  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  642:66  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  670:62  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  764:93  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  768:70  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\brochure\BrochurePreview.tsx
+   8:25   warning  'Info' is defined but never used          @typescript-eslint/no-unused-vars
+  79:78   error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  87:126  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\clarification-modal.tsx
+  24:80  warning  'isLoading' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\enterprise-card.tsx
+   3:10  warning  'motion' is defined but never used           @typescript-eslint/no-unused-vars
+   3:18  warning  'AnimatePresence' is defined but never used  @typescript-eslint/no-unused-vars
+   5:10  warning  'useState' is defined but never used         @typescript-eslint/no-unused-vars
+   6:17  warning  'ChevronDown' is defined but never used      @typescript-eslint/no-unused-vars
+  17:34  warning  'id' is defined but never used               @typescript-eslint/no-unused-vars
+  17:51  warning  'description' is defined but never used      @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\enterprise-drawer.tsx
+   3:18  warning  'AnimatePresence' is defined but never used  @typescript-eslint/no-unused-vars
+   5:10  warning  'Check' is defined but never used            @typescript-eslint/no-unused-vars
+  18:36  warning  'id' is defined but never used               @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\flyer-form.tsx
+    7:49  warning  'predefinedContactTypes' is defined but never used               @typescript-eslint/no-unused-vars
+   43:7   warning  'OFFER_RECOMMENDATIONS' is assigned a value but never used       @typescript-eslint/no-unused-vars
+   54:5   warning  'productType' is assigned a value but never used                 @typescript-eslint/no-unused-vars
+  303:25  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  303:33  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  303:36  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  303:46  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\flyer-result.tsx
+    5:26  warning  'LeafletPage' is defined but never used   @typescript-eslint/no-unused-vars
+   43:62  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   87:55  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   94:56  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  135:78  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  137:79  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  179:12  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  421:41  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\leaflet-module-selector.tsx
+    6:10  warning  'LayoutGroup' is defined but never used                          @typescript-eslint/no-unused-vars
+   10:31  warning  'FormLabel' is defined but never used                            @typescript-eslint/no-unused-vars
+   12:17  warning  'Info' is defined but never used                                 @typescript-eslint/no-unused-vars
+   12:29  warning  'MapPin' is defined but never used                               @typescript-eslint/no-unused-vars
+   12:37  warning  'Quote' is defined but never used                                @typescript-eslint/no-unused-vars
+   12:44  warning  'Phone' is defined but never used                                @typescript-eslint/no-unused-vars
+   20:5   warning  'DialogDescription' is defined but never used                    @typescript-eslint/no-unused-vars
+   24:11  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  165:41  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  165:72  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  211:86  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\leaflet\leaflet-form.tsx
+    7:10  warning  'leafletGoals' is defined but never used             @typescript-eslint/no-unused-vars
+    7:24  warning  'leafletIndustries' is defined but never used        @typescript-eslint/no-unused-vars
+    7:43  warning  'leafletIndustryClusters' is defined but never used  @typescript-eslint/no-unused-vars
+    8:10  warning  'FlyerType' is defined but never used                @typescript-eslint/no-unused-vars
+   17:5   warning  'FormDescription' is defined but never used          @typescript-eslint/no-unused-vars
+   24:10  warning  'cn' is defined but never used                       @typescript-eslint/no-unused-vars
+   89:48  error    Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+  292:45  error    Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\leaflet\leaflet-map-orchestrator.tsx
+  247:9  warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/exhaustive-deps')
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\leaflet\leaflet-writer-modal.tsx
+    3:20  warning  'useEffect' is defined but never used          @typescript-eslint/no-unused-vars
+    4:33  warning  'DialogHeader' is defined but never used       @typescript-eslint/no-unused-vars
+    4:60  warning  'DialogDescription' is defined but never used  @typescript-eslint/no-unused-vars
+    4:79  warning  'DialogFooter' is defined but never used       @typescript-eslint/no-unused-vars
+    9:27  warning  'X' is defined but never used                  @typescript-eslint/no-unused-vars
+    9:30  warning  'MessageSquare' is defined but never used      @typescript-eslint/no-unused-vars
+   18:11  error    Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  194:33  error    Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  213:32  error    Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\poster\PosterGenerator.tsx
+   18:12  warning  'brief' is assigned a value but never used  @typescript-eslint/no-unused-vars
+   59:53  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+  100:43  warning  'finalSlots' is defined but never used      @typescript-eslint/no-unused-vars
+  181:67  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\poster\steps\BlueprintChecklist.tsx
+  25:9  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\poster\steps\BlueprintChecklist.tsx:25:9
+  23 |         ];
+  24 |         // Deduplicate
+> 25 |         setSelectedSlots(Array.from(new Set(initial)));
+     |         ^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  26 |     }, [blueprint.intentId]); // Fixed: Use stable ID instead of object reference to prevent infinite loops
+  27 |
+  28 |     const toggleSlot = (slotId: PosterSlotId) => {  react-hooks/set-state-in-effect
+  26:8  warning  React Hook useEffect has missing dependencies: 'blueprint.recommendedSlots' and 'blueprint.requiredSlots'. Either include them or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            react-hooks/exhaustive-deps
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\poster\steps\PosterBriefEntry.tsx
+  10:10  warning  'cn' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\poster\steps\PosterGatewaySearch.tsx
+   6:19  warning  'Search' is defined but never used             @typescript-eslint/no-unused-vars
+   7:10  warning  'POSTER_INDUSTRIES' is defined but never used  @typescript-eslint/no-unused-vars
+  11:61  error    Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\poster\steps\PosterHeadlineSelector.tsx
+   10:72  warning  'ThumbsUp' is defined but never used                             @typescript-eslint/no-unused-vars
+  103:37  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  103:49  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\poster\steps\PosterMetaConfirm.tsx
+   3:27  warning  'PosterIntentId' is defined but never used             @typescript-eslint/no-unused-vars
+   3:43  warning  'ChannelPackId' is defined but never used              @typescript-eslint/no-unused-vars
+   9:10  warning  'Textarea' is defined but never used                   @typescript-eslint/no-unused-vars
+  13:46  warning  'ShieldAlert' is defined but never used                @typescript-eslint/no-unused-vars
+  43:29  warning  'selectedIntentId' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  47:11  warning  'isStrict' is assigned a value but never used          @typescript-eslint/no-unused-vars
+  50:82  error    Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+  71:64  error    Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\poster\steps\PosterPreviewExporter.tsx
+  6:10  warning  'Download' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\style-selector.tsx
+   4:18  warning  'Style' is defined but never used                @typescript-eslint/no-unused-vars
+   6:10  warning  'Button' is defined but never used               @typescript-eslint/no-unused-vars
+   8:24  warning  'ChevronDown' is defined but never used          @typescript-eslint/no-unused-vars
+   8:37  warning  'ChevronUp' is defined but never used            @typescript-eslint/no-unused-vars
+  17:21  warning  'setShowAll' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\components\ui\modal.tsx
+  5:10  warning  'cn' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\tests\verify_brochure_kind_coverage.test.ts
+  26:30  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  36:45  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  58:38  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  81:85  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\tests\verify_brochure_schema.test.ts
+  29:30  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  39:45  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  70:18  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  81:54  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  83:49  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\tests\verify_v5_complete.test.ts
+   5:27  warning  'PosterFactSheet' is defined but never used  @typescript-eslint/no-unused-vars
+  85:85  error    Unexpected any. Specify a different type     @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\types\brief.ts
+  62:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  71:22  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\types\brochure-questions.ts
+  99:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\types\brochure.ts
+  264:39  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\types\flyer.ts
+    1:10  warning  'z' is defined but never used             @typescript-eslint/no-unused-vars
+   42:31  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  110:13  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\hongs\.gemini\antigravity\scratch\copy-editor\src\types\leaflet.ts
+  7:29  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+??135 problems (63 errors, 72 warnings)
+  0 errors and 1 warning potentially fixable with the `--fix` option.
+

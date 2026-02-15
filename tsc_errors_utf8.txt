@@ -1,0 +1,9 @@
+﻿src/lib/copy/engine.ts(39,49): error TS2339: Property 'errors' does not exist on type 'ZodError<{ HEADLINE: string; BENEFIT_BULLETS: string[]; CTA: string; SUBHEAD?: string | undefined; INFO?: string | undefined; DISCLAIMER?: string | undefined; headlineVariations?: string[] | undefined; subheadVariations?: string[] | undefined; ctaVariations?: string[] | undefined; trustVariations?: string[] | undefi...'.
+src/lib/copy/engine.ts(39,60): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/lib/copy/normalize.ts(82,42): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/lib/copy/normalize.ts(88,9): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/lib/leaflet-strategies.ts(22,5): error TS2353: Object literal may only specify known properties, and '"?럳 援먯쑁 諛??꾩뭅?곕?"' does not exist in type 'Record<"?룢截??꾨Ц ?쒕퉬?? | "?룯 ?섎즺 諛??곕땲?? | "?럳 援먯쑁 諛?n?꾩뭅?곕?" | "?뭿 ?꾨━誘몄뾼\n?쇱씠?? | "?룫 ?곗뾽 諛?B2B" | "?럸截?怨듦났 諛??ы쉶", LeafletStrategy>'.
+src/lib/leaflet-strategies.ts(52,28): error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
+src/lib/templates/patterns.ts(16,13): error TS18048: 'inputs.goal' is possibly 'undefined'.

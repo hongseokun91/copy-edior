@@ -36,7 +36,7 @@ export async function setCachedResult(key: string, value: unknown, ttlSeconds: n
 }
 
 // Rate Limit Config
-const DAILY_LIMIT = 20;
+const DAILY_LIMIT = 500;
 
 export async function checkRateLimit(key: string): Promise<{ allowed: boolean; remaining: number; resetTime?: string }> {
     if (!redis) return { allowed: true, remaining: 19 };
@@ -44,10 +44,11 @@ export async function checkRateLimit(key: string): Promise<{ allowed: boolean; r
         const dateKey = new Date().toISOString().split('T')[0]; // yyyy-mm-dd
         const limitKey = `rl:${dateKey}:${key}`;
 
-        const count = await redis.incr(limitKey);
-        if (count === 1) {
-            await redis.expire(limitKey, 86400); // 24h safety
-        }
+        const pipeline = redis.pipeline();
+        pipeline.incr(limitKey);
+        pipeline.expire(limitKey, 86400); // 24h safety
+        const results = await pipeline.exec();
+        const count = results[0] as number;
 
         const remaining = Math.max(0, DAILY_LIMIT - count);
         return {

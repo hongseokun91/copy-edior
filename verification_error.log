@@ -1,0 +1,16 @@
+Error in V5 Flow: Unsupported model version undefined for provider "mock" and model "undefined". AI SDK 5 only supports models that implement specification version "v2".
+Stack: AI_UnsupportedModelVersionError: Unsupported model version undefined for provider "mock" and model "undefined". AI SDK 5 only supports models that implement specification version "v2".
+    at resolveLanguageModel (file:///C:/Users/hongs/.gemini/antigravity/scratch/copy-editor/node_modules/ai/dist/index.mjs:676:13)
+    at generateText (file:///C:/Users/hongs/.gemini/antigravity/scratch/copy-editor/node_modules/ai/dist/index.mjs:3743:17)
+    at safeGenerateText (C:/Users/hongs/.gemini/antigravity/scratch/copy-editor/src/lib/copy/provider.ts:118:39)
+    at analyzeBrief (C:/Users/hongs/.gemini/antigravity/scratch/copy-editor/src/lib/poster/poster-engine.ts:67:28)
+    at C:/Users/hongs/.gemini/antigravity/scratch/copy-editor/src/tests/verify_v5_complete.test.ts:41:36
+    at file:///C:/Users/hongs/.gemini/antigravity/scratch/copy-editor/node_modules/@vitest/runner/dist/index.js:145:11
+    at file:///C:/Users/hongs/.gemini/antigravity/scratch/copy-editor/node_modules/@vitest/runner/dist/index.js:915:26
+    at file:///C:/Users/hongs/.gemini/antigravity/scratch/copy-editor/node_modules/@vitest/runner/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///C:/Users/hongs/.gemini/antigravity/scratch/copy-editor/node_modules/@vitest/runner/dist/index.js:1209:10)
+Details: {
+  "name": "AI_UnsupportedModelVersionError",
+  "provider": "mock"
+}

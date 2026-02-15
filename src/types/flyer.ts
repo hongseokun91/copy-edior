@@ -1,14 +1,35 @@
-export type FlyerType = 'flyer' | 'leaflet' | 'brochure';
+import { VariantContent } from "./leaflet";
+
+export type FlyerType = 'flyer' | 'leaflet' | 'brochure' | 'poster';
 export type FlyerTone = 'friendly' | 'premium' | 'direct';
 
 export interface FlyerInputs {
   category: string;
-  goal: string;
+  goal?: string;
   name: string;
-  offer: string;
-  period: string; // "Standardized" text or chip value
+  offer?: string;
+  brandSubject?: string; // New: Core subject (e.g. "Tax Consulting")
+  targetAudience?: string; // New: Target (e.g. "CEO")
+  coreBenefit?: string; // New: Benefit (e.g. "30M KRW Saving")
+  period?: string; // "Standardized" text or chip value
   contactType: 'phone' | 'kakao' | 'naver';
-  contactValue: string;
+  contactValue?: string;
+
+  // V3.1 Extended Input
+  styleId?: string; // V0.9 Integrated styleId
+  subCategory?: string;
+  additionalBrief?: string;
+
+  // v0.9 Extra Modules (FF_EXTRA_MODULES)
+  extraNotes?: string;
+  extraModules?: string[]; // [coupon, price, parking, guide, faq, caution]
+
+  // V3.3 Enterprise Leaflet Strategic Fields
+  brandStory?: string;
+  serviceDetails?: string;
+  trustPoints?: string;
+  locationTip?: string;
+
   // Optional fields (folded in UI)
   location?: string;
   hours?: string;
@@ -16,15 +37,42 @@ export interface FlyerInputs {
   target?: string;
   convenience?: string;
   disclaimerHint?: string;
+  selectedModules?: string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  moduleData?: Record<string, any>;
+  websiteUrl?: string;
+  instagramId?: string;
+  businessAddress?: string;
+  officePhone?: string;
 }
 
 export interface FlyerSlots {
-  HEADLINE: string; // 18 chars
+  // --- CORE V2 ---
+  HEADLINE: string; // 18-22 chars
   SUBHEAD: string; // 32 chars
-  BENEFIT_BULLETS: string[]; // 3-5 items, 18 chars each
+  BENEFIT_BULLETS: string[]; // 3-5 items, min 3
   CTA: string; // 16 chars
-  INFO: string; // Addr/Time/Contact (3 lines)
+  INFO: string; // Addr/Time/Contact
   DISCLAIMER?: string; // 40 chars
+
+  // --- EXTENDED V3 (Rich) ---
+  hookLine: string; // Emotional hook (1 line)
+  proofLine: string; // Concrete evidence (1 line)
+  valueProps: string[]; // 3-5 items (Benefit/Diff/Conv Mix)
+  offerBlock: string; // Summary of Deal
+  urgencyLine: string; // FOMO
+  microCTA: string[]; // [Call, Book] (Short labels)
+  posterShort: string; // 2 lines for poster top
+  bannerShort: string[]; // [Ad1, Ad2] (<18 chars)
+  hashtags: string[]; // 6-12 tags
+  altHeadlines: string[]; // 3 alternatives
+
+  // V3.2 P1-3: Copy Kit Extension
+  headlineVariations?: string[]; // 5 items
+  subheadVariations?: string[]; // 5 items
+  ctaVariations?: string[]; // 8 items
+  benefitVariations?: string[]; // 5 items
+  trustVariations?: string[]; // 3 items (Trust/Anxiety relief)
 }
 
 export interface FlyerVariant {
@@ -42,9 +90,9 @@ export interface GenerateRequest {
 
 export interface GenerateResponse {
   variants: {
-    A: FlyerSlots;
-    B: FlyerSlots;
-    C: FlyerSlots;
+    A: VariantContent;
+    B: VariantContent;
+    C: VariantContent;
   };
   meta: {
     rateLimit: {
@@ -57,5 +105,9 @@ export interface GenerateResponse {
       contact: string;
     };
     warnings: string[];
+    warRoomLogs?: string; // v7: War Room Logs
+    traceId?: string; // v1.4: Universal Trace ID
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    debug?: any; // P0-3 Debug Payload
   };
 }

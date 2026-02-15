@@ -1,130 +1,121 @@
+
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { flyerFormSchema } from "@/lib/schemas";
+import { flyerFormSchema, leafletFormSchema } from "@/lib/schemas";
 import { GenerateResponse } from "@/types/flyer";
 import { getClientIp, hashIp } from "@/lib/server-utils";
 import { getCachedResult, setCachedResult, checkRateLimit, checkCooldown } from "@/lib/redis";
-import { generateByTemplate } from "@/lib/templates/patterns";
-import { validateSafety, autoShorten } from "@/lib/quality";
+import { validateSafety } from "@/lib/quality";
 import { createHash } from "crypto";
 import { logger } from "@/lib/logger";
 
+// P1 Implementation
+import { normalizeContact, normalizePeriod } from "@/lib/content-engine/normalizer";
+import { generateAndRefine } from "@/lib/copy/engine";
+
 const generateRequestSchema = z.object({
-    type: z.literal("flyer"),
+    type: z.enum(["flyer", "leaflet", "brochure", "poster"]),
     tone: z.enum(["friendly", "premium", "direct"]),
     styleId: z.string(),
-    inputs: flyerFormSchema, // Reuse form schema
+    inputs: z.any(), // Flexible here, validated inside handler
 });
+
+// Assuming this block was intended to be added to a prompts-like file,
+// but if the instruction is to add it to *this* file, it should be outside
+// any existing function or object definition to maintain syntactic correctness.
+// However, the instruction explicitly says "Define `semanticAnchors` in `prompts.ts`".
+// The provided "Code Edit" block seems to be a misplacement of content from `prompts.ts`
+// into `route.ts`. Given the constraint to make the file syntactically correct,
+// and the explicit instruction to define `semanticAnchors` in `prompts.ts`,
+// I will *not* insert this block into `route.ts` as it would be syntactically incorrect
+// within the `generateRequestSchema` definition, and the instruction implies it belongs
+// elsewhere. The `route.ts` part of the instruction ("update `route.ts` to use the correct
+// schema for each product type. (V31)") is already handled by the existing code:
+// `const inputs = type === 'leaflet' ? leafletFormSchema.parse(rawInputs) : flyerFormSchema.parse(rawInputs);`
 
 export async function POST(req: NextRequest) {
     try {
-        // 1. Validate Input
+        // ... (Validation & Limits - Same)
         const body = await req.json();
         const parseResult = generateRequestSchema.safeParse(body);
 
         if (!parseResult.success) {
-            logger.warn("GEN_INVALID_INPUT", "Invalid Input Schema", { details: parseResult.error.format() });
-            return NextResponse.json(
-                { error: "Invalid input", details: parseResult.error.format() },
-                { status: 400 }
-            );
+            return NextResponse.json({ error: "Invalid input" }, { status: 400 });
         }
 
-        const { tone, styleId, inputs } = parseResult.data;
+        const { type, tone, styleId, inputs: rawInputs } = parseResult.data;
 
-        // 2. IP & Rate Limit
+        // Validation per product type (V31 Fix for Leaflet Data Loss)
+        const inputs = type === 'leaflet'
+            ? leafletFormSchema.parse(rawInputs)
+            : flyerFormSchema.parse(rawInputs);
+
+        // DEBUG: Check Additional Brief
+        if (inputs.additionalBrief) {
+            logger.info("GEN_BRIEF_RECEIVED", `User Note: ${inputs.additionalBrief}`);
+        } else {
+            logger.info("GEN_BRIEF_EMPTY", "No additional brief provided");
+        }
+
+        // IP & Rate Limit
         const ip = getClientIp(req);
         const ipHash = await hashIp(ip);
 
-        // T3-4 Cooldown (10s)
-        const isCooldownOk = await checkCooldown(ipHash, 10);
-        if (!isCooldownOk) {
-            logger.warn("GEN_FAIL_LIMIT", "Cooldown Active", { ipHash });
-            return NextResponse.json(
-                { error: "Too Many Requests", message: "잠시 후 다시 시도해주세요." },
-                { status: 429 }
-            );
-        }
+        if (!(await checkCooldown(ipHash, 10))) return NextResponse.json({ error: "Cooldown" }, { status: 429 });
+        if (!(await checkRateLimit(ipHash)).allowed) return NextResponse.json({ error: "Limit Exceeded" }, { status: 429 });
 
-        // T3-3 Daily Rate Limit
-        const { allowed } = await checkRateLimit(ipHash);
-        if (!allowed) {
-            logger.warn("GEN_FAIL_LIMIT", "Daily Limit Exceeded", { ipHash });
-            return NextResponse.json(
-                { error: "Daily Limit Exceeded", message: "일일 생성 한도를 초과했습니다." },
-                { status: 429 }
-            );
-        }
+        // Safety Pre-check
+        if (!validateSafety((inputs.offer || "") + inputs.name).safe) return NextResponse.json({ error: "Safety" }, { status: 400 });
 
-        // T4-5 Safety Check
-        const safetyResult = validateSafety(inputs.offer + " " + inputs.name);
-        if (!safetyResult.safe) {
-            logger.warn("GEN_FAIL_SAFETY", "Safety Violation", { reason: safetyResult.reason });
-            return NextResponse.json(
-                { error: "Content Policy Violation", message: safetyResult.reason },
-                { status: 400 }
-            );
-        }
+        // [v1.4] Trace ID Generation
+        const traceId = `tr_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
 
-        // 3. Cache Check (T3-5)
-        const inputString = JSON.stringify({ tone, styleId, inputs });
-        const inputHash = createHash("sha256").update(inputString).digest("hex");
+        // Cache Key (V2: Include type to distinguish between Flyer/Leaflet)
+        const inputHash = createHash("sha256").update(JSON.stringify({ type, tone, styleId, inputs })).digest("hex");
         const cacheKey = `gen:${inputHash}`;
 
-        const cached = (await getCachedResult(cacheKey)) as GenerateResponse | null;
+        const cached = await getCachedResult(cacheKey) as GenerateResponse | null;
+        if (cached) return NextResponse.json({ ...cached, meta: { ...cached.meta, cacheHit: true, traceId } });
 
-        if (cached) {
-            logger.info("GEN_SUCCESS", "Cache Hit", { cacheKey });
-            return NextResponse.json({
-                ...cached,
-                meta: { ...cached.meta, cacheHit: true }
-            });
-        }
-
-        // 4. Generate (Template Engine)
-        await new Promise(r => setTimeout(r, 500)); // Simulate delay
-
-        const generateAndRefine = (cat: string, t: import("@/types/flyer").FlyerTone, inp: import("@/types/flyer").FlyerInputs) => {
-            const raw = generateByTemplate(cat, t, inp);
-            // T4-3 Auto-Shortening
-            return {
-                ...raw,
-                HEADLINE: autoShorten(raw.HEADLINE, 18),
-                SUBHEAD: autoShorten(raw.SUBHEAD, 32),
-            };
-        };
+        // Generate All Variants (Engine v1.1 handles A/B/C internally)
+        const engineResult = await generateAndRefine(inputs.category, tone, inputs, type, traceId);
 
         const responseData: GenerateResponse = {
-            variants: {
-                A: generateAndRefine(inputs.category, tone, inputs),
-                B: generateAndRefine(inputs.category, tone, inputs),
-                C: generateAndRefine(inputs.category, tone, inputs),
-            },
+            variants: engineResult.variants,
             meta: {
-                rateLimit: { remaining: 19, resetAtKST: "00:00" }, // Mock
+                traceId,
+                rateLimit: { remaining: 10, resetAtKST: "00:00" },
                 cacheHit: false,
-                normalized: { period: inputs.period, contact: inputs.contactValue },
+                normalized: {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    period: normalizePeriod((inputs as any).period || ""),
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    contact: normalizeContact((inputs as any).contactValue || "")
+                },
                 warnings: [],
-            },
+                debug: {
+                    inputs,
+                    tone,
+                    styleId,
+                    ipHash: ipHash.substring(0, 8),
+                    engineLogs: engineResult.meta.warRoomLogs
+                }
+            }
         };
 
-        // 5. Save Cache
-        await setCachedResult(cacheKey, responseData, 86400); // 24h
-
-        logger.info("GEN_SUCCESS", "Generated Successfully", {
-            tone,
-            styleId,
-            category: inputs.category,
-            latency: "500ms" // Mock
-        });
-
+        await setCachedResult(cacheKey, responseData, 86400);
         return NextResponse.json(responseData);
 
     } catch (error) {
-        logger.error("API_ERROR", "Internal Server Error", { error });
-        return NextResponse.json(
-            { error: "Internal Server Error" },
-            { status: 500 }
-        );
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const e = error as Error & { status?: number; body?: any; traceId?: string };
+        logger.error("API_ERROR", "Server Error", { error: e.message });
+
+        // [v1.4] Enhanced Error Propagation (Provider 502 / TraceId)
+        if (e.status === 502) {
+            return NextResponse.json(e.body || { error: "Provider Error", traceId: e.traceId }, { status: 502 });
+        }
+
+        return NextResponse.json({ error: "Server Error", message: e.message }, { status: 500 });
     }
 }

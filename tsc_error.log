@@ -1,0 +1,2 @@
+src/lib/copy/engine.ts(65,21): error TS2345: Argument of type '"GEN_AI_DRAFT_FAIL"' is not assignable to parameter of type 'LogType'.
+src/lib/copy/engine.ts(96,21): error TS2345: Argument of type '"GEN_EDITOR_FAIL"' is not assignable to parameter of type 'LogType'.

@@ -1,0 +1,1062 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://example.com/schemas/template-pack.schema.json",
+    "title": "Trifold 6-Panel Leaflet Template Pack Schema",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "pack_version",
+        "locale",
+        "binding",
+        "page_ids",
+        "trifold6_page_map",
+        "tone_presets",
+        "compliance_profiles",
+        "brief_schema",
+        "section_library",
+        "format_selector",
+        "templates"
+    ],
+    "properties": {
+        "pack_version": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "locale": {
+            "type": "string",
+            "minLength": 2
+        },
+        "binding": {
+            "type": "string",
+            "enum": [
+                "trifold6"
+            ]
+        },
+        "page_ids": {
+            "type": "array",
+            "const": [
+                "P1",
+                "P2",
+                "P3",
+                "P4",
+                "P5",
+                "P6"
+            ]
+        },
+        "trifold6_page_map": {
+            "$ref": "#/$defs/Trifold6PageMap"
+        },
+        "tone_presets": {
+            "$ref": "#/$defs/TonePresets"
+        },
+        "compliance_profiles": {
+            "$ref": "#/$defs/ComplianceProfiles"
+        },
+        "brief_schema": {
+            "$ref": "#/$defs/BriefSchema"
+        },
+        "section_library": {
+            "$ref": "#/$defs/SectionLibrary"
+        },
+        "format_selector": {
+            "$ref": "#/$defs/FormatSelector"
+        },
+        "templates": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "$ref": "#/$defs/Template"
+            }
+        }
+    },
+    "$defs": {
+        "PageId": {
+            "type": "string",
+            "enum": [
+                "P1",
+                "P2",
+                "P3",
+                "P4",
+                "P5",
+                "P6"
+            ]
+        },
+        "FormatId": {
+            "type": "string",
+            "enum": [
+                "A",
+                "B"
+            ]
+        },
+        "SectionType": {
+            "type": "string",
+            "enum": [
+                "HERO",
+                "BADGE_STRIP",
+                "BENEFITS_BULLETS",
+                "TARGET_FIT",
+                "PROBLEM_STATEMENTS",
+                "WHY_NOW",
+                "SOLUTION_OVERVIEW",
+                "OFFERING_DETAILS",
+                "MODULES_PACKAGES",
+                "FEATURES_LIST",
+                "PROCESS_STEPS",
+                "TIMELINE",
+                "ELIGIBILITY",
+                "DOCUMENTS_CHECKLIST",
+                "SELECTION_CRITERIA",
+                "PRICING_TERMS",
+                "SPEC_TABLE",
+                "PROOF_BLOCK",
+                "CASE_STUDY_MINI",
+                "BEFORE_AFTER",
+                "TESTIMONIALS",
+                "SECURITY_OPS",
+                "INTEGRATIONS",
+                "FAQ",
+                "COMMON_MISTAKES",
+                "APPLICATION_TIPS",
+                "COMPANY_INSTITUTION_INFO",
+                "LOCATION_HOURS",
+                "CTA_CONTACT",
+                "LEGAL_NOTICES"
+            ]
+        },
+        "Trifold6PageMap": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "outside_spread",
+                "inside_spread"
+            ],
+            "properties": {
+                "outside_spread": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "left",
+                        "center",
+                        "right"
+                    ],
+                    "properties": {
+                        "left": {
+                            "$ref": "#/$defs/PageId"
+                        },
+                        "center": {
+                            "$ref": "#/$defs/PageId"
+                        },
+                        "right": {
+                            "$ref": "#/$defs/PageId"
+                        }
+                    }
+                },
+                "inside_spread": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "left",
+                        "center",
+                        "right"
+                    ],
+                    "properties": {
+                        "left": {
+                            "$ref": "#/$defs/PageId"
+                        },
+                        "center": {
+                            "$ref": "#/$defs/PageId"
+                        },
+                        "right": {
+                            "$ref": "#/$defs/PageId"
+                        }
+                    }
+                }
+            }
+        },
+        "TonePresets": {
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": {
+                "$ref": "#/$defs/TonePreset"
+            }
+        },
+        "TonePreset": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "formality",
+                "warmth",
+                "assertiveness",
+                "risk_level",
+                "lexicon"
+            ],
+            "properties": {
+                "formality": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "warmth": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "assertiveness": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "risk_level": {
+                    "type": "string",
+                    "enum": [
+                        "low",
+                        "medium",
+                        "high"
+                    ]
+                },
+                "lexicon": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "prefer",
+                        "avoid"
+                    ],
+                    "properties": {
+                        "prefer": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "avoid": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "ComplianceProfiles": {
+            "type": "object",
+            "minProperties": 1,
+            "additionalProperties": {
+                "$ref": "#/$defs/ComplianceProfile"
+            }
+        },
+        "ComplianceProfile": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "prohibited_terms",
+                "required_disclaimers",
+                "allow_softeners"
+            ],
+            "properties": {
+                "prohibited_terms": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "required_disclaimers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "allow_softeners": {
+                    "type": "boolean"
+                },
+                "must_include_keywords_any": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "BriefSchema": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "ui_inputs",
+                "derived_fields"
+            ],
+            "properties": {
+                "ui_inputs": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/$defs/BriefField"
+                    }
+                },
+                "derived_fields": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/$defs/DerivedField"
+                    }
+                }
+            }
+        },
+        "BriefField": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "key",
+                "label",
+                "required"
+            ],
+            "properties": {
+                "key": {
+                    "type": "string",
+                    "minLength": 2
+                },
+                "label": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "required": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "DerivedField": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+                "key",
+                "type"
+            ],
+            "properties": {
+                "key": {
+                    "type": "string",
+                    "minLength": 2
+                },
+                "type": {
+                    "type": "string",
+                    "minLength": 2
+                },
+                "max_items": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "min_items": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "policy_if_missing": {
+                    "type": "string",
+                    "enum": [
+                        "use_placeholder",
+                        "placeholder",
+                        "auto_from_profile",
+                        "skip"
+                    ]
+                },
+                "fields": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "SectionLibrary": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "_global_defaults",
+                "HERO",
+                "BADGE_STRIP",
+                "BENEFITS_BULLETS",
+                "TARGET_FIT",
+                "PROBLEM_STATEMENTS",
+                "WHY_NOW",
+                "SOLUTION_OVERVIEW",
+                "OFFERING_DETAILS",
+                "MODULES_PACKAGES",
+                "FEATURES_LIST",
+                "PROCESS_STEPS",
+                "TIMELINE",
+                "ELIGIBILITY",
+                "DOCUMENTS_CHECKLIST",
+                "SELECTION_CRITERIA",
+                "PRICING_TERMS",
+                "SPEC_TABLE",
+                "PROOF_BLOCK",
+                "CASE_STUDY_MINI",
+                "BEFORE_AFTER",
+                "TESTIMONIALS",
+                "SECURITY_OPS",
+                "INTEGRATIONS",
+                "FAQ",
+                "COMMON_MISTAKES",
+                "APPLICATION_TIPS",
+                "COMPANY_INSTITUTION_INFO",
+                "LOCATION_HOURS",
+                "CTA_CONTACT",
+                "LEGAL_NOTICES"
+            ],
+            "properties": {
+                "_global_defaults": {
+                    "$ref": "#/$defs/SectionGlobalDefaults"
+                },
+                "HERO": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "BADGE_STRIP": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "BENEFITS_BULLETS": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "TARGET_FIT": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "PROBLEM_STATEMENTS": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "WHY_NOW": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "SOLUTION_OVERVIEW": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "OFFERING_DETAILS": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "MODULES_PACKAGES": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "FEATURES_LIST": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "PROCESS_STEPS": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "TIMELINE": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "ELIGIBILITY": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "DOCUMENTS_CHECKLIST": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "SELECTION_CRITERIA": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "PRICING_TERMS": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "SPEC_TABLE": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "PROOF_BLOCK": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "CASE_STUDY_MINI": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "BEFORE_AFTER": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "TESTIMONIALS": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "SECURITY_OPS": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "INTEGRATIONS": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "FAQ": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "COMMON_MISTAKES": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "APPLICATION_TIPS": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "COMPANY_INSTITUTION_INFO": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "LOCATION_HOURS": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "CTA_CONTACT": {
+                    "$ref": "#/$defs/SectionDef"
+                },
+                "LEGAL_NOTICES": {
+                    "$ref": "#/$defs/SectionDef"
+                }
+            }
+        },
+        "SectionGlobalDefaults": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+                "fact_mode": {
+                    "type": "string",
+                    "enum": [
+                        "strict_or_placeholder",
+                        "prefer_fact_or_placeholder",
+                        "prefer_brief_or_placeholder"
+                    ]
+                },
+                "placeholder_style": {
+                    "type": "string",
+                    "enum": [
+                        "bracket"
+                    ]
+                },
+                "duplication_guard": {
+                    "type": "boolean"
+                },
+                "max_sentence_len": {
+                    "type": "integer",
+                    "minimum": 1
+                }
+            }
+        },
+        "SectionDef": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+                "type_id",
+                "fields",
+                "constraints"
+            ],
+            "properties": {
+                "type_id": {
+                    "type": "integer",
+                    "minimum": 1
+                },
+                "fields": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/$defs/SectionField"
+                    }
+                },
+                "constraints": {
+                    "type": "object"
+                },
+                "generation_policy": {
+                    "type": "object"
+                }
+            }
+        },
+        "SectionField": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+                "key",
+                "type",
+                "required"
+            ],
+            "properties": {
+                "key": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "type": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "required": {
+                    "type": "boolean"
+                },
+                "min_items": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "max_items": {
+                    "type": "integer",
+                    "minimum": 0
+                }
+            }
+        },
+        "FormatSelector": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "default_format",
+                "hard_guards",
+                "scoring"
+            ],
+            "properties": {
+                "default_format": {
+                    "$ref": "#/$defs/FormatId"
+                },
+                "hard_guards": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "scoring": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "base",
+                        "add_points",
+                        "decision"
+                    ],
+                    "properties": {
+                        "base": {
+                            "$ref": "#/$defs/FormatScore"
+                        },
+                        "add_points": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/$defs/ScoreRule"
+                            }
+                        },
+                        "decision": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                                "choose",
+                                "tie_breaker"
+                            ],
+                            "properties": {
+                                "choose": {
+                                    "type": "string",
+                                    "enum": [
+                                        "A_if_score_gte_else_B"
+                                    ]
+                                },
+                                "tie_breaker": {
+                                    "$ref": "#/$defs/FormatId"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "FormatScore": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "A",
+                "B"
+            ],
+            "properties": {
+                "A": {
+                    "type": "number"
+                },
+                "B": {
+                    "type": "number"
+                }
+            }
+        },
+        "ScoreRule": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "when",
+                "add"
+            ],
+            "properties": {
+                "when": {
+                    "type": "object"
+                },
+                "add": {
+                    "$ref": "#/$defs/FormatScore"
+                }
+            }
+        },
+        "Template": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "template_id",
+                "industry",
+                "objectives",
+                "tone_preset",
+                "compliance_profile",
+                "fact_mode_default",
+                "format_policy",
+                "layouts"
+            ],
+            "properties": {
+                "template_id": {
+                    "type": "string",
+                    "minLength": 6
+                },
+                "industry": {
+                    "type": "string",
+                    "minLength": 2
+                },
+                "objectives": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "tone_preset": {
+                    "type": "string",
+                    "minLength": 2
+                },
+                "compliance_profile": {
+                    "type": "string",
+                    "minLength": 2
+                },
+                "fact_mode_default": {
+                    "type": "string",
+                    "enum": [
+                        "strict_or_placeholder",
+                        "prefer_fact_or_placeholder",
+                        "prefer_brief_or_placeholder"
+                    ]
+                },
+                "required_placeholders_if_missing": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "format_policy": {
+                    "$ref": "#/$defs/FormatPolicy"
+                },
+                "layouts": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "A",
+                        "B"
+                    ],
+                    "properties": {
+                        "A": {
+                            "$ref": "#/$defs/Layout"
+                        },
+                        "B": {
+                            "$ref": "#/$defs/Layout"
+                        }
+                    }
+                }
+            }
+        },
+        "FormatPolicy": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "allow",
+                "selector",
+                "default",
+                "auto_signals"
+            ],
+            "properties": {
+                "allow": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/$defs/FormatId"
+                    }
+                },
+                "selector": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "default": {
+                    "$ref": "#/$defs/FormatId"
+                },
+                "auto_signals": {
+                    "$ref": "#/$defs/AutoSignals"
+                }
+            }
+        },
+        "AutoSignals": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+                "info_density",
+                "need_brand_closure",
+                "regulated_industry",
+                "cta_complexity",
+                "pages_overflow_risk",
+                "spec_table_needed"
+            ],
+            "properties": {
+                "info_density": {
+                    "type": "string",
+                    "enum": [
+                        "low",
+                        "medium",
+                        "high"
+                    ]
+                },
+                "need_brand_closure": {
+                    "type": "string",
+                    "enum": [
+                        "low",
+                        "medium",
+                        "high"
+                    ]
+                },
+                "regulated_industry": {
+                    "type": "boolean"
+                },
+                "cta_complexity": {
+                    "type": "string",
+                    "enum": [
+                        "simple",
+                        "medium",
+                        "high"
+                    ]
+                },
+                "pages_overflow_risk": {
+                    "type": "string",
+                    "enum": [
+                        "low",
+                        "high"
+                    ]
+                },
+                "spec_table_needed": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "Layout": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "page_map_ref",
+                "pages",
+                "qa_rules"
+            ],
+            "properties": {
+                "page_map_ref": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "pages": {
+                    "type": "array",
+                    "minItems": 6,
+                    "maxItems": 6,
+                    "items": {
+                        "$ref": "#/$defs/PageLayout"
+                    },
+                    "allOf": [
+                        {
+                            "contains": {
+                                "type": "object",
+                                "required": [
+                                    "page_id"
+                                ],
+                                "properties": {
+                                    "page_id": {
+                                        "const": "P1"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "contains": {
+                                "type": "object",
+                                "required": [
+                                    "page_id"
+                                ],
+                                "properties": {
+                                    "page_id": {
+                                        "const": "P2"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "contains": {
+                                "type": "object",
+                                "required": [
+                                    "page_id"
+                                ],
+                                "properties": {
+                                    "page_id": {
+                                        "const": "P3"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "contains": {
+                                "type": "object",
+                                "required": [
+                                    "page_id"
+                                ],
+                                "properties": {
+                                    "page_id": {
+                                        "const": "P4"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "contains": {
+                                "type": "object",
+                                "required": [
+                                    "page_id"
+                                ],
+                                "properties": {
+                                    "page_id": {
+                                        "const": "P5"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "contains": {
+                                "type": "object",
+                                "required": [
+                                    "page_id"
+                                ],
+                                "properties": {
+                                    "page_id": {
+                                        "const": "P6"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "qa_rules": {
+                    "$ref": "#/$defs/QARules"
+                }
+            }
+        },
+        "PageLayout": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "page_id",
+                "role",
+                "section_slots",
+                "content_budget",
+                "sections"
+            ],
+            "properties": {
+                "page_id": {
+                    "$ref": "#/$defs/PageId"
+                },
+                "role": {
+                    "type": "string",
+                    "minLength": 3
+                },
+                "section_slots": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 8
+                },
+                "content_budget": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "chars_total_max"
+                    ],
+                    "properties": {
+                        "chars_total_max": {
+                            "type": "integer",
+                            "minimum": 120,
+                            "maximum": 1200
+                        }
+                    }
+                },
+                "sections": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/$defs/SectionPlacement"
+                    }
+                }
+            }
+        },
+        "SectionPlacement": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "order"
+            ],
+            "properties": {
+                "type": {
+                    "$ref": "#/$defs/SectionType"
+                },
+                "order": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10
+                },
+                "overrides": {
+                    "type": "object"
+                }
+            }
+        },
+        "QARules": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": [
+                "max_cross_page_similarity"
+            ],
+            "properties": {
+                "max_cross_page_similarity": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "required_presence": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/RequiredPresenceRule"
+                    }
+                },
+                "public_notice_required": {
+                    "type": "boolean"
+                },
+                "avoid_overclaim": {
+                    "type": "boolean"
+                },
+                "compliance_profile_enforced": {
+                    "type": "string"
+                },
+                "require_proof_or_placeholder": {
+                    "type": "boolean"
+                },
+                "prohibited_terms_extra": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "RequiredPresenceRule": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "page",
+                "must_include"
+            ],
+            "properties": {
+                "page": {
+                    "$ref": "#/$defs/PageId"
+                },
+                "must_include": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/$defs/SectionType"
+                    }
+                }
+            }
+        }
+    }
+}
