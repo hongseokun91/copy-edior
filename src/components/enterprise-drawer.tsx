@@ -7,7 +7,7 @@ import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface EnterpriseDrawerProps {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
     id: string;
     icon: string;
     label: string;

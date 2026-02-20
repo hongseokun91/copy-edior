@@ -1,0 +1,1069 @@
+{
+  "version": "4.3.1",
+  "engine": "writing-quality-os",
+  "globals": {
+    "defaultCtaToken": "{{CTA_DEFAULT}}",
+    "maxSentenceWords": 28,
+    "minSpecificitySignalsPerModule": 2,
+    "maxCtaCount": 1,
+    "scoreCutoffs": {
+      "default": 84,
+      "highRisk": 90
+    }
+  },
+  "dimensions": [
+    "clarity",
+    "specificity",
+    "structure",
+    "voice_fit",
+    "readability_rhythm",
+    "credibility_safety",
+    "conversion"
+  ],
+  "rules": [
+    {
+      "id": "HF-001",
+      "name": "Overclaim: guarantee/absolute claim",
+      "category": "credibility_safety",
+      "severity": "HARD_FAIL",
+      "modules": [
+        "*"
+      ],
+      "detection": {
+        "type": "regex_any",
+        "patterns": [
+          "(100%|200%)",
+          "(무조건|절대|완벽(하게|한)?|확실(히)?|반드시)",
+          "(부작용\\s*없(음|어요)|실패\\s*없(음|어요))",
+          "(보장(합니다|해요)?|영구|무제한)"
+        ],
+        "flags": "gi",
+        "description": "단정·보장·절대 표현"
+      },
+      "action": [
+        {
+          "type": "DOWNSHIFT",
+          "strategy": "safe_softener",
+          "templateKey": "SOFTEN_OVERCLAIM"
+        }
+      ],
+      "score": {
+        "penalty": -999,
+        "dimensionDelta": {
+          "credibility_safety": -5
+        }
+      },
+      "message": "단정/보장 표현 포함 → 재작성"
+    },
+    {
+      "id": "HF-002",
+      "name": "Rank claim without evidence (No.1/first/only)",
+      "category": "credibility_safety",
+      "severity": "HARD_FAIL",
+      "modules": [
+        "*"
+      ],
+      "detection": {
+        "type": "composite_all",
+        "all": [
+          {
+            "type": "regex_any",
+            "patterns": [
+              "(업계\\s*1위|국내\\s*최초|유일(한)?|No\\.?\\s*1|원탑|베스트\\s*원)"
+            ],
+            "flags": "gi"
+          },
+          {
+            "type": "regex_none",
+            "patterns": [
+              "(인증|수상|특허|ISO|KS|협회|공식|기사|보도|데이터|통계|보고서|출처)"
+            ],
+            "flags": "gi"
+          }
+        ]
+      },
+      "action": [
+        {
+          "type": "LABEL",
+          "label": "[확인필요: 1위/최초/유일 근거]"
+        },
+        {
+          "type": "DOWNSHIFT",
+          "strategy": "rank_to_standard"
+        }
+      ],
+      "score": {
+        "penalty": -999,
+        "dimensionDelta": {
+          "credibility_safety": -5
+        }
+      },
+      "message": "근거 없는 순위/최초/유일 주장"
+    },
+    {
+      "id": "HF-003",
+      "name": "Multiple CTAs in a module",
+      "category": "conversion",
+      "severity": "HARD_FAIL",
+      "modules": [
+        "*"
+      ],
+      "detection": {
+        "type": "cta_count",
+        "ctaLexiconKey": "CTA_LEXICON",
+        "maxAllowed": 1
+      },
+      "action": [
+        {
+          "type": "MERGE_CTA",
+          "keep": "{{CTA_DEFAULT}}",
+          "removeOthers": true
+        }
+      ],
+      "score": {
+        "penalty": -999,
+        "dimensionDelta": {
+          "conversion": -5
+        }
+      },
+      "message": "CTA 복수 → 단일화"
+    },
+    {
+      "id": "HF-PR-001",
+      "name": "Pricing policy 4-part required",
+      "category": "credibility_safety",
+      "severity": "HARD_FAIL",
+      "modules": [
+        "PRICING"
+      ],
+      "detection": {
+        "type": "composite_any",
+        "any": [
+          {
+            "type": "regex_none",
+            "patterns": [
+              "(포함|기본\\s*구성|기본\\s*제공)"
+            ],
+            "flags": "gi"
+          },
+          {
+            "type": "regex_none",
+            "patterns": [
+              "(옵션|추가|선택)"
+            ],
+            "flags": "gi"
+          },
+          {
+            "type": "regex_none",
+            "patterns": [
+              "(조건|경우|예외|단,|다만|제외)"
+            ],
+            "flags": "gi"
+          },
+          {
+            "type": "regex_none",
+            "patterns": [
+              "(사전\\s*안내|견적\\s*확정|작업\\s*전\\s*확정|확정\\s*후\\s*진행)"
+            ],
+            "flags": "gi"
+          }
+        ]
+      },
+      "action": [
+        {
+          "type": "INSERT",
+          "position": "end",
+          "template": "[확인필요: 가격정책은 포함/옵션/조건/견적 확정 방식을 명시해야 합니다]"
+        }
+      ],
+      "score": {
+        "penalty": -999,
+        "dimensionDelta": {
+          "credibility_safety": -5
+        }
+      },
+      "message": "가격정책 필수 요소 누락"
+    },
+    {
+      "id": "HF-QW-001",
+      "name": "Warranty required: scope/term/process/exceptions",
+      "category": "credibility_safety",
+      "severity": "HARD_FAIL",
+      "modules": [
+        "QUALITY_WARRANTY"
+      ],
+      "detection": {
+        "type": "composite_any",
+        "any": [
+          {
+            "type": "regex_none",
+            "patterns": [
+              "(범위|대상|커버|보증\\s*범위)"
+            ],
+            "flags": "gi"
+          },
+          {
+            "type": "regex_none",
+            "patterns": [
+              "(\\d+\\s*(일|주|개월|년)\\s*(이내|동안))"
+            ],
+            "flags": "gi"
+          },
+          {
+            "type": "regex_count_lt",
+            "pattern": "(접수|확인|조치|재확인|완료)",
+            "flags": "gi",
+            "minCount": 3
+          },
+          {
+            "type": "regex_none",
+            "patterns": [
+              "(예외|제외|불가|해당\\s*없음)"
+            ],
+            "flags": "gi"
+          },
+          {
+            "type": "regex_none",
+            "patterns": [
+              "(접수\\s*방법|문의\\s*채널|접수\\s*채널)"
+            ],
+            "flags": "gi"
+          }
+        ]
+      },
+      "action": [
+        {
+          "type": "INSERT",
+          "position": "end",
+          "template": "[확인필요: 보증 범위/기간/절차(3단계)/예외/접수 방법을 정책으로 명시해주세요]"
+        }
+      ],
+      "score": {
+        "penalty": -999,
+        "dimensionDelta": {
+          "credibility_safety": -5
+        }
+      },
+      "message": "품질보증 필수 요소 누락"
+    },
+    {
+      "id": "HF-BA-001",
+      "name": "Before/After required: 기준 + 개인차/조건",
+      "category": "credibility_safety",
+      "severity": "HARD_FAIL",
+      "modules": [
+        "BEFORE_AFTER"
+      ],
+      "detection": {
+        "type": "composite_any",
+        "any": [
+          {
+            "type": "regex_none",
+            "patterns": [
+              "(\\d+\\s*(주|개월|회)|기준|측정)"
+            ],
+            "flags": "gi"
+          },
+          {
+            "type": "regex_none",
+            "patterns": [
+              "(개인차|상태에\\s*따라|조건에\\s*따라|차이가\\s*있)"
+            ],
+            "flags": "gi"
+          }
+        ]
+      },
+      "action": [
+        {
+          "type": "INSERT",
+          "position": "end",
+          "template": "[확인필요: 전후 기준(기간/횟수/측정)과 개인차/조건을 명시해야 합니다]"
+        }
+      ],
+      "score": {
+        "penalty": -999,
+        "dimensionDelta": {
+          "credibility_safety": -5
+        }
+      },
+      "message": "비포&애프터 필수 요소 누락"
+    },
+    {
+      "id": "HF-QA-001",
+      "name": "Q&A minimum questions and topics",
+      "category": "credibility_safety",
+      "severity": "HARD_FAIL",
+      "modules": [
+        "QA"
+      ],
+      "detection": {
+        "type": "qa_minimum_gate",
+        "minQuestions": 3,
+        "topicGroup": [
+          "가격",
+          "시간",
+          "환불",
+          "품질",
+          "절차"
+        ],
+        "minTopics": 3
+      },
+      "action": [
+        {
+          "type": "INSERT",
+          "position": "end",
+          "template": "[확인필요: Q&A는 최소 3문항이며 가격/시간/환불/품질/절차 중 3개 이상을 포함해야 합니다]"
+        }
+      ],
+      "score": {
+        "penalty": -999,
+        "dimensionDelta": {
+          "credibility_safety": -5
+        }
+      },
+      "message": "Q&A 최소 요건 미달"
+    },
+    {
+      "id": "HF-HTU-001",
+      "name": "How-to-use minimum steps",
+      "category": "structure",
+      "severity": "HARD_FAIL",
+      "modules": [
+        "HOW_TO_USE"
+      ],
+      "detection": {
+        "type": "regex_count_lt",
+        "pattern": "(Step\\s*\\d+|①|②|③|\\d+\\s*단계|1\\)|2\\)|3\\))",
+        "flags": "gi",
+        "minCount": 3
+      },
+      "action": [
+        {
+          "type": "INSERT",
+          "position": "end",
+          "template": "[확인필요: 이용방법은 최소 3단계 이상으로 작성해야 합니다]"
+        }
+      ],
+      "score": {
+        "penalty": -999,
+        "dimensionDelta": {
+          "structure": -5
+        }
+      },
+      "message": "이용방법 단계 부족"
+    },
+    {
+      "id": "EV-101",
+      "name": "Evidence: numeric/time/quantity present",
+      "category": "specificity",
+      "severity": "MEDIUM",
+      "modules": [
+        "*"
+      ],
+      "detection": {
+        "type": "regex_any",
+        "patterns": [
+          "(\\d{1,3}(,\\d{3})*|\\d+(\\.\\d+)?)(년|개월|주|일|회|분|시간|%|명|건|개)"
+        ],
+        "flags": "g"
+      },
+      "action": [],
+      "score": {
+        "bonus": 4,
+        "dimensionDelta": {
+          "specificity": 1
+        }
+      },
+      "message": "수치/기간 신호"
+    },
+    {
+      "id": "EV-102",
+      "name": "Evidence: process steps present",
+      "category": "structure",
+      "severity": "MEDIUM",
+      "modules": [
+        "CORE_SERVICE",
+        "HOW_TO_USE",
+        "PRICING",
+        "QUALITY_WARRANTY"
+      ],
+      "detection": {
+        "type": "regex_any",
+        "patterns": [
+          "(Step\\s*1|①|②|③|\\d+\\s*단계|1\\)|2\\)|3\\)|절차|프로세스)"
+        ],
+        "flags": "gi"
+      },
+      "action": [],
+      "score": {
+        "bonus": 6,
+        "dimensionDelta": {
+          "structure": 1,
+          "specificity": 1
+        }
+      },
+      "message": "절차/단계 신호"
+    },
+    {
+      "id": "EV-103",
+      "name": "Evidence: testimonial/review present",
+      "category": "credibility_safety",
+      "severity": "MEDIUM",
+      "modules": [
+        "REVIEWS",
+        "BRAND_STORY",
+        "USP"
+      ],
+      "detection": {
+        "type": "regex_any",
+        "patterns": [
+          "(후기|리뷰|재방문|고객\\s*평|\".+?\"|“.+?”|'.+?')"
+        ],
+        "flags": "gi"
+      },
+      "action": [],
+      "score": {
+        "bonus": 5,
+        "dimensionDelta": {
+          "credibility_safety": 1
+        }
+      },
+      "message": "후기 신호"
+    },
+    {
+      "id": "EV-104",
+      "name": "Evidence: certification/award present",
+      "category": "credibility_safety",
+      "severity": "MEDIUM",
+      "modules": [
+        "AWARDS_CERTS",
+        "BRAND_STORY",
+        "USP",
+        "PRESS"
+      ],
+      "detection": {
+        "type": "regex_any",
+        "patterns": [
+          "(인증|수상|특허|ISO|KS|협회|공식\\s*인증|검사\\s*성적서)"
+        ],
+        "flags": "gi"
+      },
+      "action": [],
+      "score": {
+        "bonus": 6,
+        "dimensionDelta": {
+          "credibility_safety": 1
+        }
+      },
+      "message": "인증/수상 신호"
+    },
+    {
+      "id": "EV-105",
+      "name": "Evidence: partner/press outlet/date present",
+      "category": "credibility_safety",
+      "severity": "LOW",
+      "modules": [
+        "PARTNERS",
+        "PRESS"
+      ],
+      "detection": {
+        "type": "regex_any",
+        "patterns": [
+          "(협력|파트너|납품|공급|보도|기사|매체|\\d{4}\\.\\d{1,2}|\\d{4}-\\d{1,2})"
+        ],
+        "flags": "gi"
+      },
+      "action": [],
+      "score": {
+        "bonus": 3,
+        "dimensionDelta": {
+          "credibility_safety": 1
+        }
+      },
+      "message": "협력/언론 신호"
+    },
+    {
+      "id": "ST-201",
+      "name": "Cliche detector",
+      "category": "voice_fit",
+      "severity": "HIGH",
+      "modules": [
+        "*"
+      ],
+      "detection": {
+        "type": "lexicon_count_gte",
+        "lexiconKey": "CLICHE_BLOCKLIST",
+        "minCount": 2
+      },
+      "action": [
+        {
+          "type": "REPLACE",
+          "strategy": "cliche_to_specific",
+          "mapKey": "CLICHE_TO_SPECIFIC"
+        }
+      ],
+      "score": {
+        "penalty": -8,
+        "dimensionDelta": {
+          "voice_fit": -1,
+          "specificity": -1
+        }
+      },
+      "message": "클리셰 다수"
+    },
+    {
+      "id": "ST-202",
+      "name": "Abstract adjective to specificity rewrite",
+      "category": "specificity",
+      "severity": "HIGH",
+      "modules": [
+        "*"
+      ],
+      "detection": {
+        "type": "lexicon_count_gte",
+        "lexiconKey": "ABSTRACT_WORDS",
+        "minCount": 2
+      },
+      "action": [
+        {
+          "type": "REPLACE",
+          "strategy": "abstract_to_specific",
+          "mapKey": "ABSTRACT_TO_SPECIFIC_MAP"
+        }
+      ],
+      "score": {
+        "penalty": -6,
+        "dimensionDelta": {
+          "specificity": -1
+        }
+      },
+      "message": "추상어 다수"
+    },
+    {
+      "id": "ST-203",
+      "name": "Overclaim blocklist (non-hard)",
+      "category": "credibility_safety",
+      "severity": "HIGH",
+      "modules": [
+        "*"
+      ],
+      "detection": {
+        "type": "lexicon_count_gte",
+        "lexiconKey": "OVERCLAIM_BLOCKLIST",
+        "minCount": 1
+      },
+      "action": [
+        {
+          "type": "DOWNSHIFT",
+          "strategy": "safe_softener",
+          "templateKey": "SOFTEN_OVERCLAIM"
+        }
+      ],
+      "score": {
+        "penalty": -10,
+        "dimensionDelta": {
+          "credibility_safety": -2
+        }
+      },
+      "message": "과장어 감지"
+    },
+    {
+      "id": "RD-301",
+      "name": "Long sentence splitter",
+      "category": "readability_rhythm",
+      "severity": "MEDIUM",
+      "modules": [
+        "*"
+      ],
+      "detection": {
+        "type": "sentence_word_count_gt",
+        "maxWords": 28
+      },
+      "action": [
+        {
+          "type": "DOWNSHIFT",
+          "strategy": "split_sentence"
+        }
+      ],
+      "score": {
+        "penalty": -4,
+        "dimensionDelta": {
+          "readability_rhythm": -1
+        }
+      },
+      "message": "긴 문장 분리"
+    },
+    {
+      "id": "RD-302",
+      "name": "Ending repetition",
+      "category": "readability_rhythm",
+      "severity": "MEDIUM",
+      "modules": [
+        "*"
+      ],
+      "detection": {
+        "type": "ending_repetition_gte",
+        "endings": [
+          "합니다",
+          "됩니다",
+          "있습니다"
+        ],
+        "minRun": 4
+      },
+      "action": [
+        {
+          "type": "DOWNSHIFT",
+          "strategy": "vary_endings"
+        }
+      ],
+      "score": {
+        "penalty": -5,
+        "dimensionDelta": {
+          "readability_rhythm": -1
+        }
+      },
+      "message": "어미 반복"
+    },
+    {
+      "id": "RD-303",
+      "name": "Word repetition",
+      "category": "readability_rhythm",
+      "severity": "LOW",
+      "modules": [
+        "*"
+      ],
+      "detection": {
+        "type": "word_repetition_gte",
+        "minRepeats": 4,
+        "ignoreLexiconKey": "ALLOW_REPEAT_KEYWORDS"
+      },
+      "action": [
+        {
+          "type": "DOWNSHIFT",
+          "strategy": "de_duplicate"
+        }
+      ],
+      "score": {
+        "penalty": -3,
+        "dimensionDelta": {
+          "readability_rhythm": -1
+        }
+      },
+      "message": "단어 반복"
+    },
+    {
+      "id": "CNV-401",
+      "name": "CTA presence near end",
+      "category": "conversion",
+      "severity": "MEDIUM",
+      "modules": [
+        "*"
+      ],
+      "detection": {
+        "type": "cta_near_end",
+        "ctaLexiconKey": "CTA_LEXICON",
+        "windowSentences": 2
+      },
+      "action": [
+        {
+          "type": "INSERT",
+          "position": "end_if_missing",
+          "template": "{{CTA_DEFAULT}}"
+        }
+      ],
+      "score": {
+        "bonus": 4,
+        "dimensionDelta": {
+          "conversion": 1
+        }
+      },
+      "message": "CTA 보정"
+    },
+    {
+      "id": "CNV-402",
+      "name": "Anxiety relief sentence required",
+      "category": "conversion",
+      "severity": "MEDIUM",
+      "modules": [
+        "CORE_SERVICE",
+        "PRICING",
+        "QUALITY_WARRANTY",
+        "HOW_TO_USE",
+        "QA"
+      ],
+      "detection": {
+        "type": "regex_none",
+        "patterns": [
+          "(걱정|불안|부담|처음|모르겠|망설|괜찮|안내해\\s*드리|도와\\s*드리)"
+        ],
+        "flags": "gi"
+      },
+      "action": [
+        {
+          "type": "INSERT",
+          "position": "before_cta",
+          "template": "처음이셔도 괜찮습니다. 진행 기준과 조건을 먼저 안내해드립니다."
+        }
+      ],
+      "score": {
+        "penalty": -3,
+        "dimensionDelta": {
+          "conversion": -1
+        }
+      },
+      "message": "불안 제거 문장 삽입"
+    },
+    {
+      "id": "MD-001",
+      "name": "Timeline date format consistent",
+      "category": "clarity",
+      "severity": "LOW",
+      "modules": [
+        "TIMELINE"
+      ],
+      "detection": {
+        "type": "regex_none",
+        "patterns": [
+          "(\\d{4}\\.\\d{1,2}|\\d{4}-\\d{1,2}|\\d{4}년\\s*\\d{1,2}월)"
+        ],
+        "flags": "g"
+      },
+      "action": [
+        {
+          "type": "INSERT",
+          "position": "start",
+          "template": "[확인필요: 연혁 항목은 YYYY.MM 형식으로 통일해주세요]"
+        }
+      ],
+      "score": {
+        "penalty": -4,
+        "dimensionDelta": {
+          "clarity": -1
+        }
+      },
+      "message": "연혁 날짜 포맷 누락"
+    },
+    {
+      "id": "MD-002",
+      "name": "Expert profile requires 4-line structure hints",
+      "category": "structure",
+      "severity": "LOW",
+      "modules": [
+        "EXPERT_PROFILE"
+      ],
+      "detection": {
+        "type": "regex_none",
+        "patterns": [
+          "(역량\\s*3|핵심\\s*역량|자격|경력|프로젝트|고객에게)"
+        ],
+        "flags": "gi"
+      },
+      "action": [
+        {
+          "type": "INSERT",
+          "position": "end",
+          "template": "[프로필 템플릿: 태그라인 1줄 / 역량 3개 / 검증 1개(자격·경력·프로젝트) / 고객 이점 1문장]"
+        }
+      ],
+      "score": {
+        "penalty": -3,
+        "dimensionDelta": {
+          "structure": -1
+        }
+      },
+      "message": "프로필 구조 보정"
+    },
+    {
+      "id": "MD-003",
+      "name": "Press items should be limited 2-4",
+      "category": "readability_rhythm",
+      "severity": "LOW",
+      "modules": [
+        "PRESS"
+      ],
+      "detection": {
+        "type": "list_item_count_gt",
+        "maxItems": 4
+      },
+      "action": [
+        {
+          "type": "DOWNSHIFT",
+          "strategy": "trim_list",
+          "keep": "top_relevant"
+        }
+      ],
+      "score": {
+        "penalty": -2,
+        "dimensionDelta": {
+          "readability_rhythm": -1
+        }
+      },
+      "message": "언론보도 과다"
+    },
+    {
+      "id": "MD-004",
+      "name": "USP should be single big claim",
+      "category": "structure",
+      "severity": "MEDIUM",
+      "modules": [
+        "USP"
+      ],
+      "detection": {
+        "type": "claim_count_gt",
+        "maxClaims": 1
+      },
+      "action": [
+        {
+          "type": "DOWNSHIFT",
+          "strategy": "reduce_to_one_claim"
+        }
+      ],
+      "score": {
+        "penalty": -6,
+        "dimensionDelta": {
+          "structure": -1
+        }
+      },
+      "message": "특장점 과다 나열"
+    },
+    {
+      "id": "MD-005",
+      "name": "Reviews should include context label",
+      "category": "specificity",
+      "severity": "MEDIUM",
+      "modules": [
+        "REVIEWS"
+      ],
+      "detection": {
+        "type": "regex_none",
+        "patterns": [
+          "(직장인|초보|재방문|가족|1인|기업|학생|30대|40대|지역)"
+        ],
+        "flags": "gi"
+      },
+      "action": [
+        {
+          "type": "INSERT",
+          "position": "start",
+          "template": "[후기 라벨 예시: 직장인/초보/재방문/가족/1인 등 상황 라벨을 함께 표기]"
+        }
+      ],
+      "score": {
+        "penalty": -4,
+        "dimensionDelta": {
+          "specificity": -1
+        }
+      },
+      "message": "후기 상황 라벨 누락"
+    },
+    {
+      "id": "MD-006",
+      "name": "Product spec should start with recommendation guide",
+      "category": "clarity",
+      "severity": "LOW",
+      "modules": [
+        "PRODUCT_SPEC"
+      ],
+      "detection": {
+        "type": "regex_none",
+        "patterns": [
+          "(추천|가이드|누구에게|선택\\s*기준)"
+        ],
+        "flags": "gi"
+      },
+      "action": [
+        {
+          "type": "INSERT",
+          "position": "start",
+          "template": "선택 가이드(3줄): 누구에게 어떤 옵션이 맞는지 먼저 제안합니다."
+        }
+      ],
+      "score": {
+        "penalty": -3,
+        "dimensionDelta": {
+          "clarity": -1
+        }
+      },
+      "message": "제품사양 가이드 누락"
+    },
+    {
+      "id": "MD-007",
+      "name": "Membership must include terms/exceptions",
+      "category": "credibility_safety",
+      "severity": "MEDIUM",
+      "modules": [
+        "MEMBERSHIP"
+      ],
+      "detection": {
+        "type": "regex_none",
+        "patterns": [
+          "(기간|대상|조건|제외|유의|적용)"
+        ],
+        "flags": "gi"
+      },
+      "action": [
+        {
+          "type": "INSERT",
+          "position": "end",
+          "template": "[확인필요: 혜택 적용 조건(기간/대상/제외)을 명시해주세요]"
+        }
+      ],
+      "score": {
+        "penalty": -6,
+        "dimensionDelta": {
+          "credibility_safety": -1
+        }
+      },
+      "message": "멤버십 조건 누락"
+    },
+    {
+      "id": "MD-010",
+      "name": "Avoid vague superlatives without evidence",
+      "category": "credibility_safety",
+      "severity": "LOW",
+      "modules": [
+        "*"
+      ],
+      "detection": {
+        "type": "regex_any",
+        "patterns": [
+          "(최고급|최상급|압도적|독보적)"
+        ],
+        "flags": "gi"
+      },
+      "action": [
+        {
+          "type": "DOWNSHIFT",
+          "strategy": "superlative_to_standard"
+        }
+      ],
+      "score": {
+        "penalty": -4,
+        "dimensionDelta": {
+          "credibility_safety": -1
+        }
+      },
+      "message": "근거 없는 최상급 완화"
+    },
+    {
+      "id": "MD-011",
+      "name": "Force one-sentence definition in core service",
+      "category": "clarity",
+      "severity": "MEDIUM",
+      "modules": [
+        "CORE_SERVICE"
+      ],
+      "detection": {
+        "type": "regex_none",
+        "patterns": [
+          "(한\\s*문장\\s*정의|“.+”|\".+\")"
+        ],
+        "flags": "gi"
+      },
+      "action": [
+        {
+          "type": "INSERT",
+          "position": "start",
+          "template": "한 문장 정의: “___을(를) ___ 방식으로 ___ 결과로.”"
+        }
+      ],
+      "score": {
+        "penalty": -6,
+        "dimensionDelta": {
+          "clarity": -1
+        }
+      },
+      "message": "핵심서비스 정의 누락"
+    },
+    {
+      "id": "MD-012",
+      "name": "CEO message must include operating mechanism",
+      "category": "credibility_safety",
+      "severity": "MEDIUM",
+      "modules": [
+        "CEO_MESSAGE"
+      ],
+      "detection": {
+        "type": "regex_none",
+        "patterns": [
+          "(검수|교육|표준|체크리스트|피드백|리뷰)"
+        ],
+        "flags": "gi"
+      },
+      "action": [
+        {
+          "type": "INSERT",
+          "position": "end",
+          "template": "운영 장치 예시: 체크리스트 검수/팀 교육/완료 후 피드백 반영 루프."
+        }
+      ],
+      "score": {
+        "penalty": -6,
+        "dimensionDelta": {
+          "credibility_safety": -1
+        }
+      },
+      "message": "CEO 운영장치 누락"
+    },
+    {
+      "id": "MD-013",
+      "name": "Vision/mission must include measurable target",
+      "category": "specificity",
+      "severity": "MEDIUM",
+      "modules": [
+        "VISION_MISSION"
+      ],
+      "detection": {
+        "type": "regex_none",
+        "patterns": [
+          "(%|\\d+\\s*(명|건|개|회)|1년|3년|지표|범위)"
+        ],
+        "flags": "gi"
+      },
+      "action": [
+        {
+          "type": "INSERT",
+          "position": "end",
+          "template": "[확인필요: 1년/3년 목표는 지표(수치/범위)로 1개 이상 명시해주세요]"
+        }
+      ],
+      "score": {
+        "penalty": -6,
+        "dimensionDelta": {
+          "specificity": -1
+        }
+      },
+      "message": "비전 지표 누락"
+    },
+    {
+      "id": "MD-014",
+      "name": "Brand story must include turning point",
+      "category": "structure",
+      "severity": "LOW",
+      "modules": [
+        "BRAND_STORY"
+      ],
+      "detection": {
+        "type": "regex_none",
+        "patterns": [
+          "(계기|전환|결심|그\\s*때|이후)"
+        ],
+        "flags": "gi"
+      },
+      "action": [
+        {
+          "type": "INSERT",
+          "position": "end",
+          "template": "[스토리 3요소: 계기 → 전환점 → 지속 근거(기간/원칙/성과)]"
+        }
+      ],
+      "score": {
+        "penalty": -3,
+        "dimensionDelta": {
+          "structure": -1
+        }
+      },
+      "message": "브랜드스토리 전환점 보정"
+    }
+  ]
+}

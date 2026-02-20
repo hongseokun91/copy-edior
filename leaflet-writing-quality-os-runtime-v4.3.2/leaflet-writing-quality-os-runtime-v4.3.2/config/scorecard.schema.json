@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Writing Quality Scorecard",
+  "type": "object",
+  "required": [
+    "version",
+    "moduleKey",
+    "totalScore",
+    "cutoff",
+    "pass",
+    "dimensionScores",
+    "rulesTriggered",
+    "actionsApplied",
+    "timestamp"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "moduleKey": {
+      "type": "string"
+    },
+    "industryKey": {
+      "type": "string"
+    },
+    "totalScore": {
+      "type": "number"
+    },
+    "cutoff": {
+      "type": "number"
+    },
+    "pass": {
+      "type": "boolean"
+    },
+    "hardFail": {
+      "type": "boolean"
+    },
+    "dimensionScores": {
+      "type": "object",
+      "properties": {
+        "clarity": {
+          "type": "number"
+        },
+        "specificity": {
+          "type": "number"
+        },
+        "structure": {
+          "type": "number"
+        },
+        "voice_fit": {
+          "type": "number"
+        },
+        "readability_rhythm": {
+          "type": "number"
+        },
+        "credibility_safety": {
+          "type": "number"
+        },
+        "conversion": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "penalties": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "ruleId",
+          "delta",
+          "reason"
+        ],
+        "properties": {
+          "ruleId": {
+            "type": "string"
+          },
+          "delta": {
+            "type": "number"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "bonuses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "ruleId",
+          "delta",
+          "reason"
+        ],
+        "properties": {
+          "ruleId": {
+            "type": "string"
+          },
+          "delta": {
+            "type": "number"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "rulesTriggered": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "ruleId",
+          "severity"
+        ],
+        "properties": {
+          "ruleId": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "actionsApplied": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "details": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "ceg": {
+      "type": "object",
+      "properties": {
+        "claims": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unlinkedClaims": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "timestamp": {
+      "type": "string"
+    }
+  }
+}

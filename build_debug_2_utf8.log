@@ -1,0 +1,146 @@
+﻿
+> copy-editor@0.1.0 build
+> next build
+
+node.exe : ??Warning
+: Next.js inferred y
+our workspace root, 
+but it may not be co
+rrect.
+위치 줄:1 문자:1
++ & "C:\Program File
+s\nodejs/node.exe" "
+C:\Program Files\nod
+ejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo  
+            : NotS  
+  pecified: (??Wa   
+ rning: Next...n    
+ot be correct.:    S
+tring) [], Rem    ot
+eException
+    + FullyQualifie 
+   dErrorId : Nati  
+  veCommandError
+ 
+ We detected multipl
+e lockfiles and sele
+cted the directory o
+f C:\Users\hongs\pac
+kage-lock.json as th
+e root directory.
+ To silence this war
+ning, set `turbopack
+.root` in your Next.
+js config, or consid
+er removing one of t
+he lockfiles if it's
+ not needed.
+   See https://nextj
+s.org/docs/app/api-r
+eference/config/next
+-config-js/turbopack
+#root-directory for 
+more information.
+ Detected additional
+ lockfiles: 
+   * C:\Users\hongs\
+.gemini\antigravity\
+scratch\copy-editor\
+package-lock.json
+
+??Next.js 16.1.4 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+??Compiled successfully in 3.6s
+  Running TypeScript ...
+Failed to compile.
+
+./src/lib/engines/le
+aflet-engine.ts:145:
+13
+Type error: Type '{ 
+pages: LeafletPage[]
+; meta: { template_i
+d: string; layout_id
+: "A"; }; }' is not 
+assignable to type '
+VariantContent'.
+  Type '{ pages: Lea
+fletPage[]; meta: { 
+template_id: string;
+ layout_id: "A"; }; 
+}' is not assignable
+ to type 'LeafletVar
+iant'.
+    Types of propert
+y 'pages' are incomp
+atible.
+      Type 'LeafletP
+age[]' is not assign
+able to type 'import
+("C:/Users/hongs/.ge
+mini/antigravity/scr
+atch/copy-editor/src
+/types/leaflet").Lea
+fletPage[]'.
+        Type 'Leafle
+tPage' is not assign
+able to type 'import
+("C:/Users/hongs/.ge
+mini/antigravity/scr
+atch/copy-editor/src
+/types/leaflet").Lea
+fletPage'.
+          Types of p
+roperty 'page_id' ar
+e incompatible.
+            Type 'st
+ring' is not assigna
+ble to type 'Leaflet
+PageId'.
+
+[0m [90m 143 |[39
+m     [36mreturn[3
+9m {
+ [90m 144 |[39m   
+      variants[33m:
+[39m {
+[31m[1m>[22m[39m
+[90m 145 |[39m    
+         [33mA[39m
+[33m:[39m uniqueRe
+sult[33m,[39m
+ [90m     |[39m   
+          [31m[1m^
+[22m[39m
+ [90m 146 |[39m   
+          [33mB[39
+m[33m:[39m { [33m
+...[39muniqueResult
+[33m,[39m meta[33
+m:[39m { layout_id
+[33m:[39m [32m"B"
+[39m [36mas[39m [
+36mconst[39m } }[3
+3m,[39m
+ [90m 147 |[39m   
+          [33mC[39
+m[33m:[39m { [33m
+...[39muniqueResult
+[33m,[39m meta[33
+m:[39m { layout_id
+[33m:[39m [32m"A"
+[39m [36mas[39m [
+36mconst[39m } }
+ [90m 148 |[39m   
+      }[33m,[39m[
+0m
+Next.js build worker
+ exited with code: 1
+ and signal: null

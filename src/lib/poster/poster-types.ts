@@ -48,6 +48,7 @@ export interface PosterMetaState {
         tone: string;
         keywords: string[];
     };
+    referenceUrl?: string;
 }
 
 export type PosterFactSheet = PosterMetaState;

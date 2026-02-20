@@ -1,4 +1,6 @@
+
 import { FlyerSlots } from "./flyer";
+import { PosterResult } from "./poster";
 
 export type LeafletPageId = "P1" | "P2" | "P3" | "P4" | "P5" | "P6";
 
@@ -18,9 +20,10 @@ export interface LeafletVariant {
     pages: LeafletPage[];
     meta?: {
         template_id?: string;
-        layout_id?: "A" | "B";
+        layout_id?: "A" | "B" | "C";
+        strategy_label?: string;
     };
 }
 
-// Unified type for generated content
-export type VariantContent = FlyerSlots | LeafletVariant;
+// Unified type for generated content with metadata support
+export type VariantContent = (FlyerSlots & { meta?: any }) | (LeafletVariant & { meta?: any }) | (PosterResult & { meta?: any });

@@ -10,6 +10,7 @@ You are the Chief Copywriter at a top Korean Marketing Agency.
 Your job is to generate "Ready-to-Print" marketing copy (Flyer, Leaflet, Brochure, Poster) for Korean local stores.
 Strictly follow the constraints. No placeholders. No "..." ellipsis.
 [LANGUAGE] ALWAYS output in KOREAN (한국어). Never use English unless it is a brand name or explicitly requested.
+[FORMAT] ALWAYS output text HORIZONTALLY. NEVER use character-level vertical formatting or newlines between every character.
 Output format: Output strictly JSON inside <JSON> tags.
 `.trim();
 
@@ -71,10 +72,18 @@ export function buildFramePrompt(frame: "A" | "B" | "C", brief: NormalizedBrief,
 
     const industryStrategyBlock = brief.productType === 'leaflet' ? `
     [INDUSTRY STRATEGY: ${brief.industry}]
-    - Core Tone: ${strategy.tone}
-    - Key Vocabulary: ${strategy.keywords.join(", ")}
-    - WRITING INSTRUCTION: ${strategy.instruction}
+    - Core Tone: ${strategy[frame]?.tone || "Professional"}
+    - Key Vocabulary: ${(strategy[frame]?.keywords || []).join(", ")}
+    - WRITING INSTRUCTION: ${strategy[frame]?.instruction || ""}
     ` : "";
+
+    const volumeInstructions = {
+        short: "CONSTRAINT: Keep it extremely concise. Use bullet points. Max 2 sentences per paragraph. Focus on visual impact.",
+        standard: "CONSTRAINT: Standard marketing copy. Balanced mix of headlines and 2-3 sentence explanations. Professional tone.",
+        detailed: "CONSTRAINT: HIGH DENSITY & DEPTH. You MUST write rich, detailed paragraphs. functionality. Minimum 300 characters per section. Never summarize. Explain 'Why' and 'How' in depth."
+    };
+
+    const selectedVolume = (brief.v09_extra as any)?.textVolume || 'standard';
 
     const common = `
     [PRODUCT TYPE: ${brief.productType.toUpperCase()}]
@@ -105,9 +114,30 @@ export function buildFramePrompt(frame: "A" | "B" | "C", brief: NormalizedBrief,
     - Emoji: ${styleRules?.emojiAllowed ? "Allowed & Encouraged" : "Prohibited"}
     - Length: ${styleRules?.lengthBias || "normal"}
     
-    - [LANGUAGE] Use KOREAN only. (한국어 우선 출력)
+    [TEXT VOLUME: ${selectedVolume.toUpperCase()}]
+    ${volumeInstructions[selectedVolume as keyof typeof volumeInstructions]}
+
+    [KEY LOCALIZATION - CRITICAL]
+    - [LANGUAGE] Use KOREAN only (한국어 우선 출력).
+    - [DATA KEYS] When outputting JSON keys for content lists (specs, menus, features), YOU MUST USE KOREAN KEYS.
+      - BAD: { "name": "Pizza", "price": "10,000", "description": "Tasty" }
+      - GOOD: { "메뉴명": "Pizza", "가격": "10,000", "상세설명": "Tasty" }
+    - Standard Keys to Localize:
+      - "Price" -> "가격"
+      - "Description" -> "상세설명" or "특징"
+      - "Note" -> "비고"
+      - "Ingredients" -> "주요성분"
 
     ${strategicOrchestration}
+
+    ${brief.scrapedContext ? `
+    [VISUAL & PAGE CONTEXT - FROM URL]
+    The user provided a URL (${brief.scrapedContext.url}). We analyzed it:
+    - Extracted Text: "${brief.scrapedContext.text.slice(0, 800)}..."
+    - Visual Vibe: "${brief.scrapedContext.vibe}"
+    
+    *INSTRUCTION*: Use this context to match the brand's tone and include specific details (specs, founder story) if relevant.
+    ` : ""}
 
     ${semanticAnchors}
     `.trim();
@@ -191,13 +221,13 @@ export function buildFramePrompt(frame: "A" | "B" | "C", brief: NormalizedBrief,
     P3-P4 (The Solution): 내부 메인 면 (Inner Main Spread)
        - ROLE: The "Meat" of the content. Authority & Logic.
        - MANDATE: Detailed Service Catalog / Menu / Program Info.
-       - TRANSFORMATION: EXPAND the [ROUGH DRAFT] lists into "Benefit-First" descriptions. (e.g., instead of "Curriculum A", say "Mastery Course: From basic to pro in 3 weeks").
+       - TRANSFORMATION: [SMART ENRICHMENT]. Keep Item Names and Prices EXACTLY as provided. Expand ONLY the descriptions to be benefit-focused.
        - STRUCTURE: Use clear hierarchy (HERO titles, sub-bullets).
 
     P5 (The Trust): 내부 날개 (Inner Flap - Folded in)
        - ROLE: Closing the Trust Gap.
        - MANDATE: Social Proof. Use [Reviews], [Awards], [Q&A].
-       - TRANSFORMATION: If input is "Good service", REWRITE it as "Ranked #1 in Customer Satisfaction Index 2024". (Invent credible details if input is too short).
+       - TRANSFORMATION: Polish the input text to sound professional and trustworthy. Do NOT invent specific awards or rankings unless provided.
        - FEATURE: If user provided Star Rating, mention "5-Star Excellence".
 
     P6 (The Closer): 뒷표지 (Back Cover)

@@ -1,0 +1,17 @@
+{
+  "name": "leaflet-writing-quality-os-runtime",
+  "version": "4.3.2",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node dist/tests/run_tests.js",
+    "example": "node dist/examples/run_example.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}

@@ -26,6 +26,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { BrochureBlockBuilder } from "./BrochureBlockBuilder";
 import { Loader2, ChevronRight, ChevronLeft, Sparkles, AlertCircle, Shield, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -390,6 +391,19 @@ export function BrochureForm({ onSubmit, isLoading }: BrochureFormProps) {
                                             {form.formState.errors.brandName.message}
                                         </p>
                                     )}
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label className="text-[15px] font-black text-slate-500 uppercase tracking-widest pl-1">참고 웹사이트/SNS (선택)</Label>
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <Badge variant="outline" className="text-[10px] h-5 bg-slate-100 text-slate-500 border-none">Visual Scraping</Badge>
+                                        <span className="text-[11px] text-slate-400">AI가 이 주소를 참고하여 브랜드 톤과 디자인 스타일을 분석합니다.</span>
+                                    </div>
+                                    <Input
+                                        {...form.register("referenceUrl")}
+                                        placeholder="https://example.com"
+                                        className="h-14 text-[14px] bg-white border-slate-200 rounded-2xl shadow-sm focus:ring-4 focus:ring-indigo-600/10 focus:border-indigo-600 transition-all placeholder:font-normal"
+                                    />
                                 </div>
 
 

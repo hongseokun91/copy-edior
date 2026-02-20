@@ -56,7 +56,7 @@ export const leafletGoals = [
 
 export const predefinedContactTypes = ["phone", "kakao", "naver"] as const;
 
-// V28: Strict Schema for Flyer/Poster
+// V28: Strict Schema for Flyer
 export const flyerFormSchema = z.object({
     category: z.string().min(1, { message: "업종을 선택해 주세요." }),
     subCategory: z.string().optional(),
@@ -77,6 +77,7 @@ export const flyerFormSchema = z.object({
     contactType: z.enum(predefinedContactTypes),
     contactValue: z.string().optional(),
     additionalBrief: z.string().max(1000, { message: "1000자 이내로 입력해주세요." }).optional(),
+    referenceUrl: z.string().optional(), // [NEW] Visual Scraping URL
 });
 
 // V28: Slim/Flexible Schema for Leaflet (preserving V25-27 improvements)
@@ -112,9 +113,43 @@ export const leafletFormSchema = z.object({
     selectedModules: z.array(z.string()).optional(),
     moduleData: z.record(z.string(), z.any()).optional(),
     additionalBrief: z.string().max(1000, { message: "1000자 이내로 입력해주세요." }).optional(),
+    referenceUrl: z.string().optional(), // [NEW] Visual Scraping URL
     leafletType: z.enum(["2단", "3단", "4단", "N_FOLD", "GATE_FOLD"]).default("3단").optional(),
     foldType: z.enum(["N_FOLD", "GATE_FOLD", "ACCORDION", "ROLL"]).optional(), // Enhanced fold types
+    textVolume: z.enum(["short", "standard", "detailed"]), // Enterprise Spec v1.0: Volume Control
+});
+
+// [NEW] Poster Schema (Flexible: offer or brief is main driver)
+export const posterFormSchema = z.object({
+    category: z.string().min(1, { message: "업종을 선택해 주세요." }),
+    // Poster is less strict about structured fields, driven by Brief/Offer
+    offer: z.string().optional(),
+    additionalBrief: z.string().optional(),
+    name: z.string().optional(), // Store name optional for poster if not focus
+    goal: z.string().optional(),
+    referenceUrl: z.string().optional(), // [NEW] Visual Scraping URL
+    // Allow pass-through of other fields if needed, but keep schema loose
+}).refine(data => data.offer || data.additionalBrief, {
+    message: "포스터 제작을 위해 내용(Offer) 또는 추가 요청사항(Brief) 중 하나는 필수입니다.",
+    path: ["offer"]
+});
+
+// [NEW] Brochure Schema (Based on Leaflet but potentially stricter on Story)
+export const brochureFormSchema = z.object({
+    category: z.string().min(1, { message: "업종을 선택해 주세요." }),
+    name: z.string().min(1, { message: "상호명/브랜드명을 입력해 주세요." }),
+    goal: z.string().optional(),
+    offer: z.string().optional(),
+    brandSubject: z.string().optional(),
+    contactType: z.enum(predefinedContactTypes).optional(), // Optional for Brochure (often back cover fixed)
+    contactValue: z.string().optional(),
+    additionalBrief: z.string().optional(),
+    referenceUrl: z.string().optional(), // [NEW] Visual Scraping URL
+    // Brochure specific fields
+    pageCount: z.number().min(4).max(12).default(4).optional(),
 });
 
 export type FlyerFormValues = z.infer<typeof flyerFormSchema>;
 export type LeafletFormValues = z.infer<typeof leafletFormSchema>;
+export type PosterFormValues = z.infer<typeof posterFormSchema>;
+export type BrochureFormValues = z.infer<typeof brochureFormSchema>;

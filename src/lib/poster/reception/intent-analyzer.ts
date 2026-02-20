@@ -20,7 +20,8 @@ export class IntentAnalyzer {
             "INT_RECRUITING": 0,
             "INT_PUBLIC_NOTICE": 0,
             "INT_BRAND_CAMPAIGN": 0,
-            "INT_B2B_SEMINAR": 0
+            "INT_B2B_SEMINAR": 0,
+            "INT_ADAPTIVE": 0
         };
 
         const debugTrace: string[] = [];

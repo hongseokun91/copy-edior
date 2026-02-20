@@ -19,7 +19,13 @@ export type LogType =
     | 'GEN_FAIL_FINAL'
     | 'GEN_ERROR'
     | 'SECURITY_EVENT' // [NEW]
-    | 'GEN_SCHEMA_FAIL'; // [NEW]
+    | 'GEN_SCHEMA_FAIL' // [NEW]
+    | 'GEN_VARIANT_START' // [NEW] Leaflet Multi-Variant
+    | 'GEN_VARIANT_FAIL' // [NEW] Leaflet Multi-Variant
+    | 'ECO_PASS1_START'
+    | 'ECO_PASS2_START'
+    | 'GEN_SCRAPE'
+    | 'GEN_SCRAPE_FAIL';
 
 interface LogEntry {
     timestamp: string;

@@ -1,15 +1,18 @@
-export const LEAFLET_MODULE_CATEGORIES = ["브랜드소개", "서비스안내", "신뢰/입증", "이용가이드", "문의/기타"] as const;
+export const LEAFLET_MODULE_CATEGORIES = ["표지", "브랜드소개", "서비스안내", "신뢰/입증", "이용가이드", "문의/기타"] as const;
 export type LeafletModuleCategory = (typeof LEAFLET_MODULE_CATEGORIES)[number];
 
 export interface LeafletModuleDef {
     id: string;
     label: string;
     description: string;
-    category: '브랜드소개' | '서비스안내' | '신뢰/입증' | '이용가이드' | '문의/기타';
+    category: '표지' | '브랜드소개' | '서비스안내' | '신뢰/입증' | '이용가이드' | '문의/기타';
     icon: string;
 }
 
 export const LEAFLET_MODULES: LeafletModuleDef[] = [
+    // Category: 표지 (New)
+    { id: 'cover_branding', label: '메인 표지', description: '로고, 슬로건, 메인 이미지가 포함된 기본 표지', category: '표지', icon: '🏠' },
+
     // Category: 브랜드소개
     { id: 'ceo_message', label: 'CEO 메시지', description: '대표자의 경영철학 및 CEO 인사', category: '브랜드소개', icon: '👤' },
     { id: 'brand_story', label: '브랜드 스토리', description: '브랜드 탄생 배경 및 성장 과정', category: '브랜드소개', icon: '📖' },

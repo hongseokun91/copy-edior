@@ -1,0 +1,40 @@
+{
+  "moduleKey": "CORE_SERVICE",
+  "industryKey": "PRINT_PRODUCTION",
+  "brandStyle": {
+    "tone": "차분/전문",
+    "formality": "합니다",
+    "ctaDefault": "상담으로 확인해보세요.",
+    "sentenceAvgWords": [
+      12,
+      18
+    ],
+    "blacklist": [
+      "최고",
+      "100%",
+      "보장",
+      "무조건",
+      "부작용 없음"
+    ]
+  },
+  "proofPack": {
+    "process": [
+      "요청 확인",
+      "사양/옵션 확정",
+      "시안/교정",
+      "제작",
+      "검수/출고"
+    ],
+    "leadTime": "일반 3~5영업일",
+    "options": [
+      "후가공(박/형압/스팟UV)",
+      "용지 변경",
+      "긴급 제작"
+    ],
+    "policy": [
+      "작업 시작 전 최종 견적 확정",
+      "예외: 긴급 제작/추가 공정은 별도 안내"
+    ]
+  },
+  "draft": "정성 가득한 프리미엄 원스톱 서비스로 최고의 결과를 보장합니다. 문의/예약 주세요!"
+}

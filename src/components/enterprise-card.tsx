@@ -6,11 +6,11 @@ import { useState } from "react";
 import { Check } from "lucide-react";
 
 interface EnterpriseCardProps {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
     id: string;
     icon: string;
     label: string;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
     description: string;
     isSelected: boolean;
     onClick: () => void;

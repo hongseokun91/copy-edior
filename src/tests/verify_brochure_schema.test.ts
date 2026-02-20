@@ -11,7 +11,7 @@ const BrochureSchema = z.object({
     blockData: z.array(z.any()).optional(),
 }).passthrough();
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const validBrochure: any = { kindId: "TEST", title: "Test Title", blockData: [] };
 
 function mockLLM(): LLMClient {

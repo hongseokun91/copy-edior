@@ -159,11 +159,12 @@ export function LeafletWriterModal({ isOpen, moduleId, onClose, form }: LeafletW
                                         </>
                                     )}
                                 </Button>
+                                {/* Generator Toolbar removed as per user request to remove AI Refine button */}
                             </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
                 {/* Footer */}
                 <div className="bg-white border-t border-slate-100 px-6 py-4 flex justify-end gap-3 shrink-0">
                     <Button variant="ghost" onClick={onClose} type="button">취소</Button>

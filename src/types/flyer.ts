@@ -44,6 +44,8 @@ export interface FlyerInputs {
   instagramId?: string;
   businessAddress?: string;
   officePhone?: string;
+  textVolume?: 'short' | 'standard' | 'detailed';
+  referenceUrl?: string; // Unified Reference URL
 }
 
 export interface FlyerSlots {
@@ -107,6 +109,7 @@ export interface GenerateResponse {
     warnings: string[];
     warRoomLogs?: string; // v7: War Room Logs
     traceId?: string; // v1.4: Universal Trace ID
+    engine_v?: string; // [ECO v3] Engine version tracking
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     debug?: any; // P0-3 Debug Payload
   };

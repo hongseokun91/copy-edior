@@ -27,12 +27,14 @@ async function run() {
         );
         console.log("Generate Result (A):", JSON.stringify(result, null, 2));
 
-        if (!result.HEADLINE || !result.SUBHEAD) {
+        if (!result.variants?.A?.HEADLINE || !result.variants?.A?.SUBHEAD) {
             console.error("FAIL: Missing Keys in Output");
             process.exit(1);
         }
         console.log("SUCCESS: Output Schema Valid");
-    } catch (e) {
+    } catch (e: any) {
+        const fs = require('fs');
+        fs.writeFileSync('verification_error.log', `FAIL: Generation Error\n${e.message}\n${e.stack}`);
         console.error("FAIL: Generation Error", e);
         process.exit(1);
     }

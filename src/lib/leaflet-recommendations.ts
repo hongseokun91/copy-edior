@@ -43,7 +43,7 @@ export const INDUSTRY_RECOMMENDATIONS: Record<string, Recommendation> = {
 };
 
 export const DEFAULT_RECOMMENDATION: Recommendation = {
-    essential: ["brand_story", "core_service", "contact_channels"],
+    essential: ["cover_branding", "brand_story", "core_service", "contact_channels"],
     recommended: ["usp_highlight", "faq", "awards_certs"]
 };
 

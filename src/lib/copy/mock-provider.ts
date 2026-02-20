@@ -101,7 +101,61 @@ export async function generateMockResponse(input: any) {
     const fs = require('fs');
     const path = require('path');
 
-    // Attempt to detect Frame for Diversity via PassName or Content
+    // [NEW] Leaflet Mock
+    if (passName === "LEAFLET_EXPANSION" || inputStr.includes("LEAFLET STRUCTURE")) {
+        return {
+            pages: [
+                { page_id: "P1", role: "Front", sections: [{ type: "HERO", content: { headline: "Mock P1" } }] },
+                { page_id: "P2", role: "Inside", sections: [{ type: "STORY", content: { text: "Mock P2" } }] },
+                { page_id: "P3", role: "Main", sections: [{ type: "SERVICE", content: { details: "Mock P3" } }] },
+                { page_id: "P4", role: "Main", sections: [{ type: "SERVICE", content: { details: "Mock P4" } }] },
+                { page_id: "P5", role: "Trust", sections: [{ type: "REVIEW", content: { text: "Mock P5" } }] },
+                { page_id: "P6", role: "Back", sections: [{ type: "CONTACT", content: { tel: "Mock P6" } }] }
+            ]
+        };
+    }
+
+    // [NEW] Brochure Mock
+    if (passName === "BROCHURE_GEN" || inputStr.includes("BROCHURE STRUCTURE")) {
+        return {
+            pages: [
+                { page_id: "P1", role: "Cover", sections: [] },
+                { page_id: "P2", role: "Story", sections: [] },
+                { page_id: "P3", role: "Service", sections: [] },
+                { page_id: "P4", role: "Contact", sections: [] }
+            ]
+        };
+    }
+
+    // [NEW] Poster Mocks
+    if (passName === "POSTER_ANALYZE") {
+        return {
+            intentId: "INT_PROMO_OFFER",
+            headlineType: "HL_OFFER_FIRST",
+            channelPack: "PACK_SNS_1_1",
+            densityProfile: "DENSITY_STANDARD",
+            claimPolicyMode: "standard",
+            facts: {
+                who: "Everyone", what: "Sale", why: "Promotion", tone: "Exciting", keywords: ["Sale"]
+            }
+        };
+    }
+    if (passName === "POSTER_HEADLINES") {
+        return {
+            setA: [{ text: "Poster Headline A", badges: { length: "short", densityFit: "DENSITY_STANDARD", tone: "friendly", risk: "low" }, typeHint: "HL_OFFER_FIRST", score: 90 }],
+            setB: [{ text: "Poster Headline B", badges: { length: "medium", densityFit: "DENSITY_STANDARD", tone: "friendly", risk: "low" }, typeHint: "HL_PROBLEM_FIRST", score: 80 }],
+            setC: [{ text: "Poster Headline C", badges: { length: "long", densityFit: "DENSITY_STANDARD", tone: "official", risk: "low" }, typeHint: "HL_AUTHORITY_FIRST", score: 85 }]
+        };
+    }
+    if (passName === "POSTER_BODY") {
+        return {
+            S_HEADLINE: "Poster Headline A",
+            S_SUBHEAD: "Generated Subhead",
+            S_CTA: "Call Now"
+        };
+    }
+
+    // [EXISTING] Frame Logic
     if (passName.includes("_A") || inputStr.includes("Frame A") || inputStr.includes("Frame: A") || inputStr.includes("FRAME A")) {
         try { fs.appendFileSync(path.join(process.cwd(), 'debug_mock.log'), `[MOCK] DECISION: FRAME A\n`); } catch (e) { }
         return {

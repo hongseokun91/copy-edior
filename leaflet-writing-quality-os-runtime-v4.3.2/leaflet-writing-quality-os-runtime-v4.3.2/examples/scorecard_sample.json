@@ -1,0 +1,57 @@
+{
+  "version": "4.3.1",
+  "moduleKey": "PRICING",
+  "industryKey": "PRINT_PRODUCTION",
+  "totalScore": 91,
+  "cutoff": 90,
+  "pass": true,
+  "hardFail": false,
+  "dimensionScores": {
+    "clarity": 4.6,
+    "specificity": 4.4,
+    "structure": 4.5,
+    "voice_fit": 4.2,
+    "readability_rhythm": 4.1,
+    "credibility_safety": 5.0,
+    "conversion": 4.2
+  },
+  "penalties": [
+    {
+      "ruleId": "ST-201",
+      "delta": -8,
+      "reason": "클리셰 2회 감지"
+    }
+  ],
+  "bonuses": [
+    {
+      "ruleId": "EV-101",
+      "delta": 4,
+      "reason": "수치/기간 신호"
+    }
+  ],
+  "rulesTriggered": [
+    {
+      "ruleId": "ST-201",
+      "severity": "HIGH",
+      "message": "클리셰 다수"
+    }
+  ],
+  "actionsApplied": [
+    {
+      "type": "REPLACE",
+      "details": {
+        "mapKey": "CLICHE_TO_SPECIFIC"
+      }
+    }
+  ],
+  "ceg": {
+    "claims": [
+      "포함/옵션/조건을 공개한다"
+    ],
+    "evidence": [
+      "견적 확정 방식 문장"
+    ],
+    "unlinkedClaims": []
+  },
+  "timestamp": "2026-02-19T09:00:00+09:00"
+}

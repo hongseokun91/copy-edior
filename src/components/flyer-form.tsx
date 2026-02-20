@@ -332,6 +332,25 @@ export function FlyerForm({
                     />
                 </div>
 
+                {/* Reference URL (Visual Scraping) */}
+                <FormField
+                    control={form.control}
+                    name="referenceUrl"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel className="text-sm font-bold text-slate-700">참고할 URL (선택)</FormLabel>
+                            <FormControl>
+                                <Input
+                                    placeholder="https://example.com (AI가 디자인/내용을 참고합니다)"
+                                    {...field}
+                                    className="bg-white border-slate-200 text-slate-900 h-11 placeholder:text-slate-300"
+                                />
+                            </FormControl>
+                            <FormMessage className="text-[11px]" />
+                        </FormItem>
+                    )}
+                />
+
                 <Button
                     type="submit"
                     size="lg"

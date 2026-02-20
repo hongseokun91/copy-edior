@@ -19,6 +19,12 @@ export interface NormalizedBrief {
     periodRaw: string;
     contactChannel: string;
     contactValueRaw: string;
+    referenceUrl?: string; // Standardized Reference URL
+    scrapedContext?: {
+        url: string;
+        text: string;
+        vibe: string;
+    };
 
     // 2. Parsed / Normalized
     offerTokens: {
@@ -57,6 +63,7 @@ export interface NormalizedBrief {
         serviceDetails?: string;
         trustPoints?: string;
         locationTip?: string;
+        textVolume?: 'short' | 'standard' | 'detailed';
         orchestrationPrompt?: string;
         selectedModules?: string[];
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

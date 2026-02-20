@@ -94,6 +94,7 @@ export function normalizeInput(input: FlyerInputs, productType: FlyerType = 'fly
         periodRaw: input.period || "",
         contactChannel: input.contactType,
         contactValueRaw: input.contactValue || "",
+        referenceUrl: input.referenceUrl,
 
         offerTokens,
         periodNormalized,
@@ -110,6 +111,7 @@ export function normalizeInput(input: FlyerInputs, productType: FlyerType = 'fly
             serviceDetails: input.serviceDetails,
             trustPoints: input.trustPoints,
             locationTip: input.locationTip,
+            textVolume: input.textVolume, // [CRITICAL FIX] Map Text Volume
 
             // V5.1 Semantic Modular Fields
             selectedModules: input.selectedModules,

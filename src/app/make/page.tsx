@@ -44,7 +44,25 @@ function MakePageContent() {
     const [debugError, setDebugError] = useState<string | null>(null);
 
     const handleFormSubmit = async (values: any, extra?: any) => {
-        toast.info("생성형 AI로 문구를 생성 중입니다. 대략 30초 정도 소요됩니다.");
+        if (selectedProduct === "leaflet") {
+            toast.custom((t) => (
+                <div className="bg-indigo-950/90 backdrop-blur-md border border-indigo-500/30 text-white p-4 rounded-xl shadow-2xl flex items-center gap-4 min-w-[320px] animate-in slide-in-from-top-5 fade-in duration-300">
+                    <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-indigo-500/20">
+                        <div className="absolute h-full w-full animate-ping rounded-full bg-indigo-500/20 opacity-75"></div>
+                        <svg className="h-5 w-5 animate-spin text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </div>
+                    <div className="flex flex-col gap-0.5">
+                        <h3 className="font-bold text-sm text-indigo-100">AI가 리플렛을 설계 중입니다</h3>
+                        <p className="text-xs text-indigo-300/80">업종별 최적의 구조로 배치하고 있어요 (약 30초)</p>
+                    </div>
+                </div>
+            ), { duration: 30000 }); // Show for 30s or until dismissed/replaced
+        } else {
+            toast.info("생성형 AI로 문구를 생성 중입니다. 대략 30초 정도 소요됩니다.");
+        }
         setIsLoading(true);
         setResult(null);
         setDebugError(null);
@@ -124,10 +142,10 @@ function MakePageContent() {
 
                 <Tabs value={selectedProduct} onValueChange={(v) => setSelectedProduct(v as "flyer" | "leaflet" | "brochure" | "poster")} className="hidden md:block">
                     <TabsList className="bg-purple-100/50 border border-purple-200 h-9">
-                        <TabsTrigger value="flyer" className="text-xs data-[state=active]:bg-purple-600 data-[state=active]:text-white">전단지</TabsTrigger>
                         <TabsTrigger value="leaflet" className="text-xs data-[state=active]:bg-purple-600 data-[state=active]:text-white">리플렛</TabsTrigger>
                         <TabsTrigger value="brochure" className="text-xs data-[state=active]:bg-purple-600 data-[state=active]:text-white">브로슈어</TabsTrigger>
                         <TabsTrigger value="poster" className="text-xs data-[state=active]:bg-purple-600 data-[state=active]:text-white">포스터</TabsTrigger>
+                        <TabsTrigger value="flyer" className="text-xs data-[state=active]:bg-purple-600 data-[state=active]:text-white">전단지</TabsTrigger>
                     </TabsList>
                 </Tabs>
 
@@ -157,10 +175,10 @@ function MakePageContent() {
                         <div className="md:hidden mb-6">
                             <Tabs value={selectedProduct} onValueChange={(v) => setSelectedProduct(v as "flyer" | "leaflet" | "brochure" | "poster")}>
                                 <TabsList className="bg-purple-100/50 border border-purple-200 h-9 w-full grid grid-cols-4">
-                                    <TabsTrigger value="flyer" className="text-xs data-[state=active]:bg-purple-600 data-[state=active]:text-white">전단지</TabsTrigger>
                                     <TabsTrigger value="leaflet" className="text-xs data-[state=active]:bg-purple-600 data-[state=active]:text-white">리플렛</TabsTrigger>
                                     <TabsTrigger value="brochure" className="text-xs data-[state=active]:bg-purple-600 data-[state=active]:text-white">브로슈어</TabsTrigger>
                                     <TabsTrigger value="poster" className="text-xs data-[state=active]:bg-purple-600 data-[state=active]:text-white">포스터</TabsTrigger>
+                                    <TabsTrigger value="flyer" className="text-xs data-[state=active]:bg-purple-600 data-[state=active]:text-white">전단지</TabsTrigger>
                                 </TabsList>
                             </Tabs>
                         </div>

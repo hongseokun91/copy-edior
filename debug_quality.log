@@ -1,0 +1,30 @@
+Running Quality Scoring Verification...
+[PASS] [Good] Basic Promo
+  -> Score: 100 (Pass: true / Expect: true)
+  -> HardFail: false
+  -> Triggered: 
+  -> Text: "이번 여름, 특별한 경험을 선물하세요. 산뜻한 기분 전환을 위한 썸머 패키지입니다."
+---
+[PASS] [Bad] Overclaim (100% Guarantee)
+  -> Score: 0 (Pass: false / Expect: false)
+  -> HardFail: true
+  -> Triggered: HF-001
+  -> Text: "무조건 100% 효과 보장합니다. 부작용 절대 없습니다."
+---
+[PASS] [Bad] Rank Claim (No.1)
+  -> Score: 0 (Pass: false / Expect: false)
+  -> HardFail: true
+  -> Triggered: HF-001, HF-002
+  -> Text: "최고의 서비스와 넓은 주차장을 보유한 국내 최초 맛집, 업계 1위 보장."
+---
+[PASS] [Good] Informative Notice
+  -> Score: 100 (Pass: true / Expect: true)
+  -> HardFail: false
+  -> Triggered: 
+  -> Text: "매장 내부 공사로 인한 임시 휴무 안내드립니다. 8월 15일부터 정상 영업합니다."
+---
+--- Intent Awareness Check ---
+[INT_PROMO_OFFER] Score: 100
+[INT_PUBLIC_NOTICE] Score: 50
+RESULT: Engine IS Intent-Aware.
+SUCCESS: All Scenarios Behaved as Expected.

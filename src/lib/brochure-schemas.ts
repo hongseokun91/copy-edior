@@ -41,6 +41,7 @@ export const brochureFormSchema = z.object({
     // Contact
     contactPhone: z.string().optional(),
     websiteUrl: z.string().optional(),
+    referenceUrl: z.string().optional(), // [NEW] Visual Scraping URL
 
     // Orchestration
     blocks: z.array(z.object({

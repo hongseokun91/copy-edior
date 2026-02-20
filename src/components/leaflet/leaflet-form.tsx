@@ -20,9 +20,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Badge } from "@/components/ui/badge";
+
 import { InlineError } from "@/components/inline-error";
-import { Loader2 } from "lucide-react";
+import { Loader2, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Card } from "@/components/ui/card";
 import { normalizeInput, checkFactCompleteness, MissingFact } from "@/lib/facts";
 import { motion } from "framer-motion";
 import { ClarificationModal } from "@/components/clarification-modal";
@@ -61,6 +63,7 @@ export function LeafletForm({
             instagramId: "",
             businessAddress: "",
             officePhone: "",
+            textVolume: "standard",
         },
         mode: "onChange",
     });
@@ -152,56 +155,70 @@ export function LeafletForm({
                                         <FormLabel className="text-[11px] font-bold text-slate-500">리플렛 형태 (접지 방식)</FormLabel>
                                     </div>
                                     <FormControl>
-                                        <div className="space-y-3">
-                                            <RadioGroup
-                                                onValueChange={(val) => {
-                                                    // When selecting 4-Fold group, defaulting to "4단" if not already set to local variant
-                                                    if (val === "4단") {
-                                                        const current = field.value;
-                                                        if (["4단", "N_FOLD", "GATE_FOLD"].includes(current)) {
-                                                            // Keep current if already in group
-                                                            field.onChange(current);
-                                                        } else {
-                                                            // Default to Basic 4-Fold
-                                                            field.onChange("4단");
-                                                        }
-                                                    } else {
-                                                        field.onChange(val);
-                                                    }
-                                                }}
-                                                value={["4단", "N_FOLD", "GATE_FOLD"].includes(field.value) ? "4단" : field.value}
-                                                className="grid grid-cols-3 gap-3"
-                                            >
-                                                {["2단", "3단", "4단"].map((type) => (
-                                                    <FormItem key={type} className="flex-1 min-w-0">
-                                                        <FormControl>
-                                                            <RadioGroupItem value={type} className="peer sr-only" />
-                                                        </FormControl>
-                                                        <FormLabel className="flex flex-col items-center justify-center rounded-xl border-2 border-slate-100 bg-white p-2 hover:bg-slate-50 hover:border-slate-200 peer-data-[state=checked]:border-indigo-600 peer-data-[state=checked]:text-indigo-600 [&:has([data-state=checked])]:border-indigo-600 cursor-pointer transition-all h-28 shadow-sm peer-data-[state=checked]:shadow-md peer-data-[state=checked]:bg-indigo-50/10 group text-center relative overflow-hidden">
-                                                            <div className="mb-2 text-slate-300 group-hover:text-indigo-400 peer-data-[state=checked]:text-indigo-600 transition-colors">
-                                                                {/* Icons for each type */}
+                                        <div className="space-y-4">
+                                            <div className="grid grid-cols-3 gap-3">
+                                                {["2단", "3단", "4단"].map((type) => {
+                                                    const isSelectedTyped = field.value === type || (type === "4단" && ["4단", "N_FOLD", "GATE_FOLD"].includes(field.value || ""));
+
+                                                    return (
+                                                        <Card
+                                                            key={type}
+                                                            className={cn(
+                                                                "p-4 cursor-pointer transition-all border relative overflow-hidden group shadow-sm rounded-xl h-28 flex flex-col items-center justify-center gap-2",
+                                                                isSelectedTyped
+                                                                    ? "border-indigo-600 bg-indigo-50/30 ring-2 ring-indigo-600/10 shadow-md transform -translate-y-1"
+                                                                    : "border-slate-200 bg-white hover:border-indigo-300 hover:shadow-md hover:-translate-y-0.5"
+                                                            )}
+                                                            onClick={() => {
+                                                                if (type === "4단") {
+                                                                    const current = field.value;
+                                                                    if (current && ["4단", "N_FOLD", "GATE_FOLD"].includes(current)) {
+                                                                        field.onChange(current);
+                                                                    } else {
+                                                                        field.onChange("4단");
+                                                                    }
+                                                                } else {
+                                                                    field.onChange(type);
+                                                                }
+                                                            }}
+                                                        >
+                                                            <div className={cn(
+                                                                "transition-colors",
+                                                                isSelectedTyped ? "text-indigo-600" : "text-slate-300 group-hover:text-indigo-400"
+                                                            )}>
                                                                 {type === "2단" && (
-                                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" /><line x1="12" y1="4" x2="12" y2="20" /></svg>
+                                                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" /><line x1="12" y1="4" x2="12" y2="20" /></svg>
                                                                 )}
                                                                 {type === "3단" && (
-                                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M9 4v16M15 4v16" /></svg>
+                                                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M9 4v16M15 4v16" /></svg>
                                                                 )}
                                                                 {type === "4단" && (
-                                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M7 4v16M12 4v16M17 4v16" /></svg>
+                                                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M7 4v16M12 4v16M17 4v16" /></svg>
                                                                 )}
                                                             </div>
-                                                            <span className="text-xs font-bold leading-tight">
+                                                            <span className={cn(
+                                                                "text-xs font-bold leading-tight",
+                                                                isSelectedTyped ? "text-indigo-700" : "text-slate-700"
+                                                            )}>
                                                                 {type}
                                                             </span>
 
-                                                            {/* 4-Fold Group Indicator */}
-                                                            {type === "4단" && (["N_FOLD", "GATE_FOLD"].includes(field.value)) && (
-                                                                <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-indigo-500 rounded-full"></span>
+                                                            {isSelectedTyped && (
+                                                                <div className="absolute top-2 right-2">
+                                                                    <div className="bg-indigo-600 p-0.5 rounded-full shadow-lg shadow-indigo-600/20 animate-in zoom-in duration-300">
+                                                                        <Check className="w-2 h-2 text-white" />
+                                                                    </div>
+                                                                </div>
                                                             )}
-                                                        </FormLabel>
-                                                    </FormItem>
-                                                ))}
-                                            </RadioGroup>
+
+                                                            {/* 4-Fold Group Indicator */}
+                                                            {type === "4단" && (["N_FOLD", "GATE_FOLD"].includes(field.value || "")) && (
+                                                                <span className="absolute bottom-2 right-2 w-1.5 h-1.5 bg-indigo-500 rounded-full"></span>
+                                                            )}
+                                                        </Card>
+                                                    );
+                                                })}
+                                            </div>
 
                                             {/* Sub-selection for 4-Fold Group */}
                                             {(field.value === "4단" || field.value === "N_FOLD" || field.value === "GATE_FOLD") && (
@@ -248,7 +265,7 @@ export function LeafletForm({
                             control={form.control}
                             name="category"
                             render={({ field }) => (
-                                <FormItem>
+                                <FormItem className="relative pb-4">
                                     <div className="flex items-center gap-2 mb-1">
                                         <Badge variant="outline" className="text-[10px] h-5 bg-white border-slate-200 text-slate-400">필수</Badge>
                                         <FormLabel className="text-[11px] font-bold text-slate-500">업종 (분야)</FormLabel>
@@ -260,7 +277,7 @@ export function LeafletForm({
                                             className="bg-white border-slate-200 text-slate-900 h-11 placeholder:text-slate-300"
                                         />
                                     </FormControl>
-                                    <FormMessage className="text-[11px]" />
+                                    <FormMessage className="text-[11px] absolute left-0 top-full mt-1" />
                                 </FormItem>
                             )}
                         />
@@ -270,7 +287,7 @@ export function LeafletForm({
                             control={form.control}
                             name="name"
                             render={({ field }) => (
-                                <FormItem>
+                                <FormItem className="relative pb-4">
                                     <div className="flex items-center gap-2 mb-1">
                                         <Badge variant="outline" className="text-[10px] h-5 bg-white border-slate-200 text-slate-400">필수</Badge>
                                         <FormLabel className="text-[11px] font-bold text-slate-500">브랜드/업체명</FormLabel>
@@ -278,11 +295,67 @@ export function LeafletForm({
                                     <FormControl>
                                         <Input placeholder="예: 라이트빈" {...field} className="bg-white border-slate-200 text-slate-900 h-11 placeholder:text-slate-300" />
                                     </FormControl>
-                                    <FormMessage className="text-[11px]" />
+                                    <FormMessage className="text-[11px] absolute left-0 top-full mt-1" />
                                 </FormItem>
                             )}
                         />
                     </div>
+
+                    {/* Text Volume Control (Enterprise Spec v1.0) */}
+                    <FormField
+                        control={form.control}
+                        name="textVolume"
+                        render={({ field }) => (
+                            <FormItem className="space-y-3 pt-2">
+                                <div className="flex items-center gap-2">
+                                    <Badge variant="outline" className="text-[10px] h-5 bg-purple-50 border-purple-200 text-purple-600">NEW</Badge>
+                                    <FormLabel className="text-[11px] font-bold text-slate-500">텍스트 분량 (Text Volume)</FormLabel>
+                                </div>
+                                <FormControl>
+                                    <div className="grid grid-cols-3 gap-3">
+                                        {[
+                                            { value: "short", label: "간결하게", sub: "핵심만 (여백 중심)" },
+                                            { value: "standard", label: "보통", sub: "표준 리플렛" },
+                                            { value: "detailed", label: "상세하게", sub: "3~4문단 (정보형)" }
+                                        ].map((option) => (
+                                            <Card
+                                                key={option.value}
+                                                className={cn(
+                                                    "p-3 cursor-pointer transition-all border relative overflow-hidden group shadow-sm rounded-xl h-full flex flex-col items-center justify-center text-center",
+                                                    field.value === option.value
+                                                        ? "border-purple-600 bg-purple-50/30 ring-2 ring-purple-600/10 shadow-md transform -translate-y-1"
+                                                        : "border-slate-200 bg-white hover:border-purple-300 hover:shadow-md hover:-translate-y-0.5"
+                                                )}
+                                                onClick={() => field.onChange(option.value)}
+                                            >
+                                                <span className={cn(
+                                                    "text-sm font-bold mb-1 transition-colors",
+                                                    field.value === option.value ? "text-purple-700" : "text-slate-700"
+                                                )}>
+                                                    {option.label}
+                                                </span>
+                                                <span className={cn(
+                                                    "text-[10px] leading-tight transition-colors",
+                                                    field.value === option.value ? "text-purple-500" : "text-slate-400"
+                                                )}>
+                                                    {option.sub}
+                                                </span>
+
+                                                {field.value === option.value && (
+                                                    <div className="absolute top-2 right-2">
+                                                        <div className="bg-purple-600 p-0.5 rounded-full shadow-lg shadow-purple-600/20 animate-in zoom-in duration-300">
+                                                            <Check className="w-2 h-2 text-white" />
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </Card>
+                                        ))}
+                                    </div>
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
 
                     {/* Core Subject (Full Width) */}
                     <FormField
@@ -386,6 +459,30 @@ function CollapsibleBrief({ form }: { form: any }) {
                             </FormItem>
                         )}
                     />
+
+                    {/* Reference URL (Visual Scraping) - Inside Collapsible */}
+                    <div className="mt-4 pt-4 border-t border-slate-100">
+                        <FormField
+                            control={form.control}
+                            name="referenceUrl"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <span className="text-xs font-bold text-slate-500">참고할 URL (선택)</span>
+                                        <Badge variant="outline" className="text-[10px] h-4 bg-slate-100 text-slate-500 border-none">Visual Scraping</Badge>
+                                    </div>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="https://example.com (AI가 디자인/톤을 분석합니다)"
+                                            {...field}
+                                            className="bg-white border-slate-200 text-slate-800 h-9 text-xs placeholder:text-slate-300"
+                                        />
+                                    </FormControl>
+                                    <FormMessage className="text-[11px]" />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
                 </div>
             )}
         </div>

@@ -13,6 +13,9 @@ import { SlotLimitKey } from "@/lib/templates/slots";
 import { cn } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { QualityBadge } from "./quality/QualityBadge";
+import { QualityDashboard } from "./quality/QualityDashboard";
+import { QualityScorecard } from "@/lib/quality/types";
 
 interface FlyerResultProps {
     data: GenerateResponse;
@@ -52,7 +55,8 @@ export function FlyerResult({ data, productType = 'flyer', onRetry }: FlyerResul
                 const pageHeader = `[${page.page_id} - ${page.role}]\n`;
                 const content = page.sections.map(sec => {
                     const secTypeLabel = sec.type === 'HERO' ? '메인 면' : sec.type;
-                    const secLines = Object.entries(sec.content).map(([k, v]) => `${k}: ${v} `);
+                    const safeContent = sec.content || {}; // Safety check
+                    const secLines = Object.entries(safeContent).map(([k, v]) => `${k}: ${v} `);
                     return `(${secTypeLabel}) \n${secLines.join('\n')} `;
                 }).join('\n\n');
                 return `${pageHeader}${content} `;
@@ -191,12 +195,39 @@ function VariantCard({
     onDownload: () => void;
 }) {
     const isLeaflet = productType === 'leaflet' && (slots as LeafletVariant).pages;
+    const [isDashboardOpen, setIsDashboardOpen] = useState(false);
+
+    // Get scorecard from meta
+    const scorecard = (slots as any).meta?.quality_scorecard as QualityScorecard;
 
     return (
         <Card className="overflow-hidden glass-card border-purple-100/50 shadow-xl transition-all hover:shadow-2xl rounded-2xl group">
+            {/* Dashboard Modal */}
+            {scorecard && (
+                <QualityDashboard
+                    isOpen={isDashboardOpen}
+                    onClose={() => setIsDashboardOpen(false)}
+                    scorecard={scorecard}
+                />
+            )}
             {/* Header */}
             <div className="bg-purple-50/50 px-5 py-3 border-b border-purple-100/30 flex justify-between items-center">
-                <span className="font-black text-xs uppercase tracking-widest text-purple-900">시안 0{variant === 'A' ? '1' : variant === 'B' ? '2' : '3'}</span>
+                <div className="flex items-center gap-2">
+                    <span className="font-black text-xs uppercase tracking-widest text-purple-900">시안 0{variant === 'A' ? '1' : variant === 'B' ? '2' : '3'}</span>
+                    {productType === 'leaflet' && (slots as LeafletVariant).meta?.strategy_label && (
+                        <Badge variant="outline" className="bg-white text-purple-600 border-purple-200 text-[10px] h-5 shadow-sm">
+                            {(slots as LeafletVariant).meta?.strategy_label}
+                        </Badge>
+                    )}
+                    {/* {scorecard && (
+                        <QualityBadge
+                            score={scorecard.totalScore}
+                            pass={scorecard.pass}
+                            hardFail={scorecard.hardFail}
+                            onClick={() => setIsDashboardOpen(true)}
+                        />
+                    )} */}
+                </div>
                 <div className="flex items-center gap-2">
                     <Button variant="ghost" size="sm" className="h-8 text-xs gap-1.5 text-purple-400 hover:text-purple-900 hover:bg-purple-100" onClick={onDownload}>
                         <Download className="w-3.5 h-3.5" />
@@ -214,19 +245,23 @@ function VariantCard({
                 {isLeaflet ? (
                     <div className="flex flex-col gap-4 max-w-2xl mx-auto">
                         {(slots as LeafletVariant).pages.map((page) => (
-                            <div key={page.page_id} className="p-4 bg-white/50 rounded-xl border border-purple-50 shadow-sm space-y-3">
-                                <div className="flex justify-between items-center">
-                                    <Badge variant="outline" className="text-[10px] font-bold text-purple-400 border-purple-100">{page.page_id}</Badge>
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase">{page.role}</span>
+                            <div key={page.page_id} className="p-4 bg-white/50 rounded-xl border border-purple-50 shadow-sm space-y-3 w-full overflow-hidden">
+                                <div className="flex justify-between items-center gap-2">
+                                    <Badge variant="outline" className="text-[10px] font-bold text-purple-400 border-purple-100 flex-shrink-0">{PAGE_LABEL_MAP[page.page_id] || page.page_id}</Badge>
+                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter truncate">{page.role || ""}</span>
                                 </div>
                                 <div className="space-y-4">
                                     {page.sections.map((section, idx) => (
                                         <div key={idx} className="space-y-1">
-                                            <div className="text-[8px] font-bold text-purple-300 uppercase">{section.type}</div>
+                                            <div className="text-[8px] font-bold text-purple-300 uppercase mb-1">{section.type}</div>
                                             {Object.entries(section.content || {}).map(([key, val]) => (
-                                                <div key={key} className="text-sm text-purple-900 font-medium leading-relaxed">
-                                                    <SafeRender value={val} />
-                                                </div>
+                                                <EditableSlot
+                                                    key={key}
+                                                    label={KEY_MAP[key.toLowerCase()] || key}
+                                                    value={val}
+                                                    designerMode={designerMode}
+                                                    onCopy={onCopySlot}
+                                                />
                                             ))}
                                         </div>
                                     ))}
@@ -382,6 +417,66 @@ function CopyGroup({
     );
 }
 
+// Enterprise Spec v1.0: Key Localization Map
+const KEY_MAP: Record<string, string> = {
+    price: "가격",
+    description: "상세설명",
+    note: "비고",
+    ingredients: "주요성분",
+    benefit: "혜택",
+    usage: "사용법",
+    caution: "주의사항"
+};
+
+const PAGE_LABEL_MAP: Record<string, string> = {
+    P1: "1면 (앞표지)",
+    P2: "2면 (날개)",
+    P3: "3면 (내지)",
+    P4: "4면 (내지)",
+    P5: "5면 (날개)",
+    P6: "6면 (뒷표지)"
+};
+
+function EditableSlot({
+    label,
+    value,
+    designerMode,
+    onCopy
+}: {
+    label: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    value: any;
+    designerMode: boolean;
+    onCopy: (text: string, label: string) => void;
+}) {
+    if (!designerMode) {
+        return (
+            <div className="mb-2">
+                <SafeRender value={value} />
+            </div>
+        );
+    }
+
+    const textValue = typeof value === 'string' ? value : JSON.stringify(value);
+
+    return (
+        <div
+            className="relative group border border-dashed border-purple-200 rounded-lg p-3 hover:bg-purple-50/50 transition-all cursor-pointer mb-2"
+            onClick={() => onCopy(textValue, label)}
+        >
+            <div className="absolute -top-2 left-2 bg-white px-1 text-[9px] font-bold text-purple-400 uppercase tracking-wider z-10">
+                {label}
+            </div>
+            <div className="text-sm text-purple-900 font-medium leading-relaxed whitespace-pre-wrap break-words w-full">
+                <SafeRender value={value} />
+            </div>
+            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-purple-600 text-white p-1 rounded-md shadow-sm">
+                <Copy className="w-3 h-3" />
+            </div>
+        </div>
+    );
+}
+
 function SlotItem({
     id,
     label,
@@ -420,12 +515,12 @@ function SlotItem({
                     </span>
                 </div>
             )}
-            <div className={className}>{content}</div>
+            <div className={cn(className, "break-keep whitespace-pre-wrap w-full")}>{content}</div>
         </div>
     );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function SafeRender({ value }: { value: any }) {
     if (typeof value === "string" || typeof value === "number") {
@@ -434,7 +529,7 @@ function SafeRender({ value }: { value: any }) {
     if (!value) {
         return null;
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     if (Array.isArray(value)) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return <>{value.map((v: any, i: any) => <SafeRender key={i} value={v} />)}</>;

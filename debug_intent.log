@@ -1,0 +1,26 @@
+Running Intent Analysis Verification...
+[PASS] "여름 맞이 50% 할인 행사"
+  -> Detected: INT_PROMO_OFFER
+---
+[PASS] "신메뉴 출시 기념 시식회"
+  -> Detected: INT_PRODUCT_LAUNCH
+---
+[PASS] "제10회 세계 고양이 박람회"
+  -> Detected: INT_EVENT_GUIDE
+---
+[PASS] "주말 아르바이트 모집합니다"
+  -> Detected: INT_RECRUITING
+---
+[PASS] "추석 연휴 휴무 안내"
+  -> Detected: INT_PUBLIC_NOTICE
+---
+[PASS] "2024 마케팅 트렌드 컨퍼런스"
+  -> Detected: INT_B2B_SEMINAR
+---
+[PASS] "오픈 기념 전품목 20% 세일"
+  -> Detected: INT_PRODUCT_LAUNCH
+---
+[PASS] "정부 지원 사업 설명회"
+  -> Detected: INT_B2B_SEMINAR
+---
+Total: 8 / 8 Passed

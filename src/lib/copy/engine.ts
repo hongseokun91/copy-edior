@@ -9,6 +9,7 @@ import { NormalizedBrief } from "@/types/brief";
 import { logger } from "@/lib/logger";
 import { sanitizeVariant } from "./sanitizer"; // [NEW] Sanitizer
 import { outputVariantSchema } from "./schemas"; // [NEW] Zod Schema
+import { QualityEngine } from "../quality/engine";
 import { z } from "zod";
 
 async function processFrame(frame: "A" | "B" | "C", brief: NormalizedBrief, traceId: string, styleId?: string, type: FlyerType = 'flyer') {
@@ -46,7 +47,7 @@ async function processFrame(frame: "A" | "B" | "C", brief: NormalizedBrief, trac
             } else {
                 // Validation Failed
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                const errors = (validation.error as any).errors.map((e: any) => `${e.path.join('.')}: ${e.message}`).join(", ");
+                const errors = (validation.error as any).issues.map((e: any) => `${e.path.join('.')}: ${e.message}`).join(", ");
                 logger.warn("GEN_INVALID", `Frame ${frame} Schema Fail (Attempt ${attempts + 1}): ${errors}`);
 
                 if (attempts === MAX_RETRIES) {
@@ -72,6 +73,10 @@ async function processFrame(frame: "A" | "B" | "C", brief: NormalizedBrief, trac
     throw new Error(`Frame ${frame} failed to generate valid output.`);
 }
 
+import { scrapeUrl } from "@/lib/poster/scraper"; // Import Scraper
+
+// ...
+
 export async function generateAndRefine(
     category: string,
     tone: string, // Unused map
@@ -83,6 +88,23 @@ export async function generateAndRefine(
     const logs: string[] = [];
     logs.push(`[System] Input Normalized. Goal: ${brief.goal} Trace: ${traceId}`);
 
+    // 1.5 Scrape Reference URL
+    if (brief.referenceUrl) {
+        try {
+            logs.push(`[Scraper] Analyzing URL: ${brief.referenceUrl}`);
+            const scraped = await scrapeUrl(brief.referenceUrl);
+            brief.scrapedContext = {
+                url: scraped.url,
+                text: scraped.extractedText,
+                vibe: scraped.visualVibe
+            };
+            logs.push(`[Scraper] Success. Vibe: ${scraped.visualVibe}`);
+        } catch (e: unknown) {
+            const errorMessage = e instanceof Error ? e.message : String(e);
+            logs.push(`[Scraper] Failed: ${errorMessage}`);
+        }
+    }
+
     // 2. Generate All (Parallel for speed, Sequential for rate limit if needed)
     // We use Promise.all for speed now as we have robust retry backend
     const [varA, varB, varC] = await Promise.all([
@@ -91,9 +113,23 @@ export async function generateAndRefine(
         processFrame("C", brief, traceId, inputs.styleId, type)
     ]);
 
-    logs.push("[System] Frames Generated, Sanitized, and Validated.");
+    // 2.5 Quality Evaluation (Flyer)
+    const evaluate = (v: any) => {
+        const text = JSON.stringify(v); // Evaluate whole JSON for Flyer
+        return QualityEngine.evaluate(text, "GENERAL");
+    };
 
-    let variants = { A: varA, B: varB, C: varC };
+    const scorecardA = evaluate(varA);
+    const scorecardB = evaluate(varB);
+    const scorecardC = evaluate(varC);
+
+    const variants = {
+        A: { ...varA as any, meta: { quality_scorecard: scorecardA } },
+        B: { ...varB as any, meta: { quality_scorecard: scorecardB } },
+        C: { ...varC as any, meta: { quality_scorecard: scorecardC } }
+    };
+
+    logs.push("[System] Quality checks completed for all variants.");
 
     // 3. Similarity Gate (Spec F3)
     if (FLAGS.SIMILARITY_GUARD) {

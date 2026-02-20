@@ -19,7 +19,7 @@ export const INTENT_SIGNALS: IntentSignal[] = [
     },
     {
         id: "ENTITY_CONFERENCE",
-        pattern: /(컨퍼런스|세미나|웨비나|포럼|학회|심포지엄|서밋|해커톤|데모데이)/i,
+        pattern: /(컨퍼런스|세미나|웨비나|포럼|학회|심포지엄|서밋|해커톤|데모데이|설명회)/i,
         weights: {
             INT_B2B_SEMINAR: 90,
             INT_EVENT_GUIDE: 40, // Fallback if B2B is too specific/unavailable (though B2B exists)
@@ -48,7 +48,7 @@ export const INTENT_SIGNALS: IntentSignal[] = [
         id: "ACTION_LAUNCH",
         pattern: /(런칭|출시|오픈|개업|신규|New Arrival|Grand Open)/i,
         weights: {
-            INT_PRODUCT_LAUNCH: 70,
+            INT_PRODUCT_LAUNCH: 120, // Boosted to override concurrent Promo signals (e.g. "Open Sale")
             INT_PROMO_OFFER: 40 // Launches often have promos
         }
     },

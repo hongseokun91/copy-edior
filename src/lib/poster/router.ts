@@ -30,6 +30,14 @@ export function guessIntentFromBrief(brief: string): PosterIntentId {
         console.log(`[Router] Intent Analysis for "${brief.substring(0, 20)}..."`, result.debugTrace);
     }
 
+    // High Precision Update: Use Fallback if confidence is too low
+    const primaryScore = result.scores[result.primaryIntent] || 0;
+
+    if (primaryScore < 30) {
+        console.log(`[Router] Low confidence (${primaryScore}). Fallback to INT_ADAPTIVE.`);
+        return "INT_ADAPTIVE";
+    }
+
     return result.primaryIntent;
 }
 

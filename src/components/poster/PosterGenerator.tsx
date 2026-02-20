@@ -25,14 +25,14 @@ export function PosterGenerator() {
     const [isGeneratingBody, setIsGeneratingBody] = useState(false);
 
     // Step 0 -> 1: Analyze Brief
-    const handleBriefAnalyze = async (inputBrief: string, industry: string) => {
+    const handleBriefAnalyze = async (inputBrief: string, industry: string, referenceUrl?: string) => {
         setBrief(inputBrief);
         setIsAnalyzing(true);
         try {
             const response = await fetch("/api/poster/analyze", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ brief: inputBrief, industry })
+                body: JSON.stringify({ brief: inputBrief, industry, referenceUrl })
             });
 
             if (!response.ok) throw new Error("Analysis failed");
@@ -50,7 +50,8 @@ export function PosterGenerator() {
                     headlineType: detectedMeta.headlineType || "HL_OFFER_FIRST",
                     channelPack: detectedMeta.channelPack || "PACK_SNS_1_1",
                     densityProfile: detectedMeta.densityProfile || "DENSITY_STANDARD",
-                    claimPolicyMode: detectedMeta.claimPolicyMode || "standard"
+                    claimPolicyMode: detectedMeta.claimPolicyMode || "standard",
+                    referenceUrl: referenceUrl // Persist referenceUrl in meta
                 },
                 headlineCandidates: { setA: [], setB: [], setC: [], recommendedTop3: [] },
                 blueprint: { intentId: detectedMeta.intentId || "INT_PROMO_OFFER", requiredSlots: [], recommendedSlots: [], slotOrder: [] }, // temporary

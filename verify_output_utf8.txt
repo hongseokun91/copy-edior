@@ -1,4 +1,4 @@
-[FF] Feature Flags: {
+Ôªø[FF] Feature Flags: {
   PRO_COPY_V09: false,
   FLYER_TYPES: false,
   SIMILARITY_GUARD: false,
@@ -10,7 +10,7 @@ node.exe : [System]
 Gateway Keys Missing
  locally. Simulating
  with Mock.
-¿ßƒ° ¡Ÿ:1 πÆ¿⁄:1
+ÏúÑÏπò Ï§Ñ:1 Î¨∏Ïûê:1
 + & "C:\Program File
 s\nodejs/node.exe" "
 C:\Program Files\nod

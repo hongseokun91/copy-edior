@@ -87,7 +87,28 @@ export async function polish(
     temperature?: number
 ) {
     const framePrompt = buildFramePrompt(frame, brief, styleId);
-    const polishPrompt = `
+    const isLeaflet = brief.productType === 'leaflet';
+
+    // [DEBUG] Log the product type and decision
+    console.error(`[Polish] ProductType: ${brief.productType}, isLeaflet: ${isLeaflet}`);
+
+    const polishPrompt = isLeaflet ? `
+    ${framePrompt}
+
+    [SELECTED CONCEPT]
+    Headline: ${candidate.headline}
+    Subhead: ${candidate.subhead}
+
+    [TASK]
+    Expand this concept into a COMPLETE 6-PANEL LEAFLET.
+    You must fill all 6 pages (P1-P6) with rich, detailed marketing copy based on the [LEAFLET FORMAT SPECIFICATION] provided above.
+
+    ${feedback || ""}
+    
+    [OUTPUT FORMAT]
+    Output strictly JSON inside <JSON> tags.
+    Root object must have a "pages" array.
+    `.trim() : `
     ${framePrompt}
     
     [SELECTED CONCEPT]

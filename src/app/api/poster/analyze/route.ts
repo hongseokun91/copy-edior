@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     const traceId = `trace_${nanoid(8)}`;
     try {
         const body = await req.json();
-        const { brief, industry } = body;
+        const { brief, industry, referenceUrl } = body;
 
         if (!brief) {
             return NextResponse.json(
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        const result = await analyzeBrief(brief, industry || "General", traceId);
+        const result = await analyzeBrief(brief, industry || "General", referenceUrl, traceId);
 
         return NextResponse.json(result);
 

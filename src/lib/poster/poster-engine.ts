@@ -9,13 +9,16 @@ import {
     PosterBlueprint
 } from "@/types/poster";
 import { safeGenerateText } from "@/lib/copy/provider";
-import { resolveBlueprint } from "./router";
+import { resolveBlueprint, guessIntentFromBrief } from "./router";
 import { BLUEPRINTS } from "./blueprints.registry";
 import {
     buildHeadlinePrompt,
     buildPosterBodyPrompt,
     POSTER_SYSTEM_PROMPT
 } from "./prompts";
+import { logger } from "@/lib/logger";
+import { GenerateResponse } from "@/types/flyer";
+import { QualityEngine } from "../quality/engine";
 
 // Helper to parse JSON from AI text response
 function parseAIJson<T>(text: string): T | null {
@@ -35,14 +38,54 @@ function parseAIJson<T>(text: string): T | null {
 // ------------------------------------------------------------------
 // 1. Analyze Brief (Intent, Channel, Policy) + [V5] Fact Extraction
 // ------------------------------------------------------------------
-export async function analyzeBrief(brief: string, industry: string = "General", traceId: string = "unknown"): Promise<PosterMeta> {
+import { scrapeUrl } from "./scraper";
+
+// ... inside analyzeBrief ...
+export async function analyzeBrief(brief: string, industry: string = "General", referenceUrl?: string, traceId: string = "unknown"): Promise<PosterMeta> {
+    // 1. Detect URL (Priority: Explicit referenceUrl > Extracted from brief)
+    const urlMatch = brief.match(/https?:\/\/[^\s]+/);
+    const extractedUrl = urlMatch ? urlMatch[0] : null;
+    const targetUrl = referenceUrl || extractedUrl;
+
+    let additionalContext = "";
+    let scrapedData = undefined;
+
+    if (targetUrl) {
+        console.log(`[PosterEngine] Scraping URL detected: ${targetUrl}`);
+        try {
+            const scraped = await scrapeUrl(targetUrl);
+            scrapedData = {
+                url: scraped.url,
+                text: scraped.extractedText,
+                vibe: scraped.visualVibe
+            };
+            additionalContext = `
+    [VISUAL & PAGE CONTEXT]
+    The user provided a URL. We analyzed it (Visual + Text):
+    - Extracted Text (OCR/VLM): "${scraped.extractedText.slice(0, 500)}..."
+    - Visual Vibe: "${scraped.visualVibe}"
+    
+    *IMPORTANT: Use this extracted information (specs, CEO message, brand philosophy) to enrich the 'facts' extraction.*
+            `;
+        } catch (error) {
+            console.error(`[PosterEngine] Scraping failed for ${targetUrl}`, error);
+            // Continue without scraping context rather than failing hard
+        }
+    }
+
+    // [Hybrid Analysis] Use Regex Signals to guide the LLM
+    const detectedIntent = guessIntentFromBrief(brief);
+
     const prompt = `
     [TASK]
     Analyze the user's brief for a marketing poster. Extract key strategic data (Facts) and suggest technical settings.
+    ${additionalContext}
 
     [CONTEXT]
     Brief: "${brief}"
     Industry: "${industry}"
+    System Detected Intent: "${detectedIntent}" (Give this priority if ambiguous)
+    ...
 
     [REQUIRED EXTRACTION - FACT SHEET]
     You MUST extract these 5 dimensions. **All values MUST be in KOREAN (한국어)**:
@@ -99,7 +142,7 @@ export async function analyzeBrief(brief: string, industry: string = "General", 
         };
     }
 
-    return { ...data, brief, industryHint: industry };
+    return { ...data, brief, industryHint: industry, scrapedContext: scrapedData };
 }
 
 // ------------------------------------------------------------------
@@ -129,17 +172,9 @@ export async function generateHeadlines(meta: PosterMeta, traceId: string = "unk
         if (!Array.isArray(items)) return [];
         return items.map(item => {
             if (typeof item === 'string') return { text: item };
-            return item; // Assume it might have text/badges if AI was smart enough, but prompt mostly asks for strings? 
-            // Wait, previous code prompt logic asked for: 
-            // "setA": [{ "text":"", "typeHint":"HL_*", ... }] in buildHeadlinePrompt
-            // So rawData.setA is likely an array of OBJECTS, not strings.
+            return item;
         });
     };
-
-    // Actually, looking at prompts.ts buildHeadlinePrompt, it asks for objects:
-    // "setA": [{ "text":"", "typeHint":"HL_*", "badges": ... }]
-
-    // So rawData.setA should be an array of objects.
 
     // Map to HeadlineCandidate structure
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -212,4 +247,54 @@ export async function generatePosterBody(
 
     const content = parseAIJson<Record<string, string>>(text);
     return content || {};
+}
+
+
+/**
+ * Main Adapter for API Route
+ * Orchestrates the Poster Generation Flow and returns a standard GenerateResponse structure.
+ */
+export async function generatePoster(inputs: any, traceId: string): Promise<GenerateResponse> {
+    const briefText = inputs.offer || inputs.additionalBrief || "Promotion";
+    const industry = inputs.category || "General";
+
+    logger.info("GEN_BRIEF_RECEIVED", `Generating Poster`, { traceId });
+
+    // 1. Analyze
+    const meta = await analyzeBrief(briefText, industry, inputs.referenceUrl, traceId);
+
+    // 2. Ideate Headlines
+    const result = await generateHeadlines(meta, traceId);
+
+    // 3. Quality Evaluation (Poster)
+    const scorecard = QualityEngine.evaluate(JSON.stringify(result.content), "GENERAL");
+    const resultWithScore = {
+        ...result,
+        meta: {
+            ...result.meta,
+            quality_score: scorecard.totalScore,
+            quality_pass: scorecard.pass,
+            quality_scorecard: scorecard
+        }
+    };
+
+    // 4. Map to standard Variants structure (A, B, C)
+    return {
+        variants: {
+            A: resultWithScore,
+            B: resultWithScore,
+            C: resultWithScore
+        },
+        meta: {
+            rateLimit: { remaining: 10, resetAtKST: "00:00" },
+            cacheHit: false,
+            normalized: {
+                period: "", // Not used in Poster
+                contact: "" // Not used in Poster
+            },
+            warnings: [],
+            warRoomLogs: `Poster Generated with Intent: ${meta.intentId}`,
+            traceId
+        }
+    };
 }

@@ -1,0 +1,266 @@
+{
+  "version": "4.3.1",
+  "moduleKeys": [
+    "BRAND_STORY",
+    "CORE_SERVICE",
+    "CEO_MESSAGE",
+    "VISION_MISSION",
+    "TIMELINE",
+    "EXPERT_PROFILE",
+    "PRODUCT_SPEC",
+    "PRICING",
+    "USP",
+    "REVIEWS",
+    "BEFORE_AFTER",
+    "AWARDS_CERTS",
+    "PARTNERS",
+    "PRESS",
+    "QA",
+    "HOW_TO_USE",
+    "MEMBERSHIP",
+    "QUALITY_WARRANTY"
+  ],
+  "cutoffs": {
+    "default": 84,
+    "highRisk": 90
+  },
+  "highRiskModules": [
+    "PRICING",
+    "BEFORE_AFTER",
+    "QUALITY_WARRANTY",
+    "QA"
+  ],
+  "policies": {
+    "BRAND_STORY": {
+      "purposeOne": "시작 이유 + 신뢰 근거",
+      "maxClaims": 3,
+      "requiredEvidenceTypes": [
+        "process_or_standard",
+        "time_or_result"
+      ],
+      "minSpecificitySignals": 2,
+      "ctaPolicy": {
+        "maxCtas": 1
+      },
+      "requiredStructureSlots": [
+        "H",
+        "B",
+        "C",
+        "E",
+        "R",
+        "CTA"
+      ]
+    },
+    "CORE_SERVICE": {
+      "purposeOne": "무엇/어떻게/결과",
+      "requiredEvidenceTypes": [
+        "process_steps",
+        "one_of:review|number|case"
+      ],
+      "requiredStructures": [
+        "one_sentence_definition",
+        "steps_3_to_5"
+      ],
+      "minSpecificitySignals": 2,
+      "ctaPolicy": {
+        "maxCtas": 1
+      },
+      "requiredStructureSlots": [
+        "H",
+        "B",
+        "C",
+        "E",
+        "R",
+        "CTA"
+      ]
+    },
+    "CEO_MESSAGE": {
+      "purposeOne": "철학→운영 기준 연결",
+      "requiredEvidenceTypes": [
+        "standard_or_system"
+      ],
+      "minSpecificitySignals": 2,
+      "ctaPolicy": {
+        "maxCtas": 1
+      }
+    },
+    "VISION_MISSION": {
+      "purposeOne": "측정 가능한 방향",
+      "requiredEvidenceTypes": [
+        "one_of:metric|scope"
+      ],
+      "minSpecificitySignals": 2,
+      "ctaPolicy": {
+        "maxCtas": 1
+      }
+    },
+    "TIMELINE": {
+      "purposeOne": "지속성과 검증",
+      "requiredEvidenceTypes": [
+        "date",
+        "result_or_scope"
+      ],
+      "minSpecificitySignals": 2,
+      "ctaPolicy": {
+        "maxCtas": 0
+      }
+    },
+    "EXPERT_PROFILE": {
+      "purposeOne": "사람=품질",
+      "requiredEvidenceTypes": [
+        "role",
+        "one_of:credential|project|years"
+      ],
+      "minSpecificitySignals": 2,
+      "ctaPolicy": {
+        "maxCtas": 0
+      }
+    },
+    "PRODUCT_SPEC": {
+      "purposeOne": "선택/비교 쉽게",
+      "requiredEvidenceTypes": [
+        "lineup_structure",
+        "diff_3"
+      ],
+      "minSpecificitySignals": 2,
+      "ctaPolicy": {
+        "maxCtas": 1
+      }
+    },
+    "PRICING": {
+      "purposeOne": "가격 불안 제거",
+      "cutoff": 90,
+      "requiredStructures": [
+        "include_3",
+        "option_3",
+        "condition_1",
+        "finalize_method_1"
+      ],
+      "requiredEvidenceTypes": [
+        "policy_terms"
+      ],
+      "minSpecificitySignals": 3,
+      "ctaPolicy": {
+        "maxCtas": 1
+      }
+    },
+    "USP": {
+      "purposeOne": "단 하나의 이유",
+      "requiredEvidenceTypes": [
+        "compare_axis",
+        "one_of:number|review|cert|case"
+      ],
+      "minSpecificitySignals": 2,
+      "ctaPolicy": {
+        "maxCtas": 1
+      }
+    },
+    "REVIEWS": {
+      "purposeOne": "사회적 증거",
+      "requiredEvidenceTypes": [
+        "reviews_3",
+        "context_label"
+      ],
+      "minSpecificitySignals": 2,
+      "ctaPolicy": {
+        "maxCtas": 0
+      }
+    },
+    "BEFORE_AFTER": {
+      "purposeOne": "변화 기준 명확화",
+      "cutoff": 90,
+      "requiredStructures": [
+        "measurement_or_period",
+        "conditions_or_disclaimer"
+      ],
+      "minSpecificitySignals": 3,
+      "ctaPolicy": {
+        "maxCtas": 1
+      }
+    },
+    "AWARDS_CERTS": {
+      "purposeOne": "객관 신뢰",
+      "requiredEvidenceTypes": [
+        "issuer",
+        "year",
+        "name"
+      ],
+      "minSpecificitySignals": 1,
+      "ctaPolicy": {
+        "maxCtas": 0
+      }
+    },
+    "PARTNERS": {
+      "purposeOne": "신뢰 보강",
+      "requiredEvidenceTypes": [
+        "partner_scope",
+        "customer_benefit"
+      ],
+      "minSpecificitySignals": 1,
+      "ctaPolicy": {
+        "maxCtas": 0
+      }
+    },
+    "PRESS": {
+      "purposeOne": "제3자 관점 증명",
+      "requiredEvidenceTypes": [
+        "outlet",
+        "date",
+        "summary"
+      ],
+      "minSpecificitySignals": 1,
+      "ctaPolicy": {
+        "maxCtas": 0
+      }
+    },
+    "QA": {
+      "purposeOne": "구매 방해 질문 제거",
+      "cutoff": 90,
+      "requiredStructures": [
+        "min_questions_3",
+        "include_topics_3_of_5"
+      ],
+      "minSpecificitySignals": 2,
+      "ctaPolicy": {
+        "maxCtas": 1
+      }
+    },
+    "HOW_TO_USE": {
+      "purposeOne": "시작 장벽 제거",
+      "requiredEvidenceTypes": [
+        "steps_3_to_6",
+        "one_of:time|materials|deliverables"
+      ],
+      "minSpecificitySignals": 2,
+      "ctaPolicy": {
+        "maxCtas": 1
+      }
+    },
+    "MEMBERSHIP": {
+      "purposeOne": "재방문 이유",
+      "requiredEvidenceTypes": [
+        "benefits_3",
+        "terms"
+      ],
+      "minSpecificitySignals": 2,
+      "ctaPolicy": {
+        "maxCtas": 1
+      }
+    },
+    "QUALITY_WARRANTY": {
+      "purposeOne": "책임/보증",
+      "cutoff": 90,
+      "requiredStructures": [
+        "scope",
+        "term",
+        "process_3_steps",
+        "exceptions",
+        "intake_method"
+      ],
+      "minSpecificitySignals": 3,
+      "ctaPolicy": {
+        "maxCtas": 1
+      }
+    }
+  }
+}

@@ -86,3 +86,37 @@ export function getValidTrustItems(persona: PersonaProfile, facts: NormalizedBri
 
     return valid;
 }
+
+export interface SemanticPersona {
+    name: string;
+    description: string;
+    style: string;
+    logic: string;
+}
+
+export const SEMANTIC_PERSONAS: Record<string, SemanticPersona> = {
+    STRATEGIST: {
+        name: "Enterprise Brand Strategist",
+        description: "Focuses on market positioning, unique selling points (USP), and narrative structure.",
+        style: "Analytical, Visionary, Structured",
+        logic: "Break down the inputs into a cohesive strategic narrative. Identify the core conflict and the winning solution."
+    },
+    EDITOR_IN_CHIEF: {
+        name: "Master Copy Editor",
+        description: "Turns raw strategic points into polished, persuasive, and emotive copy.",
+        style: "Persuasive, Sophisticated, Rhythmic",
+        logic: "Rewrite everything. Emphasize benefits over features. Use sensory language that fits the industry."
+    },
+    FNB_EXPERT: {
+        name: "Gourmet Storyteller",
+        description: "Specialized in making food sound irresistible and shops sound welcoming.",
+        style: "Appetizing, Warm, Enthusiastic",
+        logic: "Focus on texture, taste, and the emotional comfort of eating. Make the reader crave the food."
+    },
+    HEALTH_CONSULTANT: {
+        name: "Holistic Health Coach",
+        description: "Focuses on wellness, safety, and scientific proof.",
+        style: "Trustworthy, Calm, Clear",
+        logic: "Explain the nutritional benefits clearly. Use numbers and facts to build credibility."
+    }
+};

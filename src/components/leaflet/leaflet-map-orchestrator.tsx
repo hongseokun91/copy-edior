@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { X, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LeafletWriterModal } from "./leaflet-writer-modal";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { LEAFLET_MODULES, LeafletModuleDef } from "@/lib/leaflet-modules";
 import { UseFormReturn } from "react-hook-form";
 import { getPanels } from "@/lib/leaflet-utils";
@@ -54,7 +55,7 @@ const PanelSlot = ({
     const isFront = id === "P1";
     const isBack = ["P4", "P6", "P8"].includes(id) && activeSurface === "OUTSIDE"; // Dynamic Back Logic
     const hasContactMod = assignedModules.some(m => ["detailed_map", "contact_channels"].includes(m.id));
-    const showContactWarning = isBack && !hasContactMod && !isActive;
+
 
     return (
         <div className="flex-1 relative group h-[22rem] min-w-0">
@@ -86,14 +87,7 @@ const PanelSlot = ({
                     </div>
                 </div>
 
-                {/* Contact Warning */}
-                {showContactWarning && (
-                    <div className="absolute top-8 left-3 right-3 animate-pulse z-0">
-                        <Badge variant="outline" className="w-full justify-center bg-orange-50 text-orange-600 border-orange-200 text-[8px] font-bold py-1">
-                            ⚠️ 필수 정보(연락처/지도) 누락
-                        </Badge>
-                    </div>
-                )}
+
 
                 {/* Module List */}
                 <div className="flex-1 flex flex-col gap-2 relative z-10 min-h-0">
@@ -150,85 +144,71 @@ const PanelSlot = ({
                 </div>
             </div>
 
-            {/* Popup Menu - Centered Overlay with Backdrop */}
-            {isActive && !editingModuleId && (
-                <>
-                    {/* Backdrop: Click to Close */}
-                    <div
-                        className="fixed inset-0 z-[99] bg-black/5 cursor-default"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            onSetActiveSlot(null);
-                        }}
-                    />
-
-                    {/* Popup Content */}
-                    <div className={cn(
-                        "absolute top-1/2 z-[100] w-[340px]",
-                        isFirst ? "left-0 -translate-y-1/2" :
-                            isLast ? "right-0 -translate-y-1/2" :
-                                "left-1/2 -translate-x-1/2 -translate-y-1/2"
-                    )}>
-                        <div className="bg-white rounded-xl shadow-2xl border border-indigo-100 p-1 animate-in zoom-in-95 fade-in duration-200 ring-4 ring-black/5">
-                            <div className="bg-slate-50/50 rounded-lg p-3 border-b border-slate-100/50 mb-1 flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                    <Badge className="bg-indigo-600 text-white border-none h-5 px-1.5 text-[10px]">{id}</Badge>
-                                    <span className="text-[12px] font-bold text-slate-700">모듈 선택</span>
-                                </div>
-                                <button type="button" onClick={(e) => { e.stopPropagation(); onSetActiveSlot(null); }} className="text-slate-400 hover:text-slate-600 p-1 rounded-full hover:bg-slate-200/50 transition-colors">
-                                    <X className="w-4 h-4" />
-                                </button>
-                            </div>
-
-                            <div className="p-1 grid grid-cols-1 gap-1 max-h-[320px] overflow-y-auto custom-scrollbar">
-                                {LEAFLET_MODULES.filter(m => {
-                                    // Strict Content Separation Logic
-                                    const isFront = activeSlot === "P1";
-                                    const backId = leafletType === "2단" ? "P4" : (leafletType === "4단" || leafletType === "N_FOLD") ? "P8" : "P6";
-                                    const isBack = activeSlot === backId && activeSurface === "OUTSIDE";
-
-                                    if (isFront) return m.category === "브랜드소개";
-                                    if (isBack) return m.category === "문의/기타";
-                                    return ["서비스안내", "신뢰/입증", "이용가이드", "브랜드소개"].includes(m.category); // Allow Brand Story in body too? User said "distinct", but Brand Story is often in body. Let's keep it safe.
-                                }).sort((a, b) => {
-                                    const aEss = recommendations.essential.includes(a.id);
-                                    const bEss = recommendations.essential.includes(b.id);
-                                    if (aEss && !bEss) return -1;
-                                    if (!aEss && bEss) return 1;
-                                    return 0;
-                                }).map(m => {
-                                    const isAlreadyAssigned = assignedModules.some(am => am.id === m.id);
-                                    const isEssential = recommendations.essential.includes(m.id);
-                                    const isRecommended = recommendations.recommended.includes(m.id);
-                                    return (
-                                        <button
-                                            type="button"
-                                            key={m.id}
-                                            disabled={isAlreadyAssigned}
-                                            onClick={(e) => { e.stopPropagation(); onAssign(m.id); }}
-                                            className={cn(
-                                                "flex items-center gap-3 p-3 rounded-lg text-left group/item transition-colors",
-                                                isAlreadyAssigned ? "opacity-40 cursor-not-allowed bg-slate-50" : "hover:bg-indigo-50 cursor-pointer"
-                                            )}
-                                        >
-                                            <div className="w-9 h-9 rounded-md bg-white border border-slate-100 flex items-center justify-center text-lg shadow-sm group-hover/item:border-indigo-100 group-hover/item:text-indigo-600 shrink-0">{m.icon}</div>
-                                            <div className="flex-1 min-w-0">
-                                                <div className="flex items-center gap-1.5">
-                                                    <div className="text-[12px] font-bold text-slate-800">{m.label}</div>
-                                                    {isEssential && <Badge className="bg-indigo-600 text-white border-none text-[9px] h-4 px-1.5">필수</Badge>}
-                                                    {isRecommended && !isEssential && <Badge variant="outline" className="text-indigo-600 border-indigo-200 text-[9px] h-4 px-1.5">장려</Badge>}
-                                                </div>
-                                                <div className="text-[10px] text-slate-500 leading-normal mt-0.5">{m.description}</div>
-                                            </div>
-                                            {isAlreadyAssigned && <Check className="ml-auto w-4 h-4 text-slate-400" />}
-                                        </button>
-                                    );
-                                })}
-                            </div>
+            {/* Popup Menu - Refactored to Dialog for better visibility */}
+            <Dialog open={isActive && !editingModuleId} onOpenChange={(open) => !open && onSetActiveSlot(null)}>
+                <DialogContent className="sm:max-w-[360px] p-0 overflow-hidden bg-white rounded-xl shadow-2xl border border-indigo-100">
+                    <DialogHeader className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex flex-row items-center justify-between space-y-0">
+                        <div className="flex items-center gap-2">
+                            <Badge className="bg-indigo-600 text-white border-none h-5 px-1.5 text-[10px]">{id}</Badge>
+                            <DialogTitle className="text-[14px] font-bold text-slate-700">모듈 선택</DialogTitle>
                         </div>
+                    </DialogHeader>
+
+                    <div className="p-2 grid grid-cols-1 gap-1 max-h-[60vh] overflow-y-auto custom-scrollbar">
+                        {LEAFLET_MODULES.filter(m => {
+                            // Strict Content Separation Logic
+                            const isFront = id === "P1";
+                            const backId = leafletType === "2단" ? "P4" : (leafletType === "4단" || leafletType === "N_FOLD") ? "P8" : "P6";
+                            const isBack = id === backId && activeSurface === "OUTSIDE";
+
+                            if (isFront) return ["표지", "문의/기타"].includes(m.category); // Cover allows Branding & Contact (e.g. Map)
+                            // V4.2 Update: Back cover now allows Cover (Logo), Contact, AND Body modules
+                            if (isBack) return ["표지", "문의/기타", "서비스안내", "신뢰/입증", "이용가이드", "브랜드소개"].includes(m.category);
+
+                            return ["서비스안내", "신뢰/입증", "이용가이드", "브랜드소개"].includes(m.category); // Body allows Intro, Service, Trust, Guide
+                        }).sort((a, b) => {
+                            const aEss = recommendations.essential.includes(a.id);
+                            const bEss = recommendations.essential.includes(b.id);
+                            if (aEss && !bEss) return -1;
+                            if (!aEss && bEss) return 1;
+                            return 0;
+                        }).map(m => {
+                            // V4.2 Update: Allow duplicates if target is Back Cover or if module is 'Cover' type
+                            const backId = leafletType === "2단" ? "P4" : (leafletType === "4단" || leafletType === "N_FOLD") ? "P8" : "P6";
+                            const isBackTarget = id === backId && activeSurface === "OUTSIDE";
+
+                            // Only disable if already assigned AND NOT targeting back cover
+                            const isAlreadyAssigned = !isBackTarget && assignedModules.some(am => am.id === m.id);
+
+                            const isEssential = recommendations.essential.includes(m.id);
+                            const isRecommended = recommendations.recommended.includes(m.id);
+                            return (
+                                <button
+                                    type="button"
+                                    key={m.id}
+                                    disabled={isAlreadyAssigned}
+                                    onClick={(e) => { e.stopPropagation(); onAssign(m.id); }}
+                                    className={cn(
+                                        "flex items-center gap-3 p-3 rounded-lg text-left group/item transition-colors w-full",
+                                        isAlreadyAssigned ? "opacity-40 cursor-not-allowed bg-slate-50" : "hover:bg-indigo-50 cursor-pointer"
+                                    )}
+                                >
+                                    <div className="w-9 h-9 rounded-md bg-white border border-slate-100 flex items-center justify-center text-lg shadow-sm group-hover/item:border-indigo-100 group-hover/item:text-indigo-600 shrink-0">{m.icon}</div>
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-center gap-1.5">
+                                            <div className="text-[13px] font-bold text-slate-800">{m.label}</div>
+                                            {isEssential && <Badge className="bg-indigo-600 text-white border-none text-[9px] h-4 px-1.5">필수</Badge>}
+                                            {isRecommended && !isEssential && <Badge variant="outline" className="text-indigo-600 border-indigo-200 text-[9px] h-4 px-1.5">장려</Badge>}
+                                        </div>
+                                        <div className="text-[11px] text-slate-500 leading-normal mt-0.5">{m.description}</div>
+                                    </div>
+                                    {isAlreadyAssigned && <Check className="ml-auto w-4 h-4 text-slate-400" />}
+                                </button>
+                            );
+                        })}
                     </div>
-                </>
-            )}
+                </DialogContent>
+            </Dialog>
 
             {/* Fold Line (Dashed) - Right Side */}
             {!isLast && (
@@ -379,8 +359,8 @@ export function LeafletMapOrchestrator({ form }: LeafletMapOrchestratorProps) {
                                 <PanelSlot
                                     key={panel.id}
                                     {...panel}
-                                    isFirst={idx === 0}
-                                    isLast={idx === currentPanels.length - 1}
+                                    // isFirst={idx === 0} // isFirst and isLast are now part of panel object
+                                    // isLast={idx === currentPanels.length - 1}
                                     assignedModules={getModulesForPanel(panel.id)}
                                     activeSlot={activeSlot}
                                     editingModuleId={editingModuleId}

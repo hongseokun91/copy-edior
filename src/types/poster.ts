@@ -5,7 +5,8 @@ export type PosterIntentId =
     | "INT_RECRUITING"
     | "INT_PUBLIC_NOTICE"
     | "INT_BRAND_CAMPAIGN"
-    | "INT_B2B_SEMINAR";
+    | "INT_B2B_SEMINAR"
+    | "INT_ADAPTIVE";
 
 export type HeadlineType =
     | "HL_OFFER_FIRST"
@@ -111,6 +112,7 @@ export type PosterBlueprint = {
     requiredSlots: PosterSlotId[];
     recommendedSlots: PosterSlotId[];
     slotOrder: PosterSlotId[];
+    slotInstructions?: Record<string, string>;
 };
 
 export type PosterFactSheet = {
@@ -130,6 +132,12 @@ export type PosterMeta = {
     brief: string; // Added for context
     industryHint?: string; // 옵션
     facts?: PosterFactSheet; // [V5] Structured Input
+    scrapedContext?: {
+        url: string;
+        text: string;
+        vibe: string;
+    };
+    referenceUrl?: string; // User provided reference URL
 };
 
 export type PosterResult = {
